@@ -1,6 +1,6 @@
-# noticboard-client
+# noticeboard-client
 
-> A Vue.js proejct
+> A Vue.js project
 
 ## Build Setup
 

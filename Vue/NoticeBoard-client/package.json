@@ -1,7 +1,7 @@
 {
-  "name": "noticboard-client",
+  "name": "noticeboard-client",
   "version": "1.0.0",
-  "description": "A Vue.js proejct",
+  "description": "A Vue.js project",
   "author": "emgram",
   "private": true,
   "scripts": {
