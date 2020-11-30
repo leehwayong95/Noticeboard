@@ -19,7 +19,16 @@ export default new Router({
     {
       path: '/test',
       name: 'testpage',
+<<<<<<< Updated upstream
       component:Test
+=======
+      component: Test
+    },
+    {
+      path: '/singup',
+      name: 'singuptpage',
+      component: SignUp
+>>>>>>> Stashed changes
     }
   ]
 })

@@ -1,0 +1,18 @@
+diff a/Vue/NoticeBoard-client/src/router/index.js b/Vue/NoticeBoard-client/src/router/index.js	(rejected hunks)
+@@ -19,7 +19,16 @@
+      {
+        path: '/test',
+        name: 'testpage',
+++<<<<<<< Updated upstream
+ +      component:Test
+++=======
++       component: Test
++     },
++     {
++       path: '/singup',
++       name: 'singuptpage',
++       component: SignUp
+++>>>>>>> Stashed changes
+      }
+    ]
+  })
