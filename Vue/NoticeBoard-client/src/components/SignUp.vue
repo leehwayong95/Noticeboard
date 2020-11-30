@@ -6,3 +6,9 @@
         <button>가입하기</button>
     </div>
 </template>
+
+<script>
+</script>
+
+<style scoped>
+</style>
