@@ -15,12 +15,25 @@
             name="userpassword"
         />
         <br/><br/>
-        <button type="submit">로그인</button>
+        <button type="submit" @click="getList">로그인</button>
         <button type="button">회원가입</button>
     </div>
 </template>
 
 <script>
+export default {
+  methods: {
+    getList () {
+      this.$axios.get('http://localhost:9000/test')
+        .then((res) => {
+          console.log(res.data)
+        })
+        .then((err) => {
+          console.log(err)
+        })
+    }
+  }
+}
 </script>
 
 <style scoped>
