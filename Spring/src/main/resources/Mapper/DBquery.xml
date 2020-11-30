@@ -2,8 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.emgram.noticeboard.Dao.dao">
-    <select id="getDual" resultType="com.emgram.noticeboard.Model.UserModel">
-        SELECT * FROM user
+    <select id="getPostsList" resultType="com.emgram.noticeboard.Model.PostModel">
+        SELECT * FROM noticeBoard
     </select>
+    <select id="getLogin" parameterType = "String" resultType="com.emgram.noticeboard.Model.UserModel">
+    	SELECT * FROM user WHERE id="${id}" AND pw="${pw}"
+   	</select>
 </mapper>
 

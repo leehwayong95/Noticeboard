@@ -23,8 +23,8 @@ export default new Router({
       component: Test
     },
     {
-      path: '/singup',
-      name: 'singuptpage',
+      path: '/signup',
+      name: 'signuptpage',
       component: SignUp
     }
   ]

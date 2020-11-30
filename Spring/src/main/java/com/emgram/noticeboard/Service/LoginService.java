@@ -6,15 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.emgram.noticeboard.Dao.dao;
-import com.emgram.noticeboard.Model.PostModel;
 import com.emgram.noticeboard.Model.UserModel;
-@Service
-public class service {
-	@Autowired
-    dao dao;
- 
-    public List<PostModel> getPostsList(){
-        return dao.getPostsList();
-    }
-}
 
+@Service
+public class LoginService {
+	@Autowired
+	dao Dao;
+	
+	public int getLogin(String id, String pw)
+	{
+		List<UserModel> userList = Dao.getLogin(id,pw);
+		if(userList.isEmpty() || userList.size() > 1)
+			return -1;
+		else
+			return userList.get(0).getPermission();
+	}
+}

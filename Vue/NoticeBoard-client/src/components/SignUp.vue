@@ -3,11 +3,18 @@
         <p>회원가입</p>
         <input type="text" placeholder="text"><br><br>
         <input type="password" placeholder="password"><br><br>
-        <button>가입하기</button>
+        <button v-on:click = "signup_com">가입하기</button>
     </div>
 </template>
 
 <script>
+export default {
+  methods: {
+    signup_com () {
+      this.$router.push('/test')
+    }
+  }
+}
 </script>
 
 <style scoped>

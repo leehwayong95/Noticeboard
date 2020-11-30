@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.emgram.noticeboard.Model.UserModel;
+import com.emgram.noticeboard.Model.PostModel;
 import com.emgram.noticeboard.Service.service;
 
 @CrossOrigin(origins = "http://localhost:8080")
@@ -22,9 +22,9 @@ public class Control {
 	        return "Hello World";
 	    }
 	 
-	    @RequestMapping("/now")
-	    public @ResponseBody List<UserModel> now()throws Exception{
-	        return service.getDual();
+	    @RequestMapping("/board")
+	    public @ResponseBody List<PostModel> now()throws Exception{
+	        return service.getPostsList();
 	    }
 	    
 	    @RequestMapping("/test")

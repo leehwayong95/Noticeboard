@@ -15,8 +15,8 @@
             name="userpassword"
         />
         <br/><br/>
-        <button type="submit" @click="getList">로그인</button>
-        <button type="button">회원가입</button>
+        <button type="submit" v-on:click ="getList">로그인</button>
+        <button type="button" v-on:click ="link">회원가입</button>
     </div>
 </template>
 
@@ -26,11 +26,14 @@ export default {
     getList () {
       this.$axios.get('http://localhost:9000/test')
         .then((res) => {
-          console.log(res.data)
+          alert('안녕')
         })
         .then((err) => {
           console.log(err)
         })
+    },
+    link: function (event) {
+      this.$router.push('/signup')
     }
   }
 }
