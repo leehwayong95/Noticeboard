@@ -17,7 +17,7 @@ CREATE TABLE `NoticeBoard` (
 CREATE TABLE `view` (
 	`viewindex` INT NOT NULL  AUTO_INCREMENT PRIMARY KEY,
 	`id` VARCHAR(20) NOT NULL,
-	`postindex` VARCHAR(20) NOT NULL,
+	`postindex` INT NOT NULL,
 	FOREIGN KEY(id) REFERENCES User(id),
 	FOREIGN KEY(viewindex) REFERENCES NoticeBoard(postindex)
 );
