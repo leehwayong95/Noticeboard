@@ -3,6 +3,7 @@
         <h3>로그인</h3><br/><br/>
         <label for="username">Username : </label>
         <input
+            v-model="id"
             type="text"
             class="form-control"
             name="username"
@@ -10,23 +11,28 @@
         <br /><br/>
         <label for="userpassword">UserPassword : </label>
         <input
+            v-model="pw"
             type="password"
             class="form-control"
             name="userpassword"
         />
         <br/><br/>
-        <button type="submit" v-on:click ="getList">로그인</button>
-        <button type="button" v-on:click ="link">회원가입</button>
+        <button type="submit" v-on:click ="getlogin">로그인</button>
+        <button type="button" v-on:click ="link" v-on:keyup.enter="getlogin">회원가입</button>
     </div>
 </template>
 
 <script>
 export default {
   methods: {
-    getList () {
-      this.$axios.get('http://localhost:9000/test')
+    getlogin () {
+      this.$axios.get('http://localhost:9000/login/args?id=' + this.id + '&pw=' + this.pw)
         .then((res) => {
-          alert('안녕')
+          if (res.data === -1) {
+            alert('로그인실패')
+          } else {
+            alert('로그인성공')
+          }
         })
         .then((err) => {
           console.log(err)
