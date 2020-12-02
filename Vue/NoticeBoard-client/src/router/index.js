@@ -6,6 +6,7 @@ import HelloWorld from '@/components/HelloWorld'
 // import Register from '@/components/Register'
 import Test from '@/components/Test'
 import SignUp from '@/components/SignUp'
+import login from '@/components/Login'
 
 Vue.use(Router)
 
@@ -26,6 +27,11 @@ export default new Router({
       path: '/signup',
       name: 'signuptpage',
       component: SignUp
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: login
     }
   ]
 })

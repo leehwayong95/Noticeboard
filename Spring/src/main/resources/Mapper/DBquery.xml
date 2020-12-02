@@ -8,5 +8,8 @@
     <select id="getLogin" parameterType = "String" resultType="com.emgram.noticeboard.Model.UserModel">
     	SELECT * FROM user WHERE id="${id}" AND pw="${pw}"
    	</select>
+   	<insert id="getSignup" parameterType = "String">
+   		INSERT INTO user VALUES (""${id}","${name}","${pw}")
+   	</insert>
 </mapper>
 
