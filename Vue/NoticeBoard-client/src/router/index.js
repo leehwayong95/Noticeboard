@@ -7,6 +7,7 @@ import HelloWorld from '@/components/HelloWorld'
 import Login from '@/components/Login'
 import SignUp from '@/components/SignUp'
 import BoardList from '@/components/BoardList'
+import BoardDetail from '@/components/BoardDetail'
 
 Vue.use(Router)
 
@@ -32,6 +33,11 @@ export default new Router({
       path: '/boardlist',
       name: 'boardlist',
       component: BoardList
+    },
+    {
+      path: '/boarddetail',
+      name: 'boraddetail',
+      component: BoardDetail
     }
   ]
 })
