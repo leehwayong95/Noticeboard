@@ -18,7 +18,7 @@ public class Control {
 	     
 	    @RequestMapping("/")
 	    public @ResponseBody String root_test()throws Exception{  
-	        return "Hello World";
+	        return "NoticeBoard-client/src/components/Test.Vue";
 	    }
 	 
 	    @RequestMapping("/now")

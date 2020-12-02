@@ -8,6 +8,15 @@
 </template>
 
 <script>
+export default {
+  name: 'signUp',
+  data () {
+    return {
+
+    }
+  },
+  methods: {}
+}
 </script>
 
 <style scoped>

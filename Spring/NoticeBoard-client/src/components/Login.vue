@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="login">
         <h3>로그인</h3><br/><br/>
         <label for="username">Username : </label>
         <input
@@ -21,18 +21,18 @@
 </template>
 
 <script>
-  export default{
-    name: 'signup',
-    data () {
-      return {
-      }
-    },
-    metohds: {
-      signup() {
-        this.$router.replace('signup')
-      }
+export default{
+  name: 'login',
+  data () {
+    return {
+    }
+  },
+  methods: {
+    signup: function (event) {
+      this.$router.push('/signup')
     }
   }
+}
 </script>
 
 <style scoped>
