@@ -15,23 +15,30 @@
             type="password"
             class="form-control"
             name="userpassword"
+            v-on:keyup.enter="getlogin"
         />
         <br/><br/>
         <button type="submit" v-on:click ="getlogin">로그인</button>
-        <button type="button" v-on:click ="link" v-on:keyup.enter="getlogin">회원가입</button>
+        <button type="button" v-on:click ="link">회원가입</button>
     </div>
 </template>
 
 <script>
 export default {
+  data () {
+    return {
+      id: '',
+      pw: ''
+    }
+  },
   methods: {
     getlogin () {
       this.$axios.get('http://localhost:9000/login/args?id=' + this.id + '&pw=' + this.pw)
         .then((res) => {
           if (res.data === -1) {
-            alert('로그인실패')
+            alert('로그인 실패')
           } else {
-            alert('로그인성공')
+            alert('로그인 성공')
           }
         })
         .then((err) => {

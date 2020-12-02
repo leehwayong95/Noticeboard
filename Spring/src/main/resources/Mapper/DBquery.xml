@@ -9,7 +9,7 @@
     	SELECT * FROM user WHERE id="${id}" AND pw="${pw}"
    	</select>
    	<insert id="getSignup" parameterType = "String">
-   		INSERT INTO user VALUES (""${id}","${name}","${pw}")
+   		INSERT INTO user (id, pw, name) VALUES ("${id}","${pw}","${name}")
    	</insert>
 </mapper>
 

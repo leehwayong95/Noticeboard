@@ -32,6 +32,12 @@
 
 <script>
 export default {
+  data () {
+    return {
+      id: '',
+      pw: ''
+    }
+  },
   methods: {
     getlogin () {
       this.$axios.get('http://localhost:9000/login/args?id=' + this.id + '&pw=' + this.pw)
