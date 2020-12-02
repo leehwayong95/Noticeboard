@@ -36,9 +36,9 @@ export default {
       this.$axios.get('http://localhost:9000/login/args?id=' + this.id + '&pw=' + this.pw)
         .then((res) => {
           if (res.data === -1) {
-            alert('로그인 실패')
+            alert('로그인 실패. 아이디와 비밀번호를 확인해주세요.')
           } else {
-            alert('로그인 성공')
+            this.$router.push('/board')
           }
         })
         .then((err) => {

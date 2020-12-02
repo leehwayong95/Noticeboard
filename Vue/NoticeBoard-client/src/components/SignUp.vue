@@ -24,7 +24,7 @@ export default {
           if (res.data === -1) {
             alert('회원가입 실패(아이디 중복입니다.)')
           } else {
-            alert('회원가입 성공')
+            alert('회원가입 완료')
             this.$router.push('/login')
           }
         })

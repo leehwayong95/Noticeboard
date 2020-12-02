@@ -7,6 +7,7 @@ import HelloWorld from '@/components/HelloWorld'
 import Test from '@/components/Test'
 import SignUp from '@/components/SignUp'
 import login from '@/components/Login'
+import board from '@/components/Board'
 
 Vue.use(Router)
 
@@ -32,6 +33,11 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: login
+    },
+    {
+      path: '/board',
+      name: 'board',
+      component: board
     }
   ]
 })
