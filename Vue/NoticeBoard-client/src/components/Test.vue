@@ -28,7 +28,9 @@ export default {
   data () {
     return {
       id: '',
-      pw: ''
+      pw: '',
+      token: '',
+      permission: ''
     }
   },
   methods: {
