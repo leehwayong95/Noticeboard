@@ -15,5 +15,9 @@ public class service {
     public List<UserModel> getDual()throws Exception{
         return dao.getDual();
     }
+    
+    public String testyohan()throws Exception{
+        return dao.testdb();
+    }
 }
 
