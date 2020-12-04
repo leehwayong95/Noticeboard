@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.emgram.noticeboard.Dao.dao;
 import com.emgram.noticeboard.Model.PostModel;
-import com.emgram.noticeboard.Model.UserModel;
+
 @Service
-public class service {
+public class BoardService {
 	@Autowired
     dao dao;
  
@@ -17,4 +17,3 @@ public class service {
         return dao.getPostsList();
     }
 }
-

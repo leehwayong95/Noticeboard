@@ -25,8 +25,8 @@ public class NoticeBoardApplication implements WebMvcConfigurer{
 	@Override
 	public void addInterceptors(InterceptorRegistry registry)
 	{
-		registry.addInterceptor(jwtInterceptor).addPathPatterns("/user/**")
-				.excludePathPatterns(Arrays.asList("/user/signin/**"));
+		registry.addInterceptor(jwtInterceptor).addPathPatterns("/**")
+				.excludePathPatterns(Arrays.asList("/api/signin/**","/signup/*"));
 	}
 	
 	@Override

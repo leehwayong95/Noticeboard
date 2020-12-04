@@ -19,18 +19,22 @@ export default {
   },
   methods: {
     getsignup () {
-      this.$axios.get('http://localhost:9000/signup/args?id=' + this.id + '&pw=' + this.pw + '&name=' + this.name)
-        .then((res) => {
-          if (res.data === -1) {
-            alert('회원가입 실패(아이디 중복입니다.)')
-          } else {
-            alert('회원가입 완료')
-            this.$router.push('/login')
-          }
-        })
-        .then((err) => {
-          console.log(err)
-        })
+      if (this.id === '' || this.pw === '' || this.name === '') {
+        alert('항목을 모두 입력해주세요.')
+      } else {
+        this.$axios.get('http://localhost:9000/signup/args?id=' + this.id + '&pw=' + this.pw + '&name=' + this.name)
+          .then((res) => {
+            if (res.data === -1) {
+              alert('회원가입 실패(아이디 중복입니다.)')
+            } else {
+              alert('회원가입 완료')
+              this.$router.push('/login')
+            }
+          })
+          .then((err) => {
+            console.log(err)
+          })
+      }
     }
   }
 }

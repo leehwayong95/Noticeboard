@@ -35,16 +35,16 @@ export default {
   },
   methods: {
     getlogin () {
-      this.$axios.get('http://localhost:9000/login/args?id=' + this.id + '&pw=' + this.pw)
+      this.$axios.post('http://localhost:9000/api/signin', {id: this.id, pw: this.pw})
         .then((res) => {
-          if (res.data === -1) {
-            alert('로그인 실패. 아이디와 비밀번호를 확인해주세요.')
-          } else {
-            this.$router.push('/board')
-          }
+          document.cookie = 'jwt-auth-token = ' + res.data.token
+          this.$axios.defaults.headers.common['jwt-auth-token'] = res.data.token
+          this.$router.push('/board')
         })
-        .then((err) => {
-          console.log(err)
+        .catch(function (error) {
+          if (error.response) {
+            alert('아이디와 비밀번호를 확인해주세요.')
+          }
         })
     },
     link: function (event) {

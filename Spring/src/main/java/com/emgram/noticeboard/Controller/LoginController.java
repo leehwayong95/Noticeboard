@@ -23,7 +23,7 @@ import CustomException.NoinfoException;
 
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api")
 public class LoginController {
 	@Autowired
 	private LoginService login;
@@ -37,7 +37,6 @@ public class LoginController {
 			HttpServletResponse res
 			)
 	{
-		System.out.println("here??????????");
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
 		UserModel loginuser = null;
@@ -48,7 +47,8 @@ public class LoginController {
 			loginuser.setPW(user.getPW());
 			String token = jwtService.create(loginuser);
 			res.setHeader("jwt-auth-token", token);
-			resultMap.put("satus", true);
+			resultMap.put("token", token);
+			resultMap.put("status", true);
 			resultMap.put("data", loginuser);
 			status = HttpStatus.ACCEPTED;
 		}catch (RuntimeException e)

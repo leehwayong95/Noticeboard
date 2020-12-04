@@ -9,25 +9,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.emgram.noticeboard.Model.PostModel;
-import com.emgram.noticeboard.Service.service;
+import com.emgram.noticeboard.Service.BoardService;
 
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
-public class Control {
+public class BoardControl {
 	 @Autowired
-	    service service;
-	     
-	    @RequestMapping("/")
-	    public @ResponseBody String root_test()throws Exception{  
-	        return "Hello World";
-	    }
+	    BoardService service;
 	 
 	    @RequestMapping("/board")
 	    public @ResponseBody List<PostModel> now()throws Exception{
 	        return service.getPostsList();
 	    }
 	    
-	    @RequestMapping("/test")
+	    @RequestMapping("/")
 	    public String test()
 	    {
 	    	return "fuck yeah!";

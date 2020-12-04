@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.emgram.noticeboard.Service.LoginService;
 import com.emgram.noticeboard.Service.SignupService;
 
+import CustomException.NoinfoException;
+
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @RequestMapping("/signup")
@@ -25,11 +27,13 @@ public class SignupController {
 			@RequestParam(value = "name")String name
 			)
 	{
-		if (login.getLogin(id,pw)==-1)
+		try
 		{
-			return signup.getSignup(id,pw,name);
+			login.getLogin(id,pw);
+		}catch(NoinfoException e)
+		{
+			return signup.getSignup(id,pw,name);	
 		}
-		else
-			return -1;
+		return -1;
 	}
 }
