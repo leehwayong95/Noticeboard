@@ -8,7 +8,7 @@ import Test from '@/components/Test'
 import SignUp from '@/components/SignUp'
 import login from '@/components/Login'
 import board from '@/components/Board'
-
+import write from '@/components/WritePost'
 Vue.use(Router)
 
 export default new Router({
@@ -38,6 +38,11 @@ export default new Router({
       path: '/board',
       name: 'board',
       component: board
+    },
+    {
+      path: '/write',
+      name: 'write',
+      component: write
     }
   ]
 })

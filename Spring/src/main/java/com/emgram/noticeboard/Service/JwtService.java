@@ -1,8 +1,13 @@
 package com.emgram.noticeboard.Service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -59,5 +64,15 @@ public class JwtService {
 		
 		System.out.println("claims : " + claims.toString());
 		return claims.getBody();
+	}
+	
+	public String getID(Map<String, Object> claims)
+	{
+		JSONObject User = new JSONObject();
+		for(Entry<String, Object> map : claims.entrySet())
+		{
+			String key = //here... convert map to json....
+		}
+		return User.get("id").toString();
 	}
 }

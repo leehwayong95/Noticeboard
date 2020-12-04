@@ -11,5 +11,8 @@
    	<insert id="getSignup" parameterType = "String">
    		INSERT INTO user (id, pw, name) VALUES ("${id}","${pw}","${name}")
    	</insert>
+   	<insert id="writePost" parameterType = "String">
+   		INSERT INTO noticeboard (title, content, id) VALUES ("${title}", "${content}", "${id}")
+   	</insert>
 </mapper>
 
