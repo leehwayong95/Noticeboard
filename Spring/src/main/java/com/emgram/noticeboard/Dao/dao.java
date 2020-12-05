@@ -10,6 +10,8 @@ public interface dao {
     /* DB Select  */
    // public String getDual() throws Exception;
 	public List<UserModel> getDual() throws Exception;
+	
+	public String testdb() throws Exception;
 }
 
 

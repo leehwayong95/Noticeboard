@@ -5,5 +5,9 @@
     <select id="getDual" resultType="com.emgram.noticeboard.Model.UserModel">
         SELECT * FROM user
     </select>
+    
+    <select id="testdb" resultType="String">
+    	SELECT user.pw FROM user
+    </select>
 </mapper>
 
