@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
-import Login from '@/components/Login'
-import Join from '@/components/Join'
+import Login from '@/components/Login.vue'
+import Join from '@/components/Join.vue'
 import Board from '@/components/Board'
 import BoardText from '@/components/BoardText'
 Vue.use(Router)

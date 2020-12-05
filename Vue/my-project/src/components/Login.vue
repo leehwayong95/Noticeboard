@@ -15,18 +15,26 @@
             name="userpassword"
         />
         <br/><br/>
-        <button @click="login()">로그인</button>
+        <button type="String" @click="login">로그인</button>
         <button type="button">회원가입</button>
-         <button @click="test">테스트</button>
     </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data () {
     return {
       id: null,
       pw: null
+    }
+  },
+  methods: {
+    login () {    
+      axios.get('http://localhost:9000/test')
+        .then(res => console.log(res))
+        .catch(error => console.log(error))
     }
   }
 }
