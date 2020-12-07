@@ -28,7 +28,7 @@ export default {
               alert('회원가입 실패(아이디 중복입니다.)')
             } else {
               alert('회원가입 완료')
-              this.$router.push('/login')
+              this.$router.push('/test')
             }
           })
           .then((err) => {

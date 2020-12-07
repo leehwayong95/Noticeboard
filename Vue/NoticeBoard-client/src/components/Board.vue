@@ -2,6 +2,7 @@
     <div>
         <h2>게시판 리스트</h2>
         <a href="javascript:;" @click="getList">허허</a>
+        <button type="submit" v-on:click ="logout">로그아웃</button>
     </div>
 </template>
 
@@ -16,6 +17,10 @@ export default {
         .then((err) => {
           console.log(err)
         })
+    },
+    logout () {
+      document.cookie = 'jwt-auth-token =; expires = Web; 01 Jan 1970'
+      this.$router.push('/test')
     }
   }
 }

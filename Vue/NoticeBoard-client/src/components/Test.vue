@@ -42,11 +42,6 @@ export default {
           .then((res) => {
             this.$router.push('/board')
           })
-          .catch(function (error) {
-            if (error.response) {
-              alert('로그인을 다시 해주세요')
-            }
-          })
       }
     }
   },
