@@ -10,7 +10,7 @@
                     </colgroup>
                     <tr>
                         <th>제목</th>
-                        <td><input type="text" v-model="subject" ref="subject" /></td>
+                        <td><input type="text" v-model="title" ref="title" /></td>
                     </tr>
                     <tr>
                         <th>내용</th>
@@ -31,35 +31,28 @@
 export default {
   data () {
     return {
-      board_code: 'news',
-      subject: '',
+      title: '',
       cont: '',
-      id: 'admin',
       form: ''
     }
   },
   methods: {
     fnList () {
-      this.$router.push({
-        path: './list',
-        query: this.body
-      })
+      this.$router.push('./board')
     },
     fnAddProc () {
-      if (!this.subject) {
+      if (!this.title) {
         alert('제목을 입력해 주세요')
-        this.$refs.subject.focus()
+        this.$refs.title.focus()
         return
       }
       this.form = {
-        board_code: this.board_code,
-        subject: this.subject,
-        cont: this.cont,
-        id: this.id
+        title: this.title,
+        content: this.cont
       }
-      this.$axios.post('http://localhost:9000/api/board', this.form)
+      this.$axios.post('http://localhost:9000/api/write', this.form)
         .then((res) => {
-          if (res.data.success) {
+          if (res.data.status) {
             alert('등록되었습니다.')
             this.fnList()
           } else {
