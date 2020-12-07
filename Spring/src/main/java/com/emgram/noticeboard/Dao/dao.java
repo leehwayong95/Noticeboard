@@ -12,6 +12,7 @@ public interface dao {
 	public void writePost(String title, String content, String id);
 	public List<UserModel> getLogin(String id, String pw);
 	public void getSignup(String id, String pw, String name);
+	public PostModel getPost(int index);
 }
 
 

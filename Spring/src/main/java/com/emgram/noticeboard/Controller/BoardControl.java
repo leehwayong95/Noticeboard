@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,8 +35,16 @@ public class BoardControl {
 	 	JwtService jwt;
 	 
 	    @GetMapping("/board")
-	    public @ResponseBody List<PostModel> now()throws Exception{
+	    public @ResponseBody List<PostModel> getList()
+	    {
 	        return service.getPostsList();
+	    }
+	    
+	    @GetMapping("/board/post")
+	    public @ResponseBody PostModel getPost(
+	    		@RequestParam(value = "index")int index) 
+	    {
+	    	return service.getPost(index);
 	    }
 	    
 	    @PostMapping("/write")

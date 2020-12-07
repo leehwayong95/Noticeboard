@@ -5,6 +5,9 @@
     <select id="getPostsList" resultType="com.emgram.noticeboard.Model.PostModel">
         SELECT * FROM noticeBoard
     </select>
+    <select id="getPost" parameterType="int" resultType="com.emgram.noticeboard.Model.PostModel">
+   		SELECT * FROM noticeBoard WHERE postindex=${index}
+   	</select>
     <select id="getLogin" parameterType = "String" resultType="com.emgram.noticeboard.Model.UserModel">
     	SELECT * FROM user WHERE id="${id}" AND pw="${pw}"
    	</select>

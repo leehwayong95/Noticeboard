@@ -29,4 +29,9 @@ public class BoardService {
     		throw new PostInsertException("Post Insert Error on DB");
     	}
     }
+    
+    public PostModel getPost(int index)
+    {
+    	return dao.getPost(index);
+    }
 }

@@ -42,12 +42,12 @@ export default {
         .then((res) => {
           this.list = res.data
         })
-        .then((err) => {
-          console.log(err)
+        .catch((err) => {
+          console.log(err, 'fuck')
         })
     },
     logout () {
-      document.cookie = 'jwt-auth-token =; expires = Web; 01 Jan 1970'
+      document.cookie = 'jwt-auth-token=; expires=Web; 01 Jan 1970'
       this.$router.push('/test')
     },
     write () {
