@@ -37,7 +37,16 @@ export default {
     let cookieArr = document.cookie.split(';')
     for (let i in cookieArr) {
       if (cookieArr[i].split('=')[0].trim() === 'jwt-auth-token') {
-        this.$router.push('/board')
+        this.$axios.defaults.headers.common['jwt-auth-token'] = cookieArr[i].split('=')[1].trim()
+        this.$axios.post('http://localhost:9000/api/info')
+          .then((res) => {
+            this.$router.push('/board')
+          })
+          .catch(function (error) {
+            if (error.response) {
+              alert('로그인을 다시 해주세요')
+            }
+          })
       }
     }
   },
