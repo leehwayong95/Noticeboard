@@ -33,6 +33,14 @@ export default {
       permission: ''
     }
   },
+  created () {
+    let cookieArr = document.cookie.split(';')
+    for (let i in cookieArr) {
+      if (cookieArr[i].split('=')[0].trim() === 'jwt-auth-token') {
+        this.$router.push('/board')
+      }
+    }
+  },
   methods: {
     getlogin () {
       this.$axios.post('http://localhost:9000/api/signin', {id: this.id, pw: this.pw})
