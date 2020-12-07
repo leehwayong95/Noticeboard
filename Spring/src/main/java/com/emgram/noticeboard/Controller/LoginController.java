@@ -84,6 +84,22 @@ public class LoginController {
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
-		
+	}
+	
+	@PostMapping("/getid")
+	public ResponseEntity<Map<String, Object>> getID(HttpServletRequest req)
+	{
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+		try {
+			resultMap.put("id",jwtService.getID(jwtService.get(req.getHeader("jwt-auth-token"))));
+			status = HttpStatus.ACCEPTED;
+		}catch(RuntimeException e)
+		{
+			System.out.println("정보 조회 실패");
+			e.printStackTrace();
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 }

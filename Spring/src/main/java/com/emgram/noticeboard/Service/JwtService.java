@@ -37,7 +37,8 @@ public class JwtService {
 		
 		builder.setSubject("logintoken")
 				.setExpiration(new Date(System.currentTimeMillis()+1000*60*expireMin))
-				.claim("User", user);
+				.claim("Userid", user.getId())
+				.claim("permission", user.getPermission());
 		builder.signWith(SignatureAlgorithm.HS256, salt.getBytes());
 		
 		final String jwt = builder.compact();
@@ -53,6 +54,7 @@ public class JwtService {
 	
 	public Map<String, Object> get(final String jwt)
 	{
+		System.out.println("jwt token parameter : "+jwt);
 		Jws<Claims> claims = null;
 		try {
 			claims = Jwts.parser().setSigningKey(salt.getBytes()).parseClaimsJws(jwt);
@@ -68,11 +70,6 @@ public class JwtService {
 	
 	public String getID(Map<String, Object> claims)
 	{
-		JSONObject User = new JSONObject();
-		for(Entry<String, Object> map : claims.entrySet())
-		{
-			String key = //here... convert map to json....
-		}
-		return User.get("id").toString();
+		return claims.get("Userid").toString();
 	}
 }
