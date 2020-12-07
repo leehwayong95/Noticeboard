@@ -11,7 +11,7 @@
           </tr>
           <tr v-for="(row, postindex) in list" :key="postindex">
             <td>{{row.postindex}}</td>
-            <td class = "txt_left"><a href="javascript:;">{{row.title}}</a></td>
+            <td class = "txt_left"><a href="javascript:;" @click="view(row.postindex)">{{row.title}}</a></td>
             <td>{{row.id}}</td>
             <td>{{row.date}}</td>
           </tr>
@@ -33,7 +33,7 @@ export default {
     return {
       body: '',
       list: '',
-      no: ''
+      postindex: ''
     }
   },
   methods: {
@@ -52,6 +52,12 @@ export default {
     },
     write () {
       this.$router.push('/write')
+    },
+    view (num) {
+      this.$router.push({
+        path: 'board/view',
+        query: {index: num}
+      })
     }
   }
 }
