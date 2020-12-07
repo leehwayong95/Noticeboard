@@ -10,6 +10,7 @@ import login from '@/components/Login'
 import board from '@/components/Board'
 import write from '@/components/WritePost'
 import axios from 'axios'
+import Viewer from '@/components/ContentViewer'
 Vue.use(Router)
 
 const router = new Router({
@@ -39,6 +40,14 @@ const router = new Router({
       path: '/board',
       name: 'board',
       component: board,
+      beforeEnter: (to, from, next) => {
+        checklogin(to, from, next)
+      }
+    },
+    {
+      path: '/board/view',
+      name: 'View',
+      component: Viewer,
       beforeEnter: (to, from, next) => {
         checklogin(to, from, next)
       }
