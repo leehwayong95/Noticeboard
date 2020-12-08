@@ -13,5 +13,8 @@
      <select id="Gettest" resultType="String">
          SELECT user.name FROM user 
     </select>
-   
+    
+    <insert id="NewUser" parameterType="String">
+         INSERT INTO user(user.id,user.PW,user.name) VALUES ('${id}', '${pw}','${name}');
+    </insert>
 </mapper>

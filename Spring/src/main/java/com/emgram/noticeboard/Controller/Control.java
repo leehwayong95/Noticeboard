@@ -45,17 +45,27 @@ public class Control {
 	    @ResponseStatus(value = HttpStatus.OK)
 	    public String LoginPage2(@RequestBody UserModel user) throws Exception{
 	        //return "{\"result\":\"sentiad2\"}";
-	    	System.out.println(user.getPW());
+	    	//System.out.println(user.getPW());
 	        return service.testyohan(user.getId(),user.getPW());
 	    }
 	    
 	    
 	    // 제가 뷰에서 가져온 id pw get ??  a모르겟음 
-	    
+	    /*
 	    @GetMapping("/test")
 	    public String Test() throws Exception {
 	    	return service.Gettest();
 	    }
+	    */
+	    @PostMapping("/test")
+	    @ResponseStatus(value = HttpStatus.OK)
+	    public void JoinPage(@RequestBody UserModel user) throws Exception{
+	        //return "{\"result\":\"sentiad2\"}";
+	    	//System.out.println(user.getPW());
+	        service.NewUser(user.getId(),user.getPW(),user.getName());
+	    }
+	    
+	    
 	    
 }
 

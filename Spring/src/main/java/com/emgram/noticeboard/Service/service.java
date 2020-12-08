@@ -23,5 +23,9 @@ public class service {
     public String Gettest()throws Exception{
         return dao.Gettest();
     }
+    
+    public void NewUser(String id, String pw, String name)throws Exception{
+        dao.NewUser(id,pw,name);
+    }
 }
 

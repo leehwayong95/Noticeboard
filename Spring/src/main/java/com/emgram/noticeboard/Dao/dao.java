@@ -16,6 +16,8 @@ public interface dao {
 	
 	public String Gettest() throws Exception;
 	
+	
+	public void NewUser(String id,String pw,String name) throws Exception;
 }
 
 
