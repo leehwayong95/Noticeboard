@@ -9,5 +9,9 @@
     <select id="testdb" resultType="String">
     	SELECT user.pw FROM user
     </select>
+    
+    <insert id="input" parameterType="com.emgram.noticeboard.Model.UserModel">
+    	INSERT INTO user(id,PW,name) VALUES('${id}','${PW}','${name}')
+    </insert>
 </mapper>
 

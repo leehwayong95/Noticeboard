@@ -12,6 +12,8 @@ public interface dao {
 	public List<UserModel> getDual() throws Exception;
 	
 	public String testdb() throws Exception;
+	//이름과 아이디랑 패스워드를 INSERT문에 보내는 interface 작성
+	public int input(String id, String PW, String name) throws Exception;
 }
 
 

@@ -19,5 +19,9 @@ public class service {
     public String testyohan() throws Exception{
     	return dao.testdb();
     }
+    
+    public int input(String id, String PW, String name) throws Exception{
+    	return dao.input(id, PW, name);
+    }
 }
 
