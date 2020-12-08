@@ -38,7 +38,6 @@ public class Control {
 	    public int input(@RequestBody UserModel user) throws Exception {
 	    	return service.input(user.getId(),user.getPW(),user.getName());
 	    }
-	   
 }
 
 //public @ResponseBody String now()throws Exception{
