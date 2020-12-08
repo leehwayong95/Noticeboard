@@ -4,19 +4,17 @@
         <label for="username">Username : </label>
         <input
             type="text"
-            class="form-control"
-            name="username"
+            v-model="id"
         />
         <br /><br/>
         <label for="userpassword">UserPassword : </label>
         <input
             type="password"
-            class="form-control"
-            name="userpassword"
+            v-model="pw"
         />
         <br/><br/>
-        <button type="String" @click="login">로그인</button>
-        <button type="button">회원가입</button>
+        <button type="String" @click="tt">로그인</button>
+        <button type="button" @click="login">회원가입</button>
     </div>
 </template>
 
@@ -31,8 +29,13 @@ export default {
     }
   },
   methods: {
-    login () {    
+    login () {
       axios.get('http://localhost:9000/test')
+        .then(res => console.log(res))
+        .catch(error => console.log(error))
+    },
+    tt () {
+      axios.post('http://localhost:9000/login2', {id: this.id, pw: this.pw})
         .then(res => console.log(res))
         .catch(error => console.log(error))
     }

@@ -16,8 +16,12 @@ public class service {
         return dao.getDual();
     }
     
-    public String testyohan()throws Exception{
-        return dao.testdb();
+    public String testyohan(String id,String pw)throws Exception{
+        return dao.testdb(id,pw);
+    }
+    
+    public String Gettest()throws Exception{
+        return dao.Gettest();
     }
 }
 

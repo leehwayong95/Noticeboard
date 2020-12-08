@@ -3,11 +3,15 @@
 
 <mapper namespace="com.emgram.noticeboard.Dao.dao">
     <select id="getDual" parameterType="String" resultType="com.emgram.noticeboard.Model.UserModel">
-        SELECT * FROM user
+        SELECT user.id FROM user
     </select>
     
-     <select id="testdb" resultType="String">
-         SELECT user.pw FROM user
+     <select id="testdb" parameterType="String" resultType="String">
+         SELECT user.name FROM user WHERE user.id='${id}'
+    </select>
+    
+     <select id="Gettest" resultType="String">
+         SELECT user.name FROM user 
     </select>
    
 </mapper>

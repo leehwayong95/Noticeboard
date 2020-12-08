@@ -32,7 +32,7 @@ export default new Router({
     },
     {
       path: '/boardtext',
-      name: 'Boardpage',
+      name: 'Boartextdpage',
       component: BoardText
     }
   ]

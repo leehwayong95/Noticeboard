@@ -12,7 +12,9 @@ public interface dao {
 	public List<UserModel> getDual() throws Exception;
 	
 	
-	public String testdb() throws Exception;
+	public String testdb(String id,String pw) throws Exception;
+	
+	public String Gettest() throws Exception;
 	
 }
 
