@@ -54,7 +54,6 @@ public class BoardControl {
 	    	Map<String, Object> resultMap = new HashMap<>();
 	    	HttpStatus status = null;
 	    	String userID = jwt.getID(jwt.get(req.getHeader("jwt-auth-token")));
-	    	System.out.println("userID is " + userID);
 	    	post.setId(userID);
 	    	try {
 	    		service.writePost(post);

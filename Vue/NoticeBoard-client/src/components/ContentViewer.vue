@@ -38,10 +38,9 @@ export default {
     getPost () {
       this.$axios.get('http://localhost:9000/api/board/post?index=' + this.postindex)
         .then((res) => {
-          console.log(res.data)
           this.title = res.data.title
           this.content = res.data.content
-          this.id = res.data.id
+          this.id = res.data.name
         })
     },
     list () {
