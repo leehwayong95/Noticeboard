@@ -11,8 +11,8 @@
     <select id="getLogin" parameterType = "String" resultType="com.emgram.noticeboard.Model.UserModel">
     	SELECT * FROM user WHERE id="${id}" AND pw="${pw}"
    	</select>
-   	<insert id="getSignup" parameterType = "String">
-   		INSERT INTO user (id, pw, name) VALUES ("${id}","${pw}","${name}")
+   	<insert id="getSignup" parameterType = "com.emgram.noticeboard.Model.UserModel">
+   		INSERT INTO user VALUES ("${id}","${name}","${pw}",${permission})
    	</insert>
    	<insert id="writePost" parameterType = "String">
    		INSERT INTO noticeboard (title, content, id) VALUES ("${title}", "${content}", "${id}")

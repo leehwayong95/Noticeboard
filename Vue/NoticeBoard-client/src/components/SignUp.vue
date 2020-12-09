@@ -4,6 +4,10 @@
         <input type="text" placeholder="ID" v-model="id"><br><br>
         <input type="password" placeholder="Password" v-model="pw"><br><br>
         <input type="text" placeholder="Name" v-model="name"><br><br>
+        <label>
+          <input type="checkbox" v-model="permission">
+          관리자
+        </label>
         <button v-on:click = "getsignup">가입하기</button>
     </div>
 </template>
@@ -14,7 +18,8 @@ export default {
     return {
       id: '',
       pw: '',
-      name: ''
+      name: '',
+      permission: false
     }
   },
   methods: {
@@ -22,7 +27,12 @@ export default {
       if (this.id === '' || this.pw === '' || this.name === '') {
         alert('항목을 모두 입력해주세요.')
       } else {
-        this.$axios.get('http://localhost:9000/signup/args?id=' + this.id + '&pw=' + this.pw + '&name=' + this.name)
+        if (this.permission) {
+          this.permission = 0
+        } else {
+          this.permission = 1
+        }
+        this.$axios.post('http://localhost:9000/api/signup', {id: this.id, pw: this.pw, name: this.name, permission: this.permission})
           .then((res) => {
             if (res.data === -1) {
               alert('회원가입 실패(아이디 중복입니다.)')
