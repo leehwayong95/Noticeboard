@@ -11,7 +11,14 @@ public class PostModel {
 	private String content;
 	private String date;
 	private String id;
+	private String name;
 	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public String getPostindex() {
 		return postindex;
 	}

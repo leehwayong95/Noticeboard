@@ -29,6 +29,9 @@
 
 <script>
 export default {
+  mounted () {
+    this.permission()
+  },
   data () {
     return {
       title: '',
@@ -37,6 +40,15 @@ export default {
     }
   },
   methods: {
+    permission () {
+      let cookie = document.cookie.split(';')
+      for (let i in cookie) {
+        if (cookie[i].split('=')[0].trim() === 'permission' && cookie[i].split('=')[1].trim() === '1') {
+          alert('권한이 없습니다.')
+          this.$router.back()
+        }
+      }
+    },
     fnList () {
       this.$router.push('./board')
     },

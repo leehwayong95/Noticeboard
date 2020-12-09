@@ -3,7 +3,7 @@
 
 <mapper namespace="com.emgram.noticeboard.Dao.dao">
     <select id="getPostsList" resultType="com.emgram.noticeboard.Model.PostModel">
-        SELECT * FROM noticeBoard
+        SELECT b.*,u.name FROM noticeBoard b, user u WHERE b.id = u.id 
     </select>
     <select id="getPost" parameterType="int" resultType="com.emgram.noticeboard.Model.PostModel">
    		SELECT * FROM noticeBoard WHERE postindex=${index}

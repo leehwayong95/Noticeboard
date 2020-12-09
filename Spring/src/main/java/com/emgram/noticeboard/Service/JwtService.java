@@ -38,7 +38,8 @@ public class JwtService {
 		builder.setSubject("logintoken")
 				.setExpiration(new Date(System.currentTimeMillis()+1000*60*expireMin))
 				.claim("Userid", user.getId())
-				.claim("permission", user.getPermission());
+				.claim("permission", user.getPermission())
+				.claim("name", user.getName());
 		builder.signWith(SignatureAlgorithm.HS256, salt.getBytes());
 		
 		final String jwt = builder.compact();
@@ -68,8 +69,8 @@ public class JwtService {
 		return claims.getBody();
 	}
 	
-	public String getID(Map<String, Object> claims)
+	public String getName(Map<String, Object> claims)
 	{
-		return claims.get("Userid").toString();
+		return claims.get("name").toString();
 	}
 }

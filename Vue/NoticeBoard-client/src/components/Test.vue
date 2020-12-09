@@ -50,6 +50,7 @@ export default {
       this.$axios.post('http://localhost:9000/api/signin', {id: this.id, pw: this.pw})
         .then((res) => {
           document.cookie = 'jwt-auth-token = ' + res.data.token
+          document.cookie = 'permission = ' + res.data.permission
           this.$axios.defaults.headers.common['jwt-auth-token'] = res.data.token
           this.$router.push('/board')
         })

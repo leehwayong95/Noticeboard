@@ -49,7 +49,7 @@ public class LoginController {
 			res.setHeader("jwt-auth-token", token);
 			resultMap.put("token", token);
 			resultMap.put("status", true);
-			resultMap.put("data", loginuser);
+			resultMap.put("permission", loginuser.getPermission());
 			status = HttpStatus.ACCEPTED;
 		}catch (RuntimeException e)
 		{
@@ -86,13 +86,13 @@ public class LoginController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 	
-	@PostMapping("/getid")
+	@PostMapping("/getname")
 	public ResponseEntity<Map<String, Object>> getID(HttpServletRequest req)
 	{
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
 		try {
-			resultMap.put("id",jwtService.getID(jwtService.get(req.getHeader("jwt-auth-token"))));
+			resultMap.put("id",jwtService.getName(jwtService.get(req.getHeader("jwt-auth-token"))));
 			status = HttpStatus.ACCEPTED;
 		}catch(RuntimeException e)
 		{
