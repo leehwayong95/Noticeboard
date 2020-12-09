@@ -27,12 +27,13 @@ export default {
       if (this.id === '' || this.pw === '' || this.name === '') {
         alert('항목을 모두 입력해주세요.')
       } else {
+        let per
         if (this.permission) {
-          this.permission = 0
+          per = 0
         } else {
-          this.permission = 1
+          per = 1
         }
-        this.$axios.post('http://localhost:9000/api/signup', {id: this.id, pw: this.pw, name: this.name, permission: this.permission})
+        this.$axios.post('http://localhost:9000/api/signup', {id: this.id, pw: this.pw, name: this.name, permission: per})
           .then((res) => {
             if (res.data === -1) {
               alert('회원가입 실패(아이디 중복입니다.)')
