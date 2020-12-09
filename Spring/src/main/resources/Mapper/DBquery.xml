@@ -7,11 +7,15 @@
     </select>
     
     <select id="testdb" resultType="String">
-    	SELECT user.pw FROM user
+    	SELECT user.id FROM user WHERE id='${id}'
     </select>
     
     <insert id="input" parameterType="com.emgram.noticeboard.Model.UserModel">
-    	INSERT INTO user(id,PW,name) VALUES('${id}','${PW}','${name}')
+    	INSERT INTO user(id,PW,name,permission) VALUES('${id}','${PW}','${name}','${permission}')
     </insert>
+    
+    <select id="UserCheck" resultType="String">
+    	SELECT user.id FROM user WHERE id= '${id}'
+    </select>
 </mapper>
 

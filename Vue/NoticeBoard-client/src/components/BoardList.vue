@@ -9,7 +9,7 @@
             :fields="fields"
         ></b-table>
         <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" align="center"></b-pagination>
-        <b-button>글쓰기</b-button>
+        <b-button v-on:click="write">글쓰기</b-button>
     </div>
 </template>
 
@@ -24,6 +24,11 @@ export default {
         {isActive: false, age: 34, first_name: 'woslei', last_name: 'vue'},
         {isActive: true, age: 83, first_name: 'diejfosid', last_name: 'vue'}
       ]
+    }
+  },
+  methods: {
+    write () {
+      this.$router.push('/boardcreate')
     }
   }
 }

@@ -18,15 +18,16 @@ export default {
       result: null,
       id: '',
       pw: '',
-      name: ''
+      name: '',
+      permission: '1'
     }
   },
   methods: {
     signup () {
-      axios.post('http://localhost:8081/input', {id: this.id, pw: this.pw, name: this.name})
+      axios.post('http://localhost:8081/input', {id: this.id, pw: this.pw, name: this.name, permission: this.permission})
         .then(response => {
           console.warn(response)
-          this.result = response.data
+          alert(response.data)
         }).catch((ex) => {
           console.warn('ERROR:', ex)
         })

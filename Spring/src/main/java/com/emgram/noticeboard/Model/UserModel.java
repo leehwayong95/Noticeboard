@@ -4,7 +4,7 @@ public class UserModel {
 	private String id;
 	private String name;
 	private String PW;
-	//private int permission;
+	private String permission;
 	public String getId() {
 		return id;
 	}
@@ -23,12 +23,12 @@ public class UserModel {
 	public void setPW(String pW) {
 		PW = pW;
 	}
-	/*
-	public int getPermission() {
+	
+	public String getPermission() {
 		return permission;
 	}
-	public void setPermission(int permission) {
+	public void setPermission(String permission) {
 		this.permission = permission;
 	}
-	*/
+	
 }

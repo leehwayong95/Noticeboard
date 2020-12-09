@@ -12,16 +12,19 @@ public class service {
 	@Autowired
     dao dao;
  
-    public List<UserModel> getDual()throws Exception{
-        return dao.getDual();
+
+    
+    public String testyohan(String id) throws Exception{
+    	return dao.testdb(id);
     }
     
-    public String testyohan() throws Exception{
-    	return dao.testdb();
+    //회원가입 정보를 DB에 넣어주는 dao와 연결된 service 메소드
+    public void input(String id, String PW, String name,String permission) throws Exception{
+    	dao.input(id, PW, name, permission);
     }
     
-    public int input(String id, String PW, String name) throws Exception{
-    	return dao.input(id, PW, name);
+    public String UserCheck(String id) {
+    	return dao.UserCheck(id);
     }
 }
 
