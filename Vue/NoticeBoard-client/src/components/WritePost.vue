@@ -72,6 +72,7 @@ export default {
           }
         })
         .catch((err) => {
+          alert('실행중 실패했습니다.\n다시 이용해 주세요')
           console.log(err)
         })
     }

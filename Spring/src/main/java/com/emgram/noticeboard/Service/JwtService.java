@@ -69,8 +69,8 @@ public class JwtService {
 		return claims.getBody();
 	}
 	
-	public String getName(Map<String, Object> claims)
+	public String getId(Map<String, Object> claims)
 	{
-		return claims.get("name").toString();
+		return claims.get("Userid").toString();
 	}
 }
