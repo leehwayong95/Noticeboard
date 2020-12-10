@@ -92,7 +92,7 @@ public class LoginController {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
 		try {
-			resultMap.put("id",jwtService.getName(jwtService.get(req.getHeader("jwt-auth-token"))));
+			resultMap.put("id",jwtService.getId(jwtService.get(req.getHeader("jwt-auth-token"))));
 			status = HttpStatus.ACCEPTED;
 		}catch(RuntimeException e)
 		{
