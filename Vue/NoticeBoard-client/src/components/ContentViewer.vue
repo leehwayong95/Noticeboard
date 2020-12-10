@@ -40,7 +40,7 @@ export default {
         .then((res) => {
           this.title = res.data.title
           this.content = res.data.content
-          this.id = res.data.id
+          this.id = res.data.name
         })
     },
     list () {
