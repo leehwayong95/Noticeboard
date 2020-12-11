@@ -1,11 +1,14 @@
 package com.emgram.noticeboard.Controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.emgram.noticeboard.Model.UserModel;
 import com.emgram.noticeboard.Service.service;
+import com.sun.net.httpserver.Authenticator.Result;
 
 @CrossOrigin(origins="http://localhost:8080")
 @RestController
@@ -41,31 +45,49 @@ public class Control {
 	        
 	        
 	    }
+	    
+	   
 	    @PostMapping("/login2")
 	    @ResponseStatus(value = HttpStatus.OK)
-	    public String LoginPage2(@RequestBody UserModel user) throws Exception{
+	    public String LoginPage2(@RequestBody UserModel user) throws Exception{//vue 에서 온파일 모델형식으로 받는다) 
 	        //return "{\"result\":\"sentiad2\"}";
 	    	//System.out.println(user.getPW());
 	        return service.testyohan(user.getId(),user.getPW());
 	    }
+	
 	    
+	 
 	    
-	    // 제가 뷰에서 가져온 id pw get ??  a모르겟음 
 	    /*
 	    @GetMapping("/test")
 	    public String Test() throws Exception {
 	    	return service.Gettest();
 	    }
 	    */
+	    
+	    
+	    
+	    
+	    
+	    //회원가입 해보기 
 	    @PostMapping("/test")
 	    @ResponseStatus(value = HttpStatus.OK)
 	    public void JoinPage(@RequestBody UserModel user) throws Exception{
-	        //return "{\"result\":\"sentiad2\"}";
-	    	//System.out.println(user.getPW());
-	        service.NewUser(user.getId(),user.getPW(),user.getName());
+	    	service.NewUser(user.getId(),user.getPW(),user.getName());
 	    }
 	    
 	    
+	    @PostMapping(value = "/test3")
+	    public Map<String, Object> join(@RequestBody UserModel user) throws Exception{
+	        Map<String, Object> response = new HashMap<>();
+	        //다오에게 보낸것에 결과를 받고 그것을 리턴하기 위해서 값을 넣는더 put
+	        
+	        response.put("a", "b"); 
+			return response;
+	    }
+
+	    
+	
 	    
 }
 

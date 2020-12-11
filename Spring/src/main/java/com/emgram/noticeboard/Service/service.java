@@ -27,5 +27,8 @@ public class service {
     public void NewUser(String id, String pw, String name)throws Exception{
         dao.NewUser(id,pw,name);
     }
+    
+    
+
 }
 
