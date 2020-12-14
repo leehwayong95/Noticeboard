@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     getList () {
-      this.$axios.get('http://localhost:9000/api/board')
+      this.$axios.get('http://3.35.254.128/api/board')
         .then((res) => {
           this.list = res.data
         })

@@ -21,7 +21,7 @@ import com.emgram.noticeboard.Service.LoginService;
 
 import CustomException.NoinfoException;
 
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost/")
 @RestController
 @RequestMapping("/api")
 public class LoginController {

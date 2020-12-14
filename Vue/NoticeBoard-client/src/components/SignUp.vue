@@ -33,7 +33,7 @@ export default {
         } else {
           per = 1
         }
-        this.$axios.post('http://localhost:9000/api/signup', {id: this.id, pw: this.pw, name: this.name, permission: per})
+        this.$axios.post('http://3.35.254.128/api/signup', {id: this.id, pw: this.pw, name: this.name, permission: per})
           .then((res) => {
             if (res.data === -1) {
               alert('회원가입 실패(아이디 중복입니다.)')

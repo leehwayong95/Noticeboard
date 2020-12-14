@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 // import Home from '@/components/Home'
 // import Login from '@/components/Login'
 // import Register from '@/components/Register'
@@ -18,8 +17,8 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'login',
+      component: Test
     },
     {
       path: '/test',
@@ -70,7 +69,7 @@ function checklogin (to, from, next) {
     if (cookieArr[i].split('=')[0].trim() === 'jwt-auth-token') {
       findflag = true
       axios.defaults.headers.common['jwt-auth-token'] = cookieArr[i].split('=')[1].trim()
-      axios.post('http://localhost:9000/api/info')
+      axios.post('http://3.35.254.128/api/info')
         .then((res) => {
           next()
         })

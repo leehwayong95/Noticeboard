@@ -38,7 +38,7 @@ export default {
     for (let i in cookieArr) {
       if (cookieArr[i].split('=')[0].trim() === 'jwt-auth-token') {
         this.$axios.defaults.headers.common['jwt-auth-token'] = cookieArr[i].split('=')[1].trim()
-        this.$axios.post('http://localhost:9000/api/info')
+        this.$axios.post('http://3.35.254.128/api/info')
           .then((res) => {
             this.$router.push('/board')
           })
@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     getlogin () {
-      this.$axios.post('http://localhost:9000/api/signin', {id: this.id, pw: this.pw})
+      this.$axios.post('http://3.35.254.128/api/signin', {id: this.id, pw: this.pw})
         .then((res) => {
           document.cookie = 'jwt-auth-token = ' + res.data.token
           document.cookie = 'permission = ' + res.data.permission

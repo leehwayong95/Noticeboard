@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     getPost () {
-      this.$axios.get('http://localhost:9000/api/board/post?index=' + this.postindex)
+      this.$axios.get('http://3.35.254.128/api/board/post?index=' + this.postindex)
         .then((res) => {
           this.title = res.data.title
           this.content = res.data.content

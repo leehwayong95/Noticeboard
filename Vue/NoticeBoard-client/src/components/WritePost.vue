@@ -62,7 +62,7 @@ export default {
         title: this.title,
         content: this.cont
       }
-      this.$axios.post('http://localhost:9000/api/write', this.form)
+      this.$axios.post('http://3.35.254.128/api/write', this.form)
         .then((res) => {
           if (res.data.status) {
             alert('등록되었습니다.')

@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     getlogin () {
-      this.$axios.get('http://localhost:9000/login/args?id=' + this.id + '&pw=' + this.pw)
+      this.$axios.get('http://3.35.254.128/login/args?id=' + this.id + '&pw=' + this.pw)
         .then((res) => {
           if (res.data === -1) {
             alert('로그인실패')
