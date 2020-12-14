@@ -34,10 +34,10 @@ public class Control {
 	    	//만약 id가 존재하면 그 false가 출력되고 id가 없으면 success가 출력된다.
 	    	if(service.UserCheck(user.getId()).equals("")){
 	    		service.input(user.getId(),user.getPW(),user.getName(),user.getPermission());
-	    		return "Success";
+	    		return "SUCCESS";
 	    	}
 	    	else {
-	    		return "False";
+	    		return "FAILED";
 	    	}
 	    	
 	    }

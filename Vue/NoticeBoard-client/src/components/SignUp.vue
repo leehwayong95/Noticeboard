@@ -27,7 +27,12 @@ export default {
       axios.post('http://localhost:8081/input', {id: this.id, pw: this.pw, name: this.name, permission: this.permission})
         .then(response => {
           console.warn(response)
-          alert(response.data)
+          if (response.data === 'SUCCESS') {
+            alert('회원가입에 성공했습니다.')
+            this.$router.push('/login')
+          } else {
+            alert('중복되는 ID입니다. 다시 입력해주세요.')
+          }
         }).catch((ex) => {
           console.warn('ERROR:', ex)
         })
