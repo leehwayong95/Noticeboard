@@ -77,7 +77,6 @@ export default {
 <style scoped>
 img {
   width: 75%;
-  border-radius: 15px;
 }
 
 .login_display {
