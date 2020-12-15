@@ -13,6 +13,7 @@
       </div>
       <div class="content-detail-content">글내용여기에 들어간다.</div>
       <div class="content-detail-button">
+          <b-button> 목록 </b-button>
           <b-button variant="primary"> 수정 </b-button>&nbsp;
           <b-button variant="success"> 삭제</b-button>
       </div>

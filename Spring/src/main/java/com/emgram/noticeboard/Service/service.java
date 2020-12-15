@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.emgram.noticeboard.Dao.dao;
+import com.emgram.noticeboard.Model.PostModel;
 import com.emgram.noticeboard.Model.UserModel;
 @Service
 public class service {
@@ -25,6 +26,14 @@ public class service {
     
     public String UserCheck(String id) {
     	return dao.UserCheck(id);
+    }
+    //로그인했을 때 아이디랑 비밀번호 체크하는 메소드 생성
+    public List<UserModel> LoginCheck(String id) {
+    	return dao.LoginCheck(id);
+    }
+    
+    public List<PostModel> BoardList(){
+    	return dao.BoardList();
     }
 }
 

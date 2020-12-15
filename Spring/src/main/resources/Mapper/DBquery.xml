@@ -17,5 +17,13 @@
     <select id="UserCheck" resultType="String">
     	SELECT user.id FROM user WHERE id= '${id}'
     </select>
+    
+    <select id="LoginCheck" resultType="com.emgram.noticeboard.Model.UserModel">
+    	SELECT * FROM user WHERE id= '${id}'
+    </select>
+    
+    <select id="BoardList" resultType="com.emgram.noticeboard.Model.PostModel">
+    	SELECT * FROM noticeboard
+    </select>
 </mapper>
 
