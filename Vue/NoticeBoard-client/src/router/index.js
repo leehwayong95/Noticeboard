@@ -1,11 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import Home from '@/components/Home'
-// import Login from '@/components/Login'
-// import Register from '@/components/Register'
 import Test from '@/components/Test'
 import SignUp from '@/components/SignUp'
-import login from '@/components/Login'
 import board from '@/components/Board'
 import write from '@/components/WritePost'
 import axios from 'axios'
@@ -29,11 +25,6 @@ const router = new Router({
       path: '/signup',
       name: 'signuptpage',
       component: SignUp
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: login
     },
     {
       path: '/board',

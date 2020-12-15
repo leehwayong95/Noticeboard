@@ -2,17 +2,17 @@
     <div class='addWrap'>
         <h1>상세 보기</h1>
         <form>
-            <table class='tdAdd'>
+            <table class='tdList'>
                 <tr>
-                    <th>제목</th>
+                    <th scope="cols">제목</th>
                     <td>{{title}}</td>
                 </tr>
                 <tr>
-                    <th>내용</th>
+                    <th scope="cols">내용</th>
                     <td>{{content}}</td>
                 </tr>
                 <tr>
-                    <th>작성자</th>
+                    <th scope="cols">작성자</th>
                     <td>{{id}}</td>
                 </tr>
             </table>
@@ -49,3 +49,7 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+</style>
