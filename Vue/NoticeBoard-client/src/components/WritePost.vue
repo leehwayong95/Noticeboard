@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>게시판 등록</h1>
+        <h1>게시글 등록</h1>
         <div class="AddWrap">
             <form>
                 <table class="tbAdd">
@@ -10,11 +10,11 @@
                     </colgroup>
                     <tr>
                         <th>제목</th>
-                        <td><input type="text" v-model="title" ref="title" /></td>
+                        <td><input type="text" v-model="title" ref="title" maxlength="30"/></td>
                     </tr>
                     <tr>
                         <th>내용</th>
-                        <td><textarea v-model="cont" ref="cont"></textarea></td>
+                        <td><textarea v-model="cont" ref="cont" maxlength="254"></textarea></td>
                     </tr>
                 </table>
             </form>
@@ -88,6 +88,6 @@ export default {
 .tbAdd td textarea{width:100%; min-height:300px; padding:10px; box-sizing:border-box;}
 .btnWrap{text-align:center; margin:20px 0 0 0;}
 .btnWrap a{margin:0 10px;}
-.btnAdd {background:#43b984}
+.btnAdd {background:rgb(74, 167, 221)}
 .btnDelete{background:#f00;}
 </style>
