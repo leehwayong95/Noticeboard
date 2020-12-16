@@ -89,5 +89,4 @@ export default {
 .btnWrap{text-align:center; margin:20px 0 0 0;}
 .btnWrap a{margin:0 10px;}
 .btnAdd {background:rgb(74, 167, 221)}
-.btnDelete{background:#f00;}
 </style>
