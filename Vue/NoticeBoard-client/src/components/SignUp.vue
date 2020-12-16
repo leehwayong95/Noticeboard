@@ -124,7 +124,8 @@ button {
   cursor: pointer;
   display: block;
   position: relative;
-  border: 3px solid rgb(74, 167, 221);;
+  border-color: rgb(74, 167, 221);
+  border-radius: 5px;
   transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
 }
 
