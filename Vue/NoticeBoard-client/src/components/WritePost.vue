@@ -14,7 +14,7 @@
                     </tr>
                     <tr>
                         <th>내용</th>
-                        <td><textarea v-model="cont" ref="cont" maxlength="254"></textarea></td>
+                        <td><Editor ref='content' initialEditType='wysiwyg'/></td>
                     </tr>
                 </table>
             </form>
@@ -28,6 +28,10 @@
 </template>
 
 <script>
+import 'codemirror/lib/codemirror.css'
+import '@toast-ui/editor/dist/toastui-editor.css'
+import { Editor } from '@toast-ui/vue-editor'
+
 export default {
   mounted () {
     this.permission()
@@ -38,6 +42,9 @@ export default {
       cont: '',
       form: ''
     }
+  },
+  components: {
+    Editor
   },
   methods: {
     permission () {
@@ -58,6 +65,7 @@ export default {
         this.$refs.title.focus()
         return
       }
+      this.cont = this.$refs.content.invoke('getMarkdown')
       this.form = {
         title: this.title,
         content: this.cont

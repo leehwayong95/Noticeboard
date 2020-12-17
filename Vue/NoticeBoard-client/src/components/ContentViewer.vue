@@ -17,7 +17,7 @@
         </tr>
         <tr>
             <th>내용</th>
-            <td class="content">{{content}}</td>
+            <td class="content"><Viewer v-if = "content != null" :initialValue = "content"/></td>
         </tr>
       </table>
     </form>
@@ -28,6 +28,10 @@
 </template>
 
 <script>
+import 'codemirror/lib/codemirror.css'
+import '@toast-ui/editor/dist/toastui-editor.css'
+import { Viewer } from '@toast-ui/vue-editor'
+
 export default {
   mounted () {
     this.getPost()
@@ -35,10 +39,13 @@ export default {
   data () {
     return {
       title: '',
-      content: '',
+      content: null,
       id: '',
       postindex: this.$route.query.index
     }
+  },
+  components: {
+    Viewer
   },
   methods: {
     getPost () {
