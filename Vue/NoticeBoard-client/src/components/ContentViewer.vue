@@ -82,5 +82,12 @@ button {
   position: relative;
   border-color: rgb(74, 167, 221);
   border-radius: 5px;
+  transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+}
+
+button:hover {
+  color: #000 !important;
+  background-color: rgb(74, 167, 221);
+  text-shadow: none;
 }
 </style>
