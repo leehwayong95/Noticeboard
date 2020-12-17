@@ -14,7 +14,7 @@
                     </tr>
                     <tr>
                         <th>내용</th>
-                        <td><Editor ref='content' initialEditType='wysiwyg'/></td>
+                        <td><Editor ref='content' initialEditType='wysiwyg' :initialValue = "cont"/></td>
                     </tr>
                 </table>
             </form>
