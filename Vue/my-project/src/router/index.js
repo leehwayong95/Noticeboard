@@ -3,8 +3,9 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Login from '@/components/Login.vue'
 import Join from '@/components/Join.vue'
-import Board from '@/components/Board'
+import Board from '@/components/Board.vue'
 import BoardText from '@/components/BoardText'
+
 Vue.use(Router)
 
 export default new Router({
@@ -17,22 +18,22 @@ export default new Router({
     },
     {
       path: '/login',
-      name: 'Loginpage',
+      name: 'Login',
       component: Login
     },
     {
       path: '/join',
-      name: 'Joinpage',
+      name: 'Join',
       component: Join
     },
     {
       path: '/board',
-      name: 'Boardpage',
+      name: 'Board',
       component: Board
     },
     {
       path: '/boardtext',
-      name: 'Boartextdpage',
+      name: 'BoardText',
       component: BoardText
     }
   ]

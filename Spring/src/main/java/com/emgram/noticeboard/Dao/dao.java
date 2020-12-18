@@ -2,6 +2,7 @@ package com.emgram.noticeboard.Dao;
 
 import java.util.List;
 
+import com.emgram.noticeboard.Model.PostModel;
 import com.emgram.noticeboard.Model.UserModel;
 
 
@@ -18,6 +19,9 @@ public interface dao {
 	
 	
 	public void NewUser(String id,String pw,String name) throws Exception;
+	
+	public List<PostModel> getboard(String id) throws Exception;
+	
 }
 
 

@@ -1,11 +1,19 @@
 package com.emgram.noticeboard.Model;
 
 public class PostModel {
+	private String postindex;
+
 	private String title;
 	private String content;
 	private String date;
 	private String id;
 	
+	public String getPostindex() {
+		return postindex;
+	}
+	public void setPostindex(String postindex) {
+		this.postindex = postindex;
+	}
 	public String getTitle() {
 		return title;
 	}

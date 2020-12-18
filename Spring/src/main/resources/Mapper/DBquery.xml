@@ -7,7 +7,7 @@
     </select>
     
      <select id="testdb" parameterType="String" resultType="String">
-         SELECT user.name FROM user WHERE user.id='${id}'
+         SELECT user.name FROM user WHERE (user.id='${id}'AND user.PW='${pw}')
     </select>
     
      <select id="Gettest" resultType="String">
@@ -17,4 +17,8 @@
     <insert id="NewUser" parameterType="String">
          INSERT INTO user(user.id,user.PW,user.name) VALUES ('${id}', '${pw}','${name}');
     </insert>
+    
+    <select id="getboard" parameterType="String" resultType="com.emgram.noticeboard.Model.PostModel">
+         SELECT * FROM noticeboard  WHERE noticeboard.id='${id}' ORDER BY noticeboard.postindex DESC;
+    </select>
 </mapper>

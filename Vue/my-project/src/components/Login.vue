@@ -13,9 +13,9 @@
             v-model="pw"
         />
         <br/><br/>
-        <button type="String" @click="tt">로그인</button>
-        <button type="button" @click="login">회원가입</button>
-        <button type="button" v-on:click="go">페이지 이동</button>
+        <button type="String" @click="Login">로그인</button>
+        <button type="button" @click="Join">회원가입</button>
+        <button type="button" @click="Join">페이지 이동</button>
     </div>
 </template>
 
@@ -30,18 +30,25 @@ export default {
     }
   },
   methods: {
-    login () {
-      axios.get('http://localhost:9000/test')
-        .then(res => console.log(res))
-        .catch(error => console.log(error))
-    },
-    tt () {
-      axios.post('http://localhost:9000/login2', {id: this.id, pw: this.pw})
-        .then(res => console.log(res))
-        .catch(error => console.log(error))
-    },
-    go: function (event) {
+    Join () {
       this.$router.push('/Join')
+    },
+    Login () {
+      axios.post('http://localhost:9000/login2', {id: this.id, pw: this.pw})
+        .then(res => {
+          if (res.data === '') {
+            alert('로그인 싪패')
+            console.log(res)
+          } else {
+            alert('로그인 성공')
+            console.log(res)
+            this.$router.push('/board')
+          }
+        })
+        .catch(error => {
+          alert('아이디와 비밀번호를 확인하세요')
+          console.log(error)
+        })
     }
   }
 }

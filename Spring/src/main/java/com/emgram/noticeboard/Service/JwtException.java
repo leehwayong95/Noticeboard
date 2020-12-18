@@ -1,5 +1,5 @@
 package com.emgram.noticeboard.Service;
 
-public class Jwtcreate {
+public class JwtException {
 
 }

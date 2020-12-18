@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.emgram.noticeboard.Model.PostModel;
 import com.emgram.noticeboard.Model.UserModel;
 import com.emgram.noticeboard.Service.service;
 import com.sun.net.httpserver.Authenticator.Result;
@@ -42,8 +43,6 @@ public class Control {
 	    @ResponseStatus(value = HttpStatus.OK)
 	    public @ResponseBody List<UserModel> LoginPage()throws Exception{
 	        return service.getDual();
-	        
-	        
 	    }
 	    
 	   
@@ -54,10 +53,6 @@ public class Control {
 	    	//System.out.println(user.getPW());
 	        return service.testyohan(user.getId(),user.getPW());
 	    }
-	
-	    
-	 
-	    
 	    /*
 	    @GetMapping("/test")
 	    public String Test() throws Exception {
@@ -65,6 +60,15 @@ public class Control {
 	    }
 	    */
 	    
+	    
+	    
+
+	    @PostMapping("/getboard")
+	    @ResponseStatus(value = HttpStatus.OK)
+	    public List<PostModel> Getboard(@RequestBody PostModel Post) throws Exception{//vue 에서 온파일 모델형식으로 받는다) 
+	    	//RequestBody에서 다양하게 받는 방법을 알고 싶다. ======================================================
+	        return service.getboard(Post.getId());
+	    }
 	    
 	    
 	    

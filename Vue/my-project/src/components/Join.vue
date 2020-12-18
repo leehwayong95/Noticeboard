@@ -30,7 +30,6 @@ export default {
     join () {
       axios.post('http://localhost:9000/test', {id: this.id, pw: this.pw, name: this.name})
         .then((response) => {
-          console.log(response.headers)
           if (response.data.success === true) {
             alert('가입 성공')
           } else {

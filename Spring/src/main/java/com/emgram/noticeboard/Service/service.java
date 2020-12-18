@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.emgram.noticeboard.Dao.dao;
+import com.emgram.noticeboard.Model.PostModel;
 import com.emgram.noticeboard.Model.UserModel;
 @Service
 public class service {
@@ -28,6 +29,9 @@ public class service {
         dao.NewUser(id,pw,name);
     }
     
+    public List<PostModel> getboard(String id)throws Exception{
+        return dao.getboard(id);
+    }
     
 
 }
