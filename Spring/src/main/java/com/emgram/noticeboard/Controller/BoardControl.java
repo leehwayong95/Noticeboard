@@ -41,6 +41,12 @@ public class BoardControl {
 	        return service.getPostsList(page);
 	    }
 	    
+	    @GetMapping("/postcount")
+	    public @ResponseBody int getPostCount()
+	    {
+	    	return service.getPostCount();
+	    }
+	    
 	    @GetMapping("/board/post")
 	    public @ResponseBody PostModel getPost(
 	    		@RequestParam(value = "index")int index) 

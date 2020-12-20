@@ -16,9 +16,13 @@ public class BoardService {
     dao dao;
  
     public List<PostModel> getPostsList(int page){
-    	int min = 10 * page - 9;
-    	int max = 10 * page;
+    	int min = (page - 1) * 10;
+    	int max = 10 * page - 1;
         return dao.getPostsList(min, max);
+    }
+    
+    public int getPostCount() {
+    	return dao.getPostCount();
     }
     
     public boolean writePost(PostModel post) throws Exception

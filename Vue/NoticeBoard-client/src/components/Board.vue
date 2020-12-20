@@ -17,6 +17,9 @@
           </tr>
         </table>
       </div>
+      <div class="pagging">
+        <a v-for="(n,index) in paging()" v-bind:key="index" href="javascript:;" @click="move_page(n)">{{n}}</a>
+      </div>
       <div class="btnRightWrap">
         <button type="submit" v-on:click="logout">로그아웃</button>
         <button type="button" v-if="!permission" v-on:click="write">글쓰기</button>
@@ -34,17 +37,35 @@ export default {
       body: '',
       list: '',
       postindex: '',
-      permission: true
+      startpage: 1,
+      endpage: null,
+      page: 1,
+      permission: true,
+      paging: function () {
+        var pagenumber = []
+        for (var i = this.startpage; i <= this.endpage; i++) {
+          pagenumber.push(i)
+        }
+        return pagenumber
+      }
     }
   },
   methods: {
     getList () {
-      this.$axios.get('http://3.35.254.128/api/board')
+      this.$axios.get('http://3.35.254.128/api/board?page=' + this.page)
         .then((res) => {
           this.list = res.data
         })
         .catch((err) => {
           console.log(err, 'fuck')
+        })
+      this.$axios.get('http://3.35.254.128/api/postcount')
+        .then((res) => {
+          let pagecount = res.data
+          this.endpage = pagecount / 10
+          if (pagecount % 10) {
+            this.endpage++
+          }
         })
       let cookie = document.cookie.split(';')
       for (let i in cookie) {
@@ -66,6 +87,12 @@ export default {
         path: 'board/view',
         query: {index: num}
       })
+    },
+    move_page (num) {
+      if (this.page !== num) {
+        this.page = num
+        this.getList()
+      }
     }
   }
 }
@@ -105,6 +132,7 @@ table.tbList tr:hover{
   justify-content: space-between;
   margin: 0 auto;
   width: 240px;
+  margin-top: 10px;
 }
 
 button {
@@ -143,5 +171,9 @@ button:before {
   color: #000 !important;
   background: rgb(74, 167, 221);
   transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+}
+
+.pagging a {
+  padding: 5px;
 }
 </style>

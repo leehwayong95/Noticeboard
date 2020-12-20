@@ -9,6 +9,10 @@
         ORDER BY b.postindex DESC
         LIMIT ${min}, ${max}
     </select>
+    <select id="getPostCount" resultType="int">
+    	SELECT COUNT(*) AS count 
+    	FROM noticeboard
+    </select>
     <select id="getPost" parameterType="int" resultType="com.emgram.noticeboard.Model.PostModel">
    		SELECT b.*, u.name FROM noticeboard b,user u WHERE b.id = u.id AND postindex=${index}
    	</select>
