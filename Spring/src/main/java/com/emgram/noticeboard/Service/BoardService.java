@@ -15,8 +15,10 @@ public class BoardService {
 	@Autowired
     dao dao;
  
-    public List<PostModel> getPostsList(){
-        return dao.getPostsList();
+    public List<PostModel> getPostsList(int page){
+    	int min = 10 * page - 9;
+    	int max = 10 * page;
+        return dao.getPostsList(min, max);
     }
     
     public boolean writePost(PostModel post) throws Exception

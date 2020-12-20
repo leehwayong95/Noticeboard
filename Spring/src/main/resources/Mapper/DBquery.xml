@@ -2,8 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.emgram.noticeboard.Dao.dao">
-    <select id="getPostsList" resultType="com.emgram.noticeboard.Model.PostModel">
-        SELECT b.*, u.name FROM noticeboard b, user u WHERE b.id = u.id ORDER BY b.postindex DESC
+    <select id="getPostsList" parameterType="int" resultType="com.emgram.noticeboard.Model.PostModel">
+        SELECT b.*, u.name 
+        FROM noticeboard b, user u
+        WHERE b.id = u.id 
+        ORDER BY b.postindex DESC
+        LIMIT ${min}, ${max}
     </select>
     <select id="getPost" parameterType="int" resultType="com.emgram.noticeboard.Model.PostModel">
    		SELECT b.*, u.name FROM noticeboard b,user u WHERE b.id = u.id AND postindex=${index}

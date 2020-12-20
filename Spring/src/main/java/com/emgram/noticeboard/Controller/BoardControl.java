@@ -35,9 +35,10 @@ public class BoardControl {
 	 	JwtService jwt;
 	 
 	    @GetMapping("/board")
-	    public @ResponseBody List<PostModel> getList()
+	    public @ResponseBody List<PostModel> getList(
+	    		@RequestParam(value="page")int page)
 	    {
-	        return service.getPostsList();
+	        return service.getPostsList(page);
 	    }
 	    
 	    @GetMapping("/board/post")
