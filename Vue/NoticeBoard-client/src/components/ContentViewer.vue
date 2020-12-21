@@ -13,7 +13,7 @@
         </tr>
         <tr>
             <th scope="cols">작성자</th>
-            <td>{{id}}</td>
+            <td>{{name}}</td>
         </tr>
         <tr>
             <th>내용</th>
@@ -22,7 +22,9 @@
       </table>
     </form>
     <div class="btnWrap">
-      <button type='button' v-on:click="list"> 목록</button>
+      <button type='button' v-on:click="list">목록</button>
+      <button type='button' v-if='owner'>수정</button>
+      <button type='button' v-if='owner'>삭제</button>
     </div>
   </div>
 </template>
@@ -33,14 +35,22 @@ import '@toast-ui/editor/dist/toastui-editor.css'
 import { Viewer } from '@toast-ui/vue-editor'
 
 export default {
-  mounted () {
+  created () {
     this.getPost()
+  },
+  updated () {
+    this.$axios.post('http://3.35.254.128/api/info')
+      .then((res) => {
+        this.owner = (res.data.Userid === this.id)
+      })
   },
   data () {
     return {
       title: '',
       content: null,
-      id: '',
+      name: '',
+      id: null,
+      owner: null,
       postindex: this.$route.query.index
     }
   },
@@ -53,7 +63,8 @@ export default {
         .then((res) => {
           this.title = res.data.title
           this.content = res.data.content
-          this.id = res.data.name
+          this.name = res.data.name
+          this.id = res.data.id
         })
     },
     list () {
@@ -90,6 +101,7 @@ button {
   border-color: rgb(74, 167, 221);
   border-radius: 5px;
   transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+  margin: 0px 10px;
 }
 
 button:hover {
