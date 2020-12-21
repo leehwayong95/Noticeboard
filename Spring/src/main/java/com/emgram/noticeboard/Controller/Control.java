@@ -23,7 +23,7 @@ public class Control {
 	    service service;
 	     
 	    @RequestMapping("/")
-	    public @ResponseBody String root_test()throws Exception{  
+	    public @ResponseBody String root_test()throws Exception{
 	        return "NoticeBoard-client/src/components/Test.Vue";
 	    }
 	    
@@ -65,6 +65,18 @@ public class Control {
 	    @RequestMapping(value="/boardlist",method= {RequestMethod.POST})
 	    public List<PostModel> BoardList() throws Exception{
 	    	return service.BoardList();
+	    }
+	    
+	    @RequestMapping(value="/boarddetail", method= {RequestMethod.POST})
+	    public PostModel BoardDetail(@RequestBody PostModel postindex){
+	    	PostModel a = new PostModel();
+	    	a= service.BoardDetail(postindex.getPostindex());
+	    	return a;
+	    }
+	    
+	    @RequestMapping(value="/boardcreate", method= {RequestMethod.POST})
+	    public void BoardCreate(@RequestBody PostModel post) {
+	    	service.BoardCreate(post.getTitle(), post.getContent(), post.getWriter());
 	    }
 }
 

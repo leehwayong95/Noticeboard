@@ -13,8 +13,6 @@ public class service {
 	@Autowired
     dao dao;
  
-
-    
     public String testyohan(String id) throws Exception{
     	return dao.testdb(id);
     }
@@ -34,6 +32,14 @@ public class service {
     
     public List<PostModel> BoardList(){
     	return dao.BoardList();
+    }
+    
+    public PostModel BoardDetail(int postindex){
+    	return dao.BoardDetail(postindex);
+    }
+    
+    public void BoardCreate(String title, String content, String writer) {
+    	dao.BoardCreate(title, content, writer);
     }
 }
 

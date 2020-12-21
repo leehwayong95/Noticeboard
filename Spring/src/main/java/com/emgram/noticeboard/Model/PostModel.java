@@ -8,7 +8,7 @@ public class PostModel {
 	private String title;
 	private String content;
 	private String date;
-	private String key;
+	private String writer;
 	
 	public int getPostindex() {
 		return postindex;
@@ -34,11 +34,11 @@ public class PostModel {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	public String getKey() {
-		return key;
+	public String getWriter() {
+		return writer;
 	}
-	public void setKey(String key) {
-		this.key = key;
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
 	
 	

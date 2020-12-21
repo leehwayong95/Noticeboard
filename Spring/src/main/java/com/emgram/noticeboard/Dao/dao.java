@@ -20,6 +20,10 @@ public interface dao {
 	public List<UserModel> LoginCheck(String id);
 	
 	public List<PostModel> BoardList();
+	
+	public PostModel BoardDetail(int postindex);
+	
+	public void BoardCreate(String title, String content, String writer);
 }
 
 

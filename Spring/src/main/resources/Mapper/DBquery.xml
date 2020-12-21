@@ -23,7 +23,15 @@
     </select>
     
     <select id="BoardList" resultType="com.emgram.noticeboard.Model.PostModel">
-    	SELECT * FROM noticeboard
+    	SELECT * FROM noticeboard order by postindex desc
     </select>
+    
+    <select id="BoardDetail" resultType="com.emgram.noticeboard.Model.PostModel">
+    	SELECT * FROM noticeboard WHERE postindex=${postindex}
+    </select>
+    
+    <insert id="BoardCreate" parameterType="com.emgram.noticeboard.Model.PostModel">
+    	INSERT INTO noticeboard(title, content, writer) VALUES('${title}', '${content}', '${writer}')
+    </insert>
 </mapper>
 

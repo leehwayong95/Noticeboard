@@ -3,15 +3,15 @@
     <b-card>
       <div class="content-detail-content-info">
         <div class="content-detail-content-info-left">
-          <div class="content-detail-content-info-left-number">1</div>
-          <div class="content-detail-content-info-left-subject">시작이다</div>
+          <div class="content-detail-content-info-left-number">{{list.postindex}}</div>
+          <div class="content-detail-content-info-left-subject">{{list.title}}</div>
         </div>
         <div class="content-detail-content-info-right">
-            <div class="content-detail-content-info-right-user">글쓴이 : 나</div>
-            <div class="content-detail-content-info-right-created">등록일 : 어제</div>
+            <div class="content-detail-content-info-right-user">{{list.writer}}</div>
+            <div class="content-detail-content-info-right-created">{{list.date}}</div>
         </div>
       </div>
-      <div class="content-detail-content">글내용여기에 들어간다.</div>
+      <div class="content-detail-content">{{list.content}}</div>
       <div class="content-detail-button">
           <b-button> 목록 </b-button>
           <b-button variant="primary"> 수정 </b-button>&nbsp;
@@ -22,7 +22,23 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
+  data () {
+    return {
+      index: '',
+      list: []
+    }
+  },
+  mounted () {
+    this.index = this.$route.params.index
+    axios.post('http://localhost:8081/boarddetail', {postindex: this.index})
+      .then(response => {
+        this.list = response.data
+      }).catch((ex) => {
+        console.warn('ERROR:', ex)
+      })
+  }
 }
 </script>
 
@@ -42,6 +58,9 @@ export default {
   padding: 1rem;
 }
 
+.content-detail-content-info-left-subject{
+  text-align: center;
+}
 .content-detail-content-info-right {
   width: 300px;
   display: flex;

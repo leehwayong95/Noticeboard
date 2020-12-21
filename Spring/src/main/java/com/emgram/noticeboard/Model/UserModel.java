@@ -23,7 +23,6 @@ public class UserModel {
 	public void setPW(String pW) {
 		PW = pW;
 	}
-	
 	public String getPermission() {
 		return permission;
 	}

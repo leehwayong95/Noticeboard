@@ -41,6 +41,11 @@ export default new Router({
       path: '/boardcreate',
       name: 'boardcreate',
       component: BoardCreate
+    },
+    {
+      path: '/boarddetail/:index',
+      name: 'boarddetail',
+      component: BoardDetail
     }
   ]
 })

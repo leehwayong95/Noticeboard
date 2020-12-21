@@ -7,6 +7,7 @@
             :per-page="perPage"
             :current-page="currentPage"
             :fields="fields"
+            @row-clicked="rowclick"
         ></b-table>
         <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" align="center"></b-pagination>
         <b-button v-on:click="logout">로그아웃</b-button>
@@ -15,15 +16,34 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data () {
     return {
-      fields: ['index', 'context', 'writer', 'date'],
+      currentPage: 1,
+      perPage: 9,
+      fields: [
+        {
+          key: 'postindex',
+          label: 'No'
+        },
+        {
+          key: 'title',
+          label: '제목',
+          tdclass: 'titleclass'
+        },
+        {
+          key: 'writer',
+          label: '작성자',
+          tbclass: 'writerclass'
+        },
+        {
+          key: 'date',
+          label: '날짜',
+          tbclass: 'dateclass'
+        }],
       items: [
-        {isActive: true, date: 40, context: 'thomas', writer: 'vue', index: '1'},
-        {isActive: false, date: 21, context: 'cinder', writer: 'vue', index: '2'},
-        {isActive: false, date: 34, context: 'woslei', writer: 'vue', index: '3'},
-        {isActive: true, date: 83, context: 'diejfosid', writer: 'vue', index: '4'}
       ]
     }
   },
@@ -33,11 +53,38 @@ export default {
     },
     write () {
       this.$router.push('/boardcreate')
+    },
+    rowclick (item, postindex) {
+      this.$router.push({
+        path: `/boarddetail/${item.postindex}`
+      })
+      console.warn(item)
+    }
+  },
+  mounted () {
+    axios.post('http://localhost:8081/boardlist')
+      .then(response => {
+        this.items = response.data
+      }).catch((ex) => {
+        console.warn('ERROR:', ex)
+      })
+  },
+  computed: {
+    rows () {
+      return this.items.length
     }
   }
 }
 </script>
 
 <style scoped>
-
+.titleclass{
+  max-width: 500px;
+}
+.writerclass{
+  max-width: 200px;
+}
+.dateclass{
+  max-width: 200px;
+}
 </style>
