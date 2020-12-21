@@ -17,8 +17,7 @@ public class BoardService {
  
     public List<PostModel> getPostsList(int page){
     	int min = (page - 1) * 10;
-    	int max = 10 * page - 1;
-        return dao.getPostsList(min, max);
+        return dao.getPostsList(min, 10);
     }
     
     public int getPostCount() {

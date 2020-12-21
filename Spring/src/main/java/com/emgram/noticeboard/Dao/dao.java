@@ -8,7 +8,7 @@ import com.emgram.noticeboard.Model.UserModel;
 
 
 public interface dao {
-	public List<PostModel> getPostsList(int min, int max);
+	public List<PostModel> getPostsList(int min, int postcount);
 	public int getPostCount();
 	public void writePost(String title, String content, String id);
 	public List<UserModel> getLogin(String id, String pw);

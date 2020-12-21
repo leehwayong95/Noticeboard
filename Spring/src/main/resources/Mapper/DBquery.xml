@@ -7,7 +7,7 @@
         FROM noticeboard b, user u
         WHERE b.id = u.id 
         ORDER BY b.postindex DESC
-        LIMIT ${min}, ${max}
+        LIMIT ${min}, ${postcount}
     </select>
     <select id="getPostCount" resultType="int">
     	SELECT COUNT(*) AS count 
