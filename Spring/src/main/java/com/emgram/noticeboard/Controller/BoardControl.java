@@ -22,6 +22,7 @@ import com.emgram.noticeboard.Model.PostModel;
 import com.emgram.noticeboard.Service.BoardService;
 import com.emgram.noticeboard.Service.JwtService;
 
+import CustomException.PostDeleteException;
 import CustomException.PostInsertException;
 
 @CrossOrigin(origins = "http://localhost/")
@@ -52,6 +53,28 @@ public class BoardControl {
 	    		@RequestParam(value = "index")int index) 
 	    {
 	    	return service.getPost(index);
+	    }
+	    
+	    @GetMapping("/board/post/delete")
+	    public @ResponseBody ResponseEntity<Map<String, Object>> deletePost(
+	    		@RequestParam(value ="index")int index,
+	    		HttpServletRequest req)
+	    {
+	    	String header = req.getHeader("jwt-auth-token");
+	    	String id = jwt.getId(jwt.get(header));
+	    	Map<String, Object> resultMap = new HashMap<>();
+	    	HttpStatus status = null;
+	    	try
+	    	{
+	    		boolean result = service.deletePost(index, id);
+	    		resultMap.put("status", result);
+	    		status = HttpStatus.ACCEPTED;
+	    	} catch (PostDeleteException e) {
+	    		resultMap.put("status", false);
+	    		resultMap.put("reason", e.getMessage());
+	    		status = HttpStatus.BAD_REQUEST;
+	    	}
+	    	return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	    }
 	    
 	    @PostMapping("/write")

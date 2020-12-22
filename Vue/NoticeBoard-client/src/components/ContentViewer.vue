@@ -42,7 +42,7 @@ export default {
     this.$axios.post('http://3.35.254.128/api/info')
       .then((res) => {
         this.owner = (res.data.Userid === this.id)
-      })
+      })// follow the owner permission for update, delete button hidden
   },
   data () {
     return {

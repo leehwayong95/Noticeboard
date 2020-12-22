@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.emgram.noticeboard.Dao.dao;
 import com.emgram.noticeboard.Model.PostModel;
 
+import CustomException.PostDeleteException;
 import CustomException.PostInsertException;
 
 @Service
@@ -38,5 +39,22 @@ public class BoardService {
     public PostModel getPost(int index)
     {
     	return dao.getPost(index);
+    }
+    
+    
+    public boolean deletePost(int index, String id) throws PostDeleteException
+    {
+    	PostModel targetPost = getPost(index);
+    	if(targetPost.getId().equals(id))
+    	{
+			try {
+				dao.deletePost(index);
+				return true;
+			} catch (Exception e) {
+				throw new PostDeleteException("Already deleted");
+			}
+    	}
+    	else
+    		throw new PostDeleteException("You're not writer");
     }
 }
