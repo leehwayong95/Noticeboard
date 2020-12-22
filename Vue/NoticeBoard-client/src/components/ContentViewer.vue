@@ -23,8 +23,8 @@
     </form>
     <div class="btnWrap">
       <button type='button' v-on:click="list">목록</button>
-      <button type='button' v-if='owner'>수정</button>
-      <button type='button' v-if='owner'>삭제</button>
+      <!--button type='button' v-if='owner'>수정</button-->
+      <button type='button' v-if='owner' v-on:click="deletePost">삭제</button>
     </div>
   </div>
 </template>
@@ -66,6 +66,23 @@ export default {
           this.name = res.data.name
           this.id = res.data.id
         })
+    },
+    deletePost () {
+      var check = confirm('삭제하시겠습니까?')
+      if (check) {
+        this.$axios.get('http://3.35.254.128/api/board/post/delete?index=' + this.postindex)
+          .then((res) => {
+            if (res.data.status) {
+              alert('삭제되었습니다.')
+              this.$router.push('/board?page=1')
+            } else {
+              alert(res.data.reason)
+            }
+          })
+          .catch((err) => {
+            alert(err.response.data.reason.toString())
+          })
+      }
     },
     list () {
       this.$router.push('/board')

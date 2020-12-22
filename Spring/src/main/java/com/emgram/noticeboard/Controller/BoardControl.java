@@ -72,7 +72,7 @@ public class BoardControl {
 	    	} catch (PostDeleteException e) {
 	    		resultMap.put("status", false);
 	    		resultMap.put("reason", e.getMessage());
-	    		status = HttpStatus.BAD_REQUEST;
+	    		status = HttpStatus.NOT_ACCEPTABLE;
 	    	}
 	    	return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	    }
