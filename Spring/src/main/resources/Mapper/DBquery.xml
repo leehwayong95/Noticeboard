@@ -29,5 +29,10 @@
    		DELETE FROM noticeboard
    		WHERE postindex = ${index}
    	</delete>
+   	<insert id="editPost" parameterType ="com.emgram.noticeboard.Model.UserModel">
+   		UPDATE noticeboard
+   		SET title = '${title}', content = '${content}'
+   		WHERE postindex = ${postindex} AND id = '${id}'
+   	</insert>
 </mapper>
 

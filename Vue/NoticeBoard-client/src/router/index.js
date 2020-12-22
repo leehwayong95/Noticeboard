@@ -6,7 +6,8 @@ import board from '@/components/Board'
 import write from '@/components/WritePost'
 import axios from 'axios'
 import Viewer from '@/components/ContentViewer'
-import tiptap from '@/components/Writetest'
+import Edit from '@/components/EditPost'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -19,7 +20,7 @@ const router = new Router({
     },
     {
       path: '/test',
-      name: 'testpage',
+      name: 'login',
       component: Test
     },
     {
@@ -52,9 +53,12 @@ const router = new Router({
       }
     },
     {
-      path: '/writetest',
-      name: 'tiptap',
-      component: tiptap
+      path: '/board/edit',
+      name: 'Edit',
+      component: Edit,
+      beforeEnter: (to, from, next) => {
+        checklogin(to, from, next)
+      }
     }
   ]
 })

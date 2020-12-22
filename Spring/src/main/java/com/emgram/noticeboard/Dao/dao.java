@@ -14,6 +14,7 @@ public interface dao {
 	public void writePost(String title, String content, String id);
 	public PostModel getPost(int index);
 	public boolean deletePost(int index);
+	public boolean editPost(PostModel target);
 	
 	//Login and Signup
 	public List<UserModel> getLogin(String id, String pw);

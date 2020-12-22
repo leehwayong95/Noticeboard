@@ -9,6 +9,7 @@ import com.emgram.noticeboard.Dao.dao;
 import com.emgram.noticeboard.Model.PostModel;
 
 import CustomException.PostDeleteException;
+import CustomException.PostEditException;
 import CustomException.PostInsertException;
 
 @Service
@@ -46,7 +47,7 @@ public class BoardService {
     {
     	PostModel targetPost = getPost(index);
     	if(targetPost.getId().equals(id))
-    	{
+    	{//url 강제 접근시 막기위한 두번째 검사
 			try {
 				dao.deletePost(index);
 				return true;
@@ -56,5 +57,17 @@ public class BoardService {
     	}
     	else
     		throw new PostDeleteException("You're not writer");
+    }
+    
+    public boolean editPost(PostModel target) throws PostEditException
+    {
+    	PostModel targetPost = getPost(Integer.parseInt(target.getPostindex()));
+    	if(targetPost.getId().equals(target.getId())) {
+    		dao.editPost(target);
+    		return true;
+    	} else {
+    		throw new PostEditException("You're not writer");
+    	}
+    		
     }
 }

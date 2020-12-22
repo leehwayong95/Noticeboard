@@ -23,6 +23,7 @@ import com.emgram.noticeboard.Service.BoardService;
 import com.emgram.noticeboard.Service.JwtService;
 
 import CustomException.PostDeleteException;
+import CustomException.PostEditException;
 import CustomException.PostInsertException;
 
 @CrossOrigin(origins = "http://localhost/")
@@ -70,6 +71,25 @@ public class BoardControl {
 	    		resultMap.put("status", result);
 	    		status = HttpStatus.ACCEPTED;
 	    	} catch (PostDeleteException e) {
+	    		resultMap.put("status", false);
+	    		resultMap.put("reason", e.getMessage());
+	    		status = HttpStatus.NOT_ACCEPTABLE;
+	    	}
+	    	return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	    }
+	    
+	    @PostMapping("/edit")
+	    public ResponseEntity<Map<String, Object>> editPost(
+	    		@RequestBody PostModel post,
+	    		HttpServletRequest req)
+	    {
+	    	Map<String, Object> resultMap = new HashMap<>();
+	    	HttpStatus status = null;
+	    	post.setId(jwt.getId(jwt.get(req.getHeader("jwt-auth-token"))));
+	    	try {
+	    		resultMap.put("status",service.editPost(post));
+	    		status = HttpStatus.ACCEPTED;
+	    	} catch (PostEditException e) {
 	    		resultMap.put("status", false);
 	    		resultMap.put("reason", e.getMessage());
 	    		status = HttpStatus.NOT_ACCEPTABLE;
