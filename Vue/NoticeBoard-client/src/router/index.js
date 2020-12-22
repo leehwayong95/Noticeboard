@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Test from '@/components/Test'
+import Login from '@/components/Login'
 import SignUp from '@/components/SignUp'
 import board from '@/components/Board'
 import write from '@/components/WritePost'
@@ -15,7 +15,7 @@ const router = new Router({
     {
       path: '/',
       name: 'login',
-      component: Test
+      component: Login
     },
     {
       path: '/signup',

@@ -77,7 +77,7 @@ export default {
     logout () {
       document.cookie = 'jwt-auth-token=; expires=Web; 01 Jan 1970'
       document.cookie = 'permission=; expires=Web; 01 Jan 1970'
-      this.$router.push('/test')
+      this.$router.push('/')
     },
     write () {
       this.$router.push('/write')
