@@ -23,7 +23,7 @@
     </form>
     <div class="btnWrap">
       <button type='button' v-on:click="list">목록</button>
-      <!--button type='button' v-if='owner'>수정</button-->
+      <button type='button' v-if='owner' v-on:click="editPost">수정</button>
       <button type='button' v-if='owner' v-on:click="deletePost">삭제</button>
     </div>
   </div>
@@ -83,6 +83,9 @@ export default {
             alert(err.response.data.reason.toString())
           })
       }
+    },
+    editPost () {
+      this.$router.push('/edit?index=' + this.postindex)
     },
     list () {
       this.$router.push('/board')

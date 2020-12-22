@@ -6,7 +6,6 @@ import board from '@/components/Board'
 import write from '@/components/WritePost'
 import axios from 'axios'
 import Viewer from '@/components/ContentViewer'
-import Edit from '@/components/EditPost'
 
 Vue.use(Router)
 
@@ -15,11 +14,6 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'login',
-      component: Test
-    },
-    {
-      path: '/test',
       name: 'login',
       component: Test
     },
@@ -53,9 +47,9 @@ const router = new Router({
       }
     },
     {
-      path: '/board/edit',
+      path: '/edit',
       name: 'Edit',
-      component: Edit,
+      component: write,
       beforeEnter: (to, from, next) => {
         checklogin(to, from, next)
       }
@@ -77,14 +71,14 @@ function checklogin (to, from, next) {
         .catch((error) => {
           alert('로그인을 다시 해주세요.')
           console.log(error.message)
-          next('/test')
+          next('/')
         })
       break
     }
   }
   if (findflag === null) {
     alert('로그인을 해주세요')
-    next('/test')
+    next('/')
   }
 }
 

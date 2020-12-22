@@ -14,7 +14,12 @@
                     </tr>
                     <tr>
                         <th>내용</th>
-                        <td><Editor ref='content' initialEditType='wysiwyg' :initialValue = "cont"/></td>
+                        <td>
+                          <Editor
+                            ref='content'
+                            initialEditType='wysiwyg'
+                          />
+                        </td>
                     </tr>
                 </table>
             </form>
@@ -22,7 +27,8 @@
 
         <div class="btnWrap">
             <a href="javascript:;" @click="fnList" class="btn">목록</a>
-            <a href="javascript:;" @click="fnAddProc" class="btnAdd btn">등록</a>
+            <a href="javascript:;" v-if='!edit' @click="fnAddProc" class="btnAdd btn">등록</a>
+            <a href="javascript:;" v-else @click="fnAddProc" class="btnAdd btn">수정</a>
         </div>
     </div>
 </template>
@@ -33,20 +39,35 @@ import '@toast-ui/editor/dist/toastui-editor.css'
 import { Editor } from '@toast-ui/vue-editor'
 
 export default {
-  mounted () {
+  created () {
     this.permission()
+    this.getPost()
+  },
+  updated () {
+    this.$refs.content.invoke('setMarkdown', this.cont)
   },
   data () {
     return {
       title: '',
       cont: '',
-      form: ''
+      form: '',
+      edit: this.$route.query.index != null,
+      postindex: this.$route.query.index
     }
   },
   components: {
     Editor
   },
   methods: {
+    getPost () {
+      this.$axios.get('http://3.35.254.128/api/board/post?index=' + this.postindex)
+        .then((res) => {
+          this.title = res.data.title
+          this.cont = res.data.content
+          this.name = res.data.name
+          this.id = res.data.id
+        })
+    },
     permission () {
       let cookie = document.cookie.split(';')
       for (let i in cookie) {
@@ -68,21 +89,38 @@ export default {
       this.cont = this.$refs.content.invoke('getMarkdown')
       this.form = {
         title: this.title,
-        content: this.cont
+        content: this.cont,
+        postindex: this.postindex
       }
-      this.$axios.post('http://3.35.254.128/api/write', this.form)
-        .then((res) => {
-          if (res.data.status) {
-            alert('등록되었습니다.')
-            this.fnList()
-          } else {
+      if (this.edit) {
+        this.$axios.post('http://3.35.254.128/api/edit', this.form)
+          .then((res) => {
+            if (res.data.status) {
+              alert('수정되었습니다.')
+              this.$router.push({
+                path: 'board/view',
+                query: {index: this.postindex}
+              })
+            }
+          })
+          .catch((err) => {
+            console.log(err.response.data)
+          })
+      } else {
+        this.$axios.post('http://3.35.254.128/api/write', this.form)
+          .then((res) => {
+            if (res.data.status) {
+              alert('등록되었습니다.')
+              this.fnList()
+            } else {
+              alert('실행중 실패했습니다.\n다시 이용해 주세요')
+            }
+          })
+          .catch((err) => {
             alert('실행중 실패했습니다.\n다시 이용해 주세요')
-          }
-        })
-        .catch((err) => {
-          alert('실행중 실패했습니다.\n다시 이용해 주세요')
-          console.log(err)
-        })
+            console.log(err)
+          })
+      }
     }
   }
 }
