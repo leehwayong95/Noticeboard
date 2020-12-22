@@ -104,7 +104,7 @@ export default {
             }
           })
           .catch((err) => {
-            console.log(err.response.data)
+            alert('실행중 실패했습니다.\n다시이용해주세요')
           })
       } else {
         this.$axios.post('http://3.35.254.128/api/write', this.form)
