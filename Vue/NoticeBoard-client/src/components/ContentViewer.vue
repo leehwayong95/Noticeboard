@@ -74,7 +74,7 @@ export default {
           .then((res) => {
             if (res.data.status) {
               alert('삭제되었습니다.')
-              this.$router.push('/board?page=1')
+              this.$router.go(-1)
             } else {
               alert(res.data.reason)
             }

@@ -34,7 +34,7 @@ public class LoginController {
 	@PostMapping("/signin")
 	public ResponseEntity<Map<String, Object>> checkLogin(
 			@RequestBody UserModel user,
-			HttpServletResponse res
+			HttpServletRequest req
 			)
 	{
 		Map<String, Object> resultMap = new HashMap<>();
@@ -42,11 +42,11 @@ public class LoginController {
 		UserModel loginuser = null;
 		try {
 			loginuser = login.getLogin(user.getId(), user.getPW());
-			System.out.println("id : " + user.getId() + ", pw : " + user.getPW());
+			System.out.println("---id : " + user.getId() + ", pw : " + user.getPW()+"---");
+			System.out.println("---IP : "+ this.getClientIp(req)+"---");
 			loginuser.setId(user.getId());
 			loginuser.setPW(user.getPW());
 			String token = jwtService.create(loginuser);
-			res.setHeader("jwt-auth-token", token);
 			resultMap.put("token", token);
 			resultMap.put("status", true);
 			resultMap.put("permission", loginuser.getPermission());
@@ -101,5 +101,26 @@ public class LoginController {
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
+	
+	private String getClientIp (HttpServletRequest request)
+	{
+		String ip = request.getHeader("X-Forwarded-For");
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = request.getHeader("Proxy-Client-IP");  
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = request.getHeader("WL-Proxy-Client-IP");  
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = request.getHeader("HTTP_CLIENT_IP");  
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = request.getHeader("HTTP_X_FORWARDED_FOR");  
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = request.getRemoteAddr();  
+        }
+        return ip;
 	}
 }

@@ -43,19 +43,19 @@ public class JwtService {
 		builder.signWith(SignatureAlgorithm.HS256, salt.getBytes());
 		
 		final String jwt = builder.compact();
-		System.out.println("토큰발행 : " + jwt.toString());
+		System.out.println("토큰발행 : " + user.getName());
 		return jwt;
 	}
 	
 	public void checkValid(final String jwt)
 	{
-		System.out.println("토큰 점검 : " + jwt.toString());
+		System.out.println("---토큰 점검 실시---");
 		Jwts.parser().setSigningKey(salt.getBytes()).parseClaimsJws(jwt);
 	}
 	
 	public Map<String, Object> get(final String jwt)
 	{
-		System.out.println("jwt token parameter : "+jwt);
+		System.out.println("---check info in jwt---");
 		Jws<Claims> claims = null;
 		try {
 			claims = Jwts.parser().setSigningKey(salt.getBytes()).parseClaimsJws(jwt);

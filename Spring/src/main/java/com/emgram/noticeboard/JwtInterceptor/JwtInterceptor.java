@@ -27,10 +27,10 @@ public class JwtInterceptor implements HandlerInterceptor{
 		} else
 		{
 			String token = request.getHeader("jwt-auth-token");
-			if(token != null && token.length()>0)
+			if(token != null && token.length() > 0)
 			{
 				jwtService.checkValid(token);
-				System.out.println("token is not expired : " + token);
+				System.out.println("token isn't expired");
 				return true;
 			}else
 			{

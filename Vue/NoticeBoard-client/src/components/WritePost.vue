@@ -41,7 +41,9 @@ import { Editor } from '@toast-ui/vue-editor'
 export default {
   created () {
     this.permission()
-    this.getPost()
+    if (this.edit) {
+      this.getPost()
+    }
   },
   updated () {
     this.$refs.content.invoke('setMarkdown', this.cont)
@@ -105,6 +107,7 @@ export default {
           })
           .catch((err) => {
             alert('실행중 실패했습니다.\n다시이용해주세요')
+            console.log(err)
           })
       } else {
         this.$axios.post('http://3.35.254.128/api/write', this.form)
