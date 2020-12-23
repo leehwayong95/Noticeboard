@@ -33,6 +33,29 @@ public class service {
         return dao.getboard(id);
     }
     
+    public List<PostModel> getboardtext(String id)throws Exception{
+        return dao.getboardtext(id);
+    }
 
+    public PostModel testgetboardtext(String id)throws Exception{
+        return dao.testgetboardtext(id);
+    }
+    
+    public void deleteboardtext(String id)throws Exception{
+    	dao.deleteboardtext(id);
+    }
+    
+    public void insertboardtext(String title,String content,String id)throws Exception{
+    	dao.insertboardtext(title,content,id);
+    }
+    
+    public void updateboardtext(String title,String content,String id,String postindex)throws Exception{
+    	dao.updateboardtext(title,content,id,postindex);
+    }
+    
+    
+    
+    
 }
+    
 

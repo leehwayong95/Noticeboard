@@ -64,14 +64,14 @@ export default {
   methods: {
     write () {
       this.$router.push({
-        path: '/Boardcreate'
+        path: '/boardnew'
       })
     },
-    rowClick (items, postindex) { // 두개 지워도 잘된다 보통 2개의 값을 가지고 온것인데 이걸 어떻게 해석해야할까?
+    rowClick (items) { // 두개 지워도 잘된다 보통 2개의 값을 가지고 온것인데 이걸 어떻게 해석해야할까?
       console.log(items)
       this.$router.push({
-        path: '/BoardText',
-        query: {num: items}
+        path: '/boardText',
+        query: {num: items.postindex}
       })
     }
   }

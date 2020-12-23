@@ -7,7 +7,7 @@
     </select>
     
      <select id="testdb" parameterType="String" resultType="String">
-         SELECT user.name FROM user WHERE (user.id='${id}'AND user.PW='${pw}')
+         SELECT user.name FROM user WHERE (user.id='${id}' AND user.PW='${pw}')
     </select>
     
      <select id="Gettest" resultType="String">
@@ -19,6 +19,27 @@
     </insert>
     
     <select id="getboard" parameterType="String" resultType="com.emgram.noticeboard.Model.PostModel">
-         SELECT * FROM noticeboard  WHERE noticeboard.id='${id}' ORDER BY noticeboard.postindex DESC;
+         SELECT * FROM noticeboard WHERE noticeboard.id='${id}' ORDER BY noticeboard.postindex DESC;
     </select>
+    
+    <select id="getboardtext" parameterType="String" resultType="com.emgram.noticeboard.Model.PostModel">
+         SELECT * FROM noticeboard WHERE noticeboard.postindex='${num}'
+    </select>
+    
+     <select id="testgetboardtext" parameterType="String" resultType="com.emgram.noticeboard.Model.PostModel">
+         SELECT * FROM noticeboard WHERE noticeboard.postindex='${num}'
+    </select>
+
+    <delete id="deleteboardtext" parameterType="String">
+    	DELETE FROM noticeboard WHERE noticeboard.postindex='${num}'
+    </delete>
+    
+     <insert id="insertboardtext" parameterType="String">
+         INSERT INTO noticeboard(noticeboard.title,noticeboard.content,noticeboard.id) VALUES ('${title}', '${content}','${id}');
+    </insert>
+    
+    <update id="updateboardtext" parameterType="String">
+    UPDATE noticeboard SET noticeboard.title='${title}',noticeboard.content='${content}',noticeboard.id='${id}' WHERE noticeboard.postindex='${postindex}';
+    </update>
+    
 </mapper>

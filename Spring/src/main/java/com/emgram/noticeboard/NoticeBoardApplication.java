@@ -10,5 +10,4 @@ public class NoticeBoardApplication {
 		SpringApplication.run(NoticeBoardApplication.class, args);
 
 	}
-
 }

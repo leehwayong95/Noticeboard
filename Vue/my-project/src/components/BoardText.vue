@@ -3,15 +3,15 @@
     <b-card>
       <div class="content-detail-content-info">
         <div class="content-detail-content-info-left">
-          <div class="content-detail-content-info-left-number">id</div>
-          <div class="content-detail-content-info-left-subject">title</div>
+          <div class="content-detail-content-info-left-number">{{list.postindex}}</div>
+          <div class="content-detail-content-info-left-subject">{{list.title}}</div>
         </div>
         <div class="content-detail-content-info-right">
-          <div class="content-detail-content-info-right-user">글쓴이: user</div>
-          <div class="content-detail-content-info-right-created">등록일: date</div>
+          <div class="content-detail-content-info-right-user">글쓴이: {{list.id}}</div>
+          <div class="content-detail-content-info-right-created">등록일: {{list.date}}</div>
         </div>
       </div>
-      <div class="content-detail-content">아브라카타듭라</div>
+      <div class="content-detail-content">{{list.content}}</div>
       <div class="content-detail-button">
         <b-button variant="primary" @click="updateData">수정</b-button>&nbsp;
         <b-button variant="success" @click="deleteData">삭제</b-button>
@@ -22,16 +22,63 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
+  data () {
+    return {
+      num: null,
+      list: []
+    }
+  },
+  // name: 'BoardText',
+  // num: $route.query.num,
+  mounted () {
+    axios.post('http://localhost:9000/testgetboardtext', {postindex: this.$route.query.num})
+      .then(res => {
+        if (res.data === '') {
+          alert('관리자 정보를 불러올수 없습니다 ')
+          console.log(res)
+        } else {
+          // this.items = res.data
+          this.list = res.data
+          console.log(this.list)
+          console.log(this.list.title)
+        }
+      })
+      .catch(error => {
+        alert('잘못된 접근')
+        console.log(error)
+      })
+  },
   methods: {
     updateData () {
-      this.$router.push('/Join')
+      console.log(this.list)
+      this.$router.push({
+        path: '/boardupdate',
+        query: {num: this.$route.query.num, data: this.list}
+      })
     },
     deleteData () {
-      this.$router.push('/Join')
+      // confirm('Are you ready?')
+      // this.$router.push('/board')
+      var select = confirm('진짜로 삭제 하시겠습니까?')
+      if (select === true) {
+        axios.post('http://localhost:9000/deleteboardtext', {postindex: this.$route.query.num})
+          .then(res => {
+            if (res.data === '') {
+              alert('삭제되었습니다. ')
+              this.$router.push('/board')
+              console.log(res)
+            } else {
+              console.log('삭제가 안됨')
+            }
+          })
+      } else {
+        alert('아니오')
+      }
     },
     Back () {
-      this.$router.push('/Join')
+      this.$router.push('/board')
     }
   }
 }
