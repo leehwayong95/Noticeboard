@@ -1,5 +1,6 @@
 package com.emgram.noticeboard.Service;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -47,10 +48,13 @@ public class BoardService {
     		}
     		return true;
     		
-    	} catch (Exception e)
+    	} catch (IOException e)
     	{
     		e.printStackTrace();
-    		throw new PostInsertException("Post Insert Error on DB");
+    		throw new PostInsertException("File Load Error");
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		throw new PostInsertException("Post Insert Error");
     	}
     }
     

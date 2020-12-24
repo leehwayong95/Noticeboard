@@ -21,6 +21,10 @@
                           />
                         </td>
                     </tr>
+                    <tr>
+                      <th>첨부파일</th>
+                      <td><input type=file name="file" id="file" /></td>
+                    </tr>
                 </table>
             </form>
         </div>
@@ -52,7 +56,6 @@ export default {
     return {
       title: '',
       cont: '',
-      form: '',
       edit: this.$route.query.index != null,
       postindex: this.$route.query.index
     }
@@ -89,13 +92,14 @@ export default {
         return
       }
       this.cont = this.$refs.content.invoke('getMarkdown')
-      this.form = {
-        title: this.title,
-        content: this.cont,
-        postindex: this.postindex
-      }
+      var form = new FormData()
+      form.append('title', this.title)
+      form.append('content', this.cont)
+      form.append('postindex', this.postindex)
+      var files = document.getElementById('file')
+      form.append('file', files.files[0])
       if (this.edit) {
-        this.$axios.post('http://3.35.254.128/api/edit', this.form)
+        this.$axios.post('http://3.35.254.128/api/edit', form)
           .then((res) => {
             if (res.data.status) {
               alert('수정되었습니다.')
@@ -110,7 +114,11 @@ export default {
             console.log(err)
           })
       } else {
-        this.$axios.post('http://3.35.254.128/api/write', this.form)
+        this.$axios.post('http://3.35.254.128/api/write', form, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
           .then((res) => {
             if (res.data.status) {
               alert('등록되었습니다.')
