@@ -1,5 +1,8 @@
 package com.emgram.noticeboard.Service;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,9 @@ import CustomException.PostInsertException;
 
 @Service
 public class BoardService {
+	
+	private String UPLOADED_FOLDER = "./upload/";
+	
 	@Autowired
     dao dao;
  
@@ -22,17 +28,28 @@ public class BoardService {
         return dao.getPostsList(min, 10);
     }
     
-    public int getPostCount() {
+    public int getPostCount() {	
     	return dao.getPostCount();
     }
     
-    public boolean writePost(PostModel post) throws Exception
+    public boolean writePost(PostModel post) throws PostInsertException
     {
     	try {
-    		dao.writePost(post.getTitle(), post.getContent(), post.getId());
+    		if(!(post.getFile() == null)) {
+    			byte[] bytes = post.getFile().getBytes();
+    			String filepath = UPLOADED_FOLDER + post.getFile().getOriginalFilename();
+    			Path path = Paths.get(filepath);
+    			Files.write(path, bytes);
+    			dao.writePost(post.getTitle(), post.getContent(), post.getId(), filepath);
+    		}
+    		else {
+    			dao.writePost(post.getTitle(), post.getContent(), post.getId(), "NULL");
+    		}
     		return true;
+    		
     	} catch (Exception e)
     	{
+    		e.printStackTrace();
     		throw new PostInsertException("Post Insert Error on DB");
     	}
     }

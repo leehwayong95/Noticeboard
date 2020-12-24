@@ -1,5 +1,7 @@
 package com.emgram.noticeboard.Model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,12 +14,26 @@ public class PostModel {
 	private String date;
 	private String id;
 	private String name;
+	private String filepath;
+	private MultipartFile file;
 	
+	public String getFilepath() {
+		return filepath;
+	}
+	public void setFilepath(String filepath) {
+		this.filepath = filepath;
+	}
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
 	}
 	public String getPostindex() {
 		return postindex;

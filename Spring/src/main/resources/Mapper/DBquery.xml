@@ -23,7 +23,7 @@
    		INSERT INTO user VALUES ("${id}","${name}","${pw}",${permission})
    	</insert>
    	<insert id="writePost" parameterType = "String">
-   		INSERT INTO noticeboard (title, content, id) VALUES ("${title}", "${content}", "${id}")
+   		INSERT INTO noticeboard (title, content, id, filepath) VALUES ("${title}", "${content}", "${id}", "${filepath}")
    	</insert>
    	<delete id="deletePost" parameterType ="String">
    		DELETE FROM noticeboard

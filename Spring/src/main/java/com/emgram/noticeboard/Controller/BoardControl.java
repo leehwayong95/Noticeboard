@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -99,7 +100,7 @@ public class BoardControl {
 	    
 	    @PostMapping("/write")
 	    public ResponseEntity<Map<String, Object>> writePost(
-	    		@RequestBody PostModel post,
+	    		@ModelAttribute PostModel post,
 	    		HttpServletRequest req) {
 	    	Map<String, Object> resultMap = new HashMap<>();
 	    	HttpStatus status = null;
@@ -111,13 +112,13 @@ public class BoardControl {
 	    		status = HttpStatus.ACCEPTED;
 	    	} catch(PostInsertException e)
 	    	{
-	    		System.out.println("PostInsertError");
+	    		System.out.println("err >> " + e.getMessage());
 	    		e.printStackTrace();
 	    		resultMap.put("message", e.getMessage());
 	    		status = HttpStatus.INTERNAL_SERVER_ERROR;
 	    	} catch (Exception e) 
 	    	{
-				System.out.println("fuck");
+				System.out.println("err >> " + e.getMessage());
 				e.printStackTrace();
 				resultMap.put("message",e.getMessage());
 				status = HttpStatus.INTERNAL_SERVER_ERROR;

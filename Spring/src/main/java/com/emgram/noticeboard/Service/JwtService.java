@@ -62,7 +62,7 @@ public class JwtService {
 
 		}catch (final Exception e)
 		{
-			throw new RuntimeException("keyParsingError:fuck");
+			throw new RuntimeException("KeyExpired");
 		}
 		
 		System.out.println("claims : " + claims.toString());
