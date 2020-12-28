@@ -21,7 +21,7 @@
         </tr>
         <tr v-if = 'file != null'>
             <th>첨부파일</th>
-            <td><a>{{file}}</a></td>
+            <td><a href="javascript:;" v-on:click="fileDownload">{{file}}</a></td>
         </tr>
       </table>
     </form>
@@ -92,6 +92,21 @@ export default {
             alert(err.response.data.reason.toString())
           })
       }
+    },
+    fileDownload () {
+      this.$axios.get('http://3.35.254.128/api/board/post/download?index=' + this.postindex, {responseType: 'blob'})
+        .then((res) => {
+          const url = window.URL.createObjectURL(new Blob([res.data], { type: res.headers['content-type'] }))
+          const link = document.createElement('a')
+          link.href = url
+          link.setAttribute('download', this.file)
+          document.body.appendChild(link)
+          link.click()
+        })
+        .catch((err) => {
+          console.log(err)
+          alert('download err')
+        })
     },
     editPost () {
       this.$router.push('/edit?index=' + this.postindex)
