@@ -1,6 +1,5 @@
 package com.emgram.noticeboard.Dao;
 
-import java.nio.file.Path;
 import java.util.List;
 
 import com.emgram.noticeboard.Model.PostModel;

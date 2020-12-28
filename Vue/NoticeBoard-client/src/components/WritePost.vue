@@ -95,13 +95,17 @@ export default {
       var form = new FormData()
       form.append('title', this.title)
       form.append('content', this.cont)
-      form.append('postindex', this.postindex)
       var files = document.getElementById('file')
       if (files.files[0]) {
         form.append('file', files.files[0])
       }
       if (this.edit) {
-        this.$axios.post('http://3.35.254.128/api/edit', form)
+        form.append('postindex', this.postindex)
+        this.$axios.post('http://3.35.254.128/api/edit', form, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
           .then((res) => {
             if (res.data.status) {
               alert('수정되었습니다.')

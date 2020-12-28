@@ -36,18 +36,12 @@ public class BoardService {
     public boolean writePost(PostModel post) throws PostInsertException
     {
     	try {
-    		if(!(post.getFile() == null)) {
-    			byte[] bytes = post.getFile().getBytes();
-    			String filepath = UPLOADED_FOLDER + post.getFile().getOriginalFilename();
-    			Path path = Paths.get(filepath);
-    			Files.write(path, bytes);
-    			dao.writePost(post.getTitle(), post.getContent(), post.getId(), filepath);
-    		}
-    		else {
-    			dao.writePost(post.getTitle(), post.getContent(), post.getId(), "NULL");
-    		}
+			byte[] bytes = post.getFile().getBytes();
+			String filepath = UPLOADED_FOLDER + post.getFile().getOriginalFilename();
+			Path path = Paths.get(filepath);
+			Files.write(path, bytes);
+			dao.writePost(post.getTitle(), post.getContent(), post.getId(), (post.getFile() == null) ? "NULL" : filepath);
     		return true;
-    		
     	} catch (IOException e)
     	{
     		e.printStackTrace();
@@ -56,6 +50,17 @@ public class BoardService {
     		e.printStackTrace();
     		throw new PostInsertException("Post Insert Error");
     	}
+    }
+    
+    public boolean editPost(PostModel target) throws PostEditException
+    {
+    	PostModel targetPost = getPost(Integer.parseInt(target.getPostindex()));
+    	if(targetPost.getId().equals(target.getId())) {
+    		dao.editPost(target);
+    		return true;
+    	} else {
+    		throw new PostEditException("You're not writer");
+    	}	
     }
     
     public PostModel getPost(int index)
@@ -78,17 +83,5 @@ public class BoardService {
     	}
     	else
     		throw new PostDeleteException("You're not writer");
-    }
-    
-    public boolean editPost(PostModel target) throws PostEditException
-    {
-    	PostModel targetPost = getPost(Integer.parseInt(target.getPostindex()));
-    	if(targetPost.getId().equals(target.getId())) {
-    		dao.editPost(target);
-    		return true;
-    	} else {
-    		throw new PostEditException("You're not writer");
-    	}
-    		
     }
 }

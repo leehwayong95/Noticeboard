@@ -81,7 +81,7 @@ public class BoardControl {
 	    
 	    @PostMapping("/edit")
 	    public ResponseEntity<Map<String, Object>> editPost(
-	    		@RequestBody PostModel post,
+	    		@ModelAttribute PostModel post,
 	    		HttpServletRequest req)
 	    {
 	    	Map<String, Object> resultMap = new HashMap<>();
