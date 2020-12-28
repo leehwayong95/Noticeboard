@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     getlogin () {
-      this.$axios.post('http://3.35.254.128/api/signin', {id: this.id, pw: this.pw})
+      this.$axios.post('http://3.35.254.128/api/signin', {id: this.id.toLowerCase(), pw: this.pw.toLowerCase()})
         .then((res) => {
           document.cookie = 'jwt-auth-token = ' + res.data.token
           document.cookie = 'permission = ' + res.data.permission
