@@ -97,7 +97,9 @@ export default {
       form.append('content', this.cont)
       form.append('postindex', this.postindex)
       var files = document.getElementById('file')
-      form.append('file', files.files[0])
+      if (files.files[0]) {
+        form.append('file', files.files[0])
+      }
       if (this.edit) {
         this.$axios.post('http://3.35.254.128/api/edit', form)
           .then((res) => {
