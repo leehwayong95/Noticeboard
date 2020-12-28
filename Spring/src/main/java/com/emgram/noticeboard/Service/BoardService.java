@@ -40,10 +40,14 @@ public class BoardService {
     public boolean writePost(PostModel post) throws PostInsertException
     {
     	try {
-			byte[] bytes = post.getFile().getBytes();
-			String filepath = UPLOADED_FOLDER + post.getFile().getOriginalFilename();
-			Path path = Paths.get(filepath);
-			Files.write(path, bytes);
+    		String filepath = "NULL";
+    		Path path;
+    		if(post.getFile() != null) {
+    			byte[] bytes = post.getFile().getBytes();
+				filepath = UPLOADED_FOLDER + post.getFile().getOriginalFilename();
+				path = Paths.get(filepath);
+				Files.write(path, bytes);
+    		}
 			dao.writePost(post.getTitle(), post.getContent(), post.getId(), (post.getFile() == null) ? "NULL" : filepath);
     		return true;
     	} catch (IOException e)

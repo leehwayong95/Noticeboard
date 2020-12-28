@@ -19,7 +19,7 @@
             <th>내용</th>
             <td class="content"><Viewer v-if = "content != null" :initialValue = "content"/></td>
         </tr>
-        <tr>
+        <tr v-if = 'file != null'>
             <th>첨부파일</th>
             <td><a>{{file}}</a></td>
         </tr>
@@ -53,6 +53,7 @@ export default {
       title: '',
       content: null,
       name: '',
+      file: null,
       id: null,
       owner: null,
       postindex: this.$route.query.index
@@ -69,6 +70,10 @@ export default {
           this.content = res.data.content
           this.name = res.data.name
           this.id = res.data.id
+          if (res.data.filepath !== 'NULL') {
+            let path = res.data.filepath.split('/')
+            this.file = path[path.length - 1]
+          }
         })
     },
     deletePost () {
