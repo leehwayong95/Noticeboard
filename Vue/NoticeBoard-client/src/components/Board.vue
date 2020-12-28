@@ -39,7 +39,7 @@ export default {
       postindex: '',
       startpage: 1,
       endpage: null,
-      page: 1,
+      page: (this.$route.query.page) ? this.route.query.page : 1,
       permission: true,
       paging: function () {
         var pagenumber = []

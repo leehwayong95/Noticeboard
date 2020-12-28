@@ -112,7 +112,7 @@ export default {
       this.$router.push('/edit?index=' + this.postindex)
     },
     list () {
-      this.$router.push('/board')
+      this.$router.go(-1)
     }
   }
 }

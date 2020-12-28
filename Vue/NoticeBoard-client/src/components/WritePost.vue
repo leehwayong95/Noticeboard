@@ -116,7 +116,7 @@ export default {
             }
           })
           .catch((err) => {
-            alert('실행중 실패했습니다.\n다시이용해주세요')
+            alert('첨부파일의 용량이 크거나 서버상태가 올바르지 않습니다.\n잠시후 이용해주세요.')
             console.log(err)
           })
       } else {
@@ -129,12 +129,10 @@ export default {
             if (res.data.status) {
               alert('등록되었습니다.')
               this.fnList()
-            } else {
-              alert('실행중 실패했습니다.\n다시 이용해 주세요')
             }
           })
           .catch((err) => {
-            alert('실행중 실패했습니다.\n다시 이용해 주세요')
+            alert('첨부파일의 용량이 크거나 서버상태가 올바르지 않습니다.\n잠시후 이용해주세요.')
             console.log(err)
           })
       }
