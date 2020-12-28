@@ -19,6 +19,10 @@
             <th>내용</th>
             <td class="content"><Viewer v-if = "content != null" :initialValue = "content"/></td>
         </tr>
+        <tr>
+            <th>첨부파일</th>
+            <td><a>{{file}}</a></td>
+        </tr>
       </table>
     </form>
     <div class="btnWrap">

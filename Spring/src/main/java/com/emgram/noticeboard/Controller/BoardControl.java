@@ -1,5 +1,8 @@
 package com.emgram.noticeboard.Controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,13 +10,15 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -77,6 +82,29 @@ public class BoardControl {
 	    		status = HttpStatus.NOT_ACCEPTABLE;
 	    	}
 	    	return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	    }
+	    
+	    @GetMapping("/board/post/download")
+	    public @ResponseBody ResponseEntity<Resource> downloadfile(
+	    		@RequestParam(value = "index")int index,
+	    		HttpServletRequest req) {
+	    	Resource file = null;
+	    	HttpHeaders header = new HttpHeaders();
+	    	try {
+				file = service.getFile(index);
+				header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+file.getFilename()+"\"");
+				header.setCacheControl("no-cache");
+				
+				String mediaType = Files.probeContentType(Paths.get(file.getFile().getAbsolutePath()));
+				if (mediaType == null) {
+					mediaType = "octet-stream";
+				}
+				header.setContentType(MediaType.parseMediaType(mediaType));
+			} catch (IOException e) {
+				file = null;
+				header.add("status", "false");
+			}
+	    	return new ResponseEntity<Resource>(file, header, HttpStatus.ACCEPTED);
 	    }
 	    
 	    @PostMapping("/edit")

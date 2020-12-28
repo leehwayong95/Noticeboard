@@ -1,5 +1,6 @@
 package com.emgram.noticeboard.Service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -7,6 +8,9 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 
 import com.emgram.noticeboard.Dao.dao;
@@ -83,5 +87,17 @@ public class BoardService {
     	}
     	else
     		throw new PostDeleteException("You're not writer");
+    }
+    
+    public Resource getFile(int index) throws IOException
+    {
+    	PostModel targetPost = dao.getPost(index);
+    	String targetPath = targetPost.getFilepath();
+    	File target = new File(targetPath);
+    	String mimeType = Files.probeContentType(Paths.get(target.getAbsolutePath()));
+    	if(mimeType == null) {
+    		mimeType = "octet-stream";
+    	}
+    	return new UrlResource(target.toURI());
     }
 }
