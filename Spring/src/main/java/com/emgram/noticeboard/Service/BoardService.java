@@ -10,7 +10,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 
 import com.emgram.noticeboard.Dao.dao;
@@ -64,8 +63,25 @@ public class BoardService {
     {
     	PostModel targetPost = getPost(Integer.parseInt(target.getPostindex()));
     	if(targetPost.getId().equals(target.getId())) {
-    		dao.editPost(target);
-    		return true;
+    		try {
+        		targetPost = target;
+        		if(target.getFile() != null) {
+        			byte[] bytes = target.getFile().getBytes();
+        			String filepath = UPLOADED_FOLDER + target.getFile().getOriginalFilename();
+    				Path path = Paths.get(filepath);
+    				Files.write(path, bytes);
+    				targetPost.setFilepath(filepath);
+        		}
+    			dao.editPost(targetPost);
+        		return true;
+        	} catch (IOException e)
+        	{
+        		e.printStackTrace();
+        		throw new PostEditException("File Load Error");
+        	} catch (Exception e) {
+        		e.printStackTrace();
+        		throw new PostEditException("Post Insert Error");
+        	}
     	} else {
     		throw new PostEditException("You're not writer");
     	}	

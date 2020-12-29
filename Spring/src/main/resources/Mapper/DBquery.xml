@@ -31,7 +31,7 @@
    	</delete>
    	<insert id="editPost" parameterType ="com.emgram.noticeboard.Model.UserModel">
    		UPDATE noticeboard
-   		SET title = '${title}', content = '${content}'
+   		SET title = '${title}', content = '${content}', filepath = '${filepath}'
    		WHERE postindex = ${postindex} AND id = '${id}'
    	</insert>
 </mapper>
