@@ -7,7 +7,7 @@
     </select>
     
      <select id="testdb" parameterType="String" resultType="String">
-         SELECT user.name FROM user WHERE (user.id='${id}' AND user.PW='${pw}')
+         SELECT user.id FROM user WHERE (user.id='${id}' AND user.PW='${pw}')
     </select>
     
      <select id="Gettest" resultType="String">

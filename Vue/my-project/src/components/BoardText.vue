@@ -13,8 +13,8 @@
       </div>
       <div class="content-detail-content">{{list.content}}</div>
       <div class="content-detail-button">
-        <b-button variant="primary" @click="updateData">수정</b-button>&nbsp;
-        <b-button variant="success" @click="deleteData">삭제</b-button>
+        <b-button variant="primary" @click="updateData"  v-if="Manager == 'admin'">수정</b-button>&nbsp;
+        <b-button variant="success" @click="deleteData"  v-if="Manager == 'admin'">삭제</b-button>
          <b-button variant="success" @click="Back">목록</b-button>
       </div>
     </b-card>
@@ -27,12 +27,26 @@ export default {
   data () {
     return {
       num: null,
+      Manager: '',
       list: []
     }
   },
   // name: 'BoardText',
   // num: $route.query.num,
   mounted () {
+    const cookie = this.$cookie.get('test')
+    axios.post('http://localhost:9000/logincheck', {result: cookie})
+      .then(res => {
+        if (res.data.result === 'empty') {
+          alert('로그인 아직안함,혹은 만료')
+          this.$router.push('/login')
+          console.log(res)
+        } else {
+          this.token = res.data.result
+          this.Manager = res.data.result
+          console.log('아직 그대로임: ' + this.token)
+        }
+      })
     axios.post('http://localhost:9000/testgetboardtext', {postindex: this.$route.query.num})
       .then(res => {
         if (res.data === '') {

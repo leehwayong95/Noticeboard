@@ -41,6 +41,19 @@ export default {
       post: this.$route.query.data.postindex
     }
   },
+  mounted () {
+    const cookie = this.$cookie.get('test')
+    axios.post('http://localhost:9000/logincheck', {result: cookie})
+      .then(res => {
+        if (res.data.result === 'empty') {
+          alert('로그인 아직안함,혹은 만료')
+          this.$router.push('/login')
+          console.log(res)
+        } else {
+          console.log('아직 그대로임: ' + this.token)
+        }
+      })
+  },
   methods: {
     reset () {
       var select = confirm('수정 하시겠습니까?')

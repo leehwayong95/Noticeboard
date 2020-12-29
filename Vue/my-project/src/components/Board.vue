@@ -7,8 +7,9 @@
     :current-page="currentPage"
     @row-clicked="rowClick"
     ></b-table>
-     <b-pagination v-model="currentPage" :per-page="perPage" align="center"></b-pagination>
-     <b-button @click="write">글쓰기</b-button>
+     <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" align="center"></b-pagination>
+     <b-button @click="write" v-if="Manager == 'admin'">글쓰기</b-button>
+     <b-button @click="logout">로그아웃</b-button>
   </div>
 </template>
 
@@ -19,6 +20,18 @@ import axios from 'axios'
 // items = items.map(contentItem => {  return { ...contentItem, user_name: data.User.filter(userItem => userItem.user_id === contentItem.user_id)[0].name}})
 export default {
   mounted () {
+    const cookie = this.$cookie.get('test')
+    axios.post('http://localhost:9000/logincheck', {result: cookie})
+      .then(res => {
+        if (res.data.result === 'empty') {
+          alert('로그인 아직안함,혹은 만료')
+          console.log(res)
+          this.$router.push('/login')
+        } else {
+          this.Manager = res.data.result
+          console.log(res)
+        }
+      })
     axios.post('http://localhost:9000/getboard', {id: 'admin'})
       .then(res => {
         if (res.data === '') {
@@ -37,9 +50,10 @@ export default {
   },
   data () {
     return {
+      Manager: '',
       Boardlist: '',
       currentPage: 1,
-      perPage: 10,
+      perPage: 5,
       items: [],
       fields: [
         {
@@ -67,12 +81,23 @@ export default {
         path: '/boardnew'
       })
     },
+    logout () {
+      this.$cookie.delete('test')
+      this.$router.push({
+        path: '/login'
+      })
+    },
     rowClick (items) { // 두개 지워도 잘된다 보통 2개의 값을 가지고 온것인데 이걸 어떻게 해석해야할까?
       console.log(items)
       this.$router.push({
         path: '/boardText',
         query: {num: items.postindex}
       })
+    }
+  },
+  computed: {
+    rows () {
+      return this.items.length
     }
   }
 }

@@ -9,6 +9,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VueCookie from 'vue-cookie'
 Vue.use(BootstrapVue)
 Vue.use(VueCookie)
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

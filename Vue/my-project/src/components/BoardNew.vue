@@ -38,6 +38,20 @@ export default {
       id: ''
     }
   },
+  mounted () {
+    const cookie = this.$cookie.get('test')
+    axios.post('http://localhost:9000/logincheck', {result: cookie})
+      .then(res => {
+        if (res.data.result === 'empty') {
+          alert('로그인 아직안함,혹은 만료')
+          this.$router.push('/login')
+          console.log(res)
+        } else {
+          this.token = res.data.result
+          console.log('아직 그대로임: ' + this.token)
+        }
+      })
+  },
   methods: {
     insert () {
       axios.post('http://localhost:9000/insertboardtext', {title: this.title, content: this.content, id: this.id})
