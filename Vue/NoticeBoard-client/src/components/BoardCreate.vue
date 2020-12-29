@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-input v-model="subject" placeholder="제목을 입력해주세요."></b-input>
-        <b-input v-model="writers" placeholder="작성자를 입력해주세요."></b-input>
+        <b-input v-model="writers" type="text"></b-input>
         <b-form-textarea
             v-model="context"
             placeholder="내용을 입력해주세요"
@@ -10,7 +10,7 @@
             ></b-form-textarea>
             <br><br>
             <b-button v-on:click="create">저장</b-button>&nbsp;
-            <b-button v-on:clikc="cancel">취소</b-button>
+            <b-button v-on:click="cancel">취소</b-button>
     </div>
 </template>
 
@@ -21,7 +21,8 @@ export default {
     return {
       subject: '',
       writers: '',
-      context: ''
+      context: '',
+      test: ''
     }
   },
   methods: {
@@ -38,7 +39,27 @@ export default {
     cancel () {
       this.$router.push('/boardlist')
     }
+  },
+  created () {
+    axios.defaults.headers.common['Authorization'] = this.$cookies.get('test')
+    axios.post('http://localhost:8081/tokenname')
+      .then(response => {
+        this.writers = response.data
+      })
+      .catch((ex) => {
+        console.log(ex)
+      })
   }
+  /* mounted () {
+    axios.defaults.headers.common['Authorization'] = this.$cookies.get('test')
+    axios.post('http://localhost:8081/tokenname')
+      .then(response => {
+        this.test = response.data
+      })
+      .catch((ex) => {
+        console.log(ex)
+      })
+  } */
 }
 </script>
 

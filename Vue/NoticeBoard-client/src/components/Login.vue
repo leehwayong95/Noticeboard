@@ -32,18 +32,22 @@ export default{
   data () {
     return {
       id: '',
-      pw: ''
+      pw: '',
+      test: ''
     }
   },
   methods: {
     login () {
       axios.post('http://localhost:8081/logincheck', {id: this.id, pw: this.pw})
         .then(response => {
-          if (response.data === 'TRUE') {
-            alert('로그인에 성공했습니다')
-            this.$router.push('/boardlist')
-          } else {
+          if (response.data.result === 'FALSE') {
             alert('ID와 PW를 잘못 입력했습니다. 다시 입력해주세요')
+          } else {
+            alert('로그인에 성공했습니다.')
+            this.$router.push('/boardlist')
+            this.$cookies.set('test', response.data.result)
+            const testcookie = this.$cookies.get('test')
+            console.log(testcookie)
           }
         }).catch((ex) => {
           console.warn('ERROR:', ex)
@@ -51,6 +55,22 @@ export default{
     },
     signup: function (event) {
       this.$router.push('/signup')
+    }
+  },
+  mounted () {
+    this.test = this.$cookies.get('test')
+    if (this.test !== null) {
+      axios.defaults.headers.common['Authorization'] = this.test
+      axios.post('http://localhost:8081/tokencheck')
+        .then(response => {
+          if (response.data === 'FALSE') {
+          } else {
+            this.$router.push('/boardlist')
+          }
+        })
+        .catch((ex) => {
+          console.warn('ERROR:', ex)
+        })
     }
   }
 }

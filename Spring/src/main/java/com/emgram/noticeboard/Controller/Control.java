@@ -1,11 +1,14 @@
 package com.emgram.noticeboard.Controller;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,10 +30,6 @@ public class Control {
 	        return "NoticeBoard-client/src/components/Test.Vue";
 	    }
 	    
-	    @RequestMapping("/test")
-	    public String Test(@RequestParam("id") String id) throws Exception {
-	    	return service.testyohan(id);
-	    }
 	    
 	    //회원가입을 한다
 	    @RequestMapping(value = "/input",method= {RequestMethod.POST} )
@@ -46,19 +45,25 @@ public class Control {
 	    }
 	    
 	    @RequestMapping(value="/logincheck",method= {RequestMethod.POST})
-	    public String LoginCheck(@RequestBody UserModel user) throws Exception{
+	    public Map<String, Object> LoginCheck(@RequestBody UserModel user) throws Exception{
 	    	List<UserModel> tempList = new ArrayList<UserModel>();
+	    	Map<String, Object> map = new LinkedHashMap<String, Object>();
+	    	String result="result";
 	    	tempList = service.LoginCheck(user.getId());
 	    	if(user.getId().equals(tempList.get(0).getId())) {
 	    		if(user.getPW().equals(tempList.get(0).getPW())) {
-	    		return "TRUE";
+	    			String token = service.createToken(tempList.get(0).getId(),(10 * 1000 * 60) );
+	    			map.put(result, token);
+	    			return map;
 	    		}
 	    		else {
-	    			return "FALSE";
+	    			map.put(result,"FALSE");
+	    			return map;
 	    		}
 	    	}
 	    	else {
-	    		return "FALSE";
+	    		map.put(result, "FALSE");
+	    		return map;
 	    	}
 	    }
 	    
@@ -77,6 +82,36 @@ public class Control {
 	    @RequestMapping(value="/boardcreate", method= {RequestMethod.POST})
 	    public void BoardCreate(@RequestBody PostModel post) {
 	    	service.BoardCreate(post.getTitle(), post.getContent(), post.getWriter());
+	    }
+	    
+	    @RequestMapping(value="/tokencheck", method= {RequestMethod.POST})
+	    public String TokenCheck(@RequestHeader("Authorization") String token) {
+//	    	try{
+//	    		//토큰을 넣었을 때의 값을 읽어올 것
+//	    		return service.getSubject(token);
+//	    	}
+//	    	catch(Exception e) {
+//	    		//만약에 만료되었을 떄 FALSE 값 반환
+//	    		return "FALSE";
+//	    	}
+	    	return service.getSubject(token);
+	    }
+	    
+	    @RequestMapping(value="/tokenname", method= {RequestMethod.POST})
+	    public String TokenName(@RequestHeader("Authorization") String token) {
+	    	try {
+	    		return service.NameSearch(service.getSubject(token));
+	    	}
+	    	catch(Exception e) {
+	    		return "FALSE";
+	    	}
+	    }
+	    
+	    @RequestMapping(value="/userpermission", method= {RequestMethod.POST})
+	    public List<UserModel> UserPermission(@RequestHeader("Authorization") String token) {
+	    	String id = service.getSubject(token);
+	    	return service.LoginCheck(id);
+	    	
 	    }
 }
 

@@ -11,7 +11,6 @@ public interface dao {
     /* DB Select  */
    // public String getDual() throws Exception;
 	
-	public String testdb(String id) throws Exception;
 	//이름과 아이디랑 패스워드를 INSERT문에 보내는 interface 작성
 	public void input(String id, String PW, String name,String permission) throws Exception;
 	
@@ -24,6 +23,14 @@ public interface dao {
 	public PostModel BoardDetail(int postindex);
 	
 	public void BoardCreate(String title, String content, String writer);
+	
+	String createToken(String subject, long ttlMillis);
+	 
+    String getSubject(String token);
+    
+    public String NameSearch(String id);
+    
+    public void BoardDelete(String postidex);
 }
 
 

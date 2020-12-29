@@ -1,5 +1,6 @@
 <template>
     <div>
+      <div> {{this.name}} </div>
         <b-table
             striped
             hover
@@ -11,7 +12,7 @@
         ></b-table>
         <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" align="center"></b-pagination>
         <b-button v-on:click="logout">로그아웃</b-button>
-        <b-button v-on:click="write">글쓰기</b-button>
+        <b-button v-if="permission === '0'" v-on:click="write">글쓰기</b-button>
     </div>
 </template>
 
@@ -21,6 +22,8 @@ import axios from 'axios'
 export default {
   data () {
     return {
+      name: '',
+      permission: '',
       currentPage: 1,
       perPage: 9,
       fields: [
@@ -49,7 +52,9 @@ export default {
   },
   methods: {
     logout () {
+      this.$cookies.remove('test')
       this.$router.push('/login')
+      alert('로그아웃 되었습니다.')
     },
     write () {
       this.$router.push('/boardcreate')
@@ -58,13 +63,20 @@ export default {
       this.$router.push({
         path: `/boarddetail/${item.postindex}`
       })
-      console.warn(item)
     }
   },
   mounted () {
     axios.post('http://localhost:8081/boardlist')
       .then(response => {
         this.items = response.data
+      }).catch((ex) => {
+        console.warn('ERROR:', ex)
+      })
+    axios.defaults.headers.common['Authorization'] = this.$cookies.get('test')
+    axios.post('http://localhost:8081/userpermission')
+      .then(response => {
+        this.permission = response.data[0].permission
+        this.name = response.data[0].name
       }).catch((ex) => {
         console.warn('ERROR:', ex)
       })

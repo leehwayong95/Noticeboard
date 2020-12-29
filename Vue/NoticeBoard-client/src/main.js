@@ -6,10 +6,14 @@ import router from './router'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import VueCookies from 'vue-cookies'
 
 Vue.use(BootstrapVue)
+Vue.use(VueCookies)
 
 Vue.config.productionTip = false
+// 쿠키의 만료일은 7일이다. (글로벌 세팅)
+Vue.$cookies.config('7d')
 
 /* eslint-disable no-new */
 new Vue({

@@ -35,6 +35,8 @@ export default {
     axios.post('http://localhost:8081/boarddetail', {postindex: this.index})
       .then(response => {
         this.list = response.data
+        const testcookie = this.$cookies.get('test')
+        console.log(testcookie)
       }).catch((ex) => {
         console.warn('ERROR:', ex)
       })

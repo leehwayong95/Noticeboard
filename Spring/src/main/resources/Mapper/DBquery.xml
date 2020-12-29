@@ -27,11 +27,23 @@
     </select>
     
     <select id="BoardDetail" resultType="com.emgram.noticeboard.Model.PostModel">
-    	SELECT * FROM noticeboard WHERE postindex=${postindex}
+    	SELECT * FROM noticeboard WHERE postindex = ${postindex}
     </select>
     
     <insert id="BoardCreate" parameterType="com.emgram.noticeboard.Model.PostModel">
     	INSERT INTO noticeboard(title, content, writer) VALUES('${title}', '${content}', '${writer}')
     </insert>
+    
+    <select id="NameSearch" resultType="String">
+    	SELECT user.name FROM user WHERE id = '${id}'
+    </select>
+    
+    <delete id="BoardDelete" parameterType="com.emgram.noticeboard.Model.PostModel">
+    	DELETE FROM noticeboard WHERE postindex = '${postindex}'
+    </delete>
+    
+    <update id="BoardUpdate" parameterType="com.emgram.noticeboard.Model.PostModel">
+    	UPDATE noticeboard FROM content = '${content}', title = '${title}' WHERE postindex = '${postindex}'
+    </update>
 </mapper>
 
