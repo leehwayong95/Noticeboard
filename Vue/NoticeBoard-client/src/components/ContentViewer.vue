@@ -19,10 +19,10 @@
             <th>내용</th>
             <td class="content"><Viewer v-if = "content != null" :initialValue = "content"/></td>
         </tr>
-        <tr v-if = 'filepath !== null'>
+        <tr v-if='filepath !== null'>
             <th>첨부파일</th>
             <td>
-              <img :src="file" style="height:80px;width:80px;"/>
+              <img v-if="file" :src="file" style="height:80px;width:80px;"/>
               <a href="javascript:;" v-on:click="fileDownload">{{filepath}}</a>
             </td>
         </tr>
@@ -71,6 +71,8 @@ export default {
         .then((res) => {
           if (res.data.type.split('/')[0] === 'image') {
             this.file = URL.createObjectURL(res.data)
+          } else {
+            this.file = null
           }
         })
         .catch((err) => {
