@@ -19,16 +19,19 @@
             <th>내용</th>
             <td class="content"><Viewer v-if = "content != null" :initialValue = "content"/></td>
         </tr>
-        <tr v-if = 'file != null'>
+        <tr v-if = 'filepath !== null'>
             <th>첨부파일</th>
-            <td><a href="javascript:;" v-on:click="fileDownload">{{file}}</a></td>
+            <td>
+              <img :src="file" style="height:80px;width:80px;"/>
+              <a href="javascript:;" v-on:click="fileDownload">{{filepath}}</a>
+            </td>
         </tr>
       </table>
     </form>
     <div class="btnWrap">
       <button type='button' v-on:click="list">목록</button>
-      <button type='button' v-if='owner' v-on:click="editPost">수정</button>
-      <button type='button' v-if='owner' v-on:click="deletePost">삭제</button>
+      <button type='button' v-if='viewer_id === id' v-on:click="editPost">수정</button>
+      <button type='button' v-if='viewer_id === id' v-on:click="deletePost">삭제</button>
     </div>
   </div>
 </template>
@@ -40,22 +43,22 @@ import { Viewer } from '@toast-ui/vue-editor'
 
 export default {
   created () {
-    this.getPost()
-  },
-  updated () {
     this.$axios.post('http://3.35.254.128/api/info')
       .then((res) => {
-        this.owner = (res.data.Userid === this.id)
+        this.viewer_id = res.data.Userid
       })// follow the owner permission for update, delete button hidden
+    this.getPost()
   },
+
   data () {
     return {
       title: '',
       content: null,
       name: '',
       file: null,
+      filepath: null,
       id: null,
-      owner: null,
+      viewer_id: null,
       postindex: this.$route.query.index
     }
   },
@@ -63,6 +66,17 @@ export default {
     Viewer
   },
   methods: {
+    previewImage () {
+      this.$axios.get('http://3.35.254.128/api/board/post/download?index=' + this.$route.query.index, {responseType: 'blob'})
+        .then((res) => {
+          if (res.data.type.split('/')[0] === 'image') {
+            this.file = URL.createObjectURL(res.data)
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
     getPost () {
       this.$axios.get('http://3.35.254.128/api/board/post?index=' + this.postindex)
         .then((res) => {
@@ -71,8 +85,8 @@ export default {
           this.name = res.data.name
           this.id = res.data.id
           if (res.data.filepath !== 'NULL') {
-            let path = res.data.filepath.split('/')
-            this.file = path[path.length - 1]
+            this.filepath = res.data.filepath.split('/')[res.data.filepath.split('/').length - 1]
+            this.previewImage()
           }
         })
     },
@@ -99,7 +113,7 @@ export default {
           const url = window.URL.createObjectURL(new Blob([res.data], { type: res.headers['content-type'] }))
           const link = document.createElement('a')
           link.href = url
-          link.setAttribute('download', this.file)
+          link.setAttribute('download', this.filepath)
           document.body.appendChild(link)
           link.click()
         })
