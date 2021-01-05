@@ -16,8 +16,7 @@
 <script>
 // import data from '@/data'
 import axios from 'axios'
-// let items = data.Content.sort((a, b) => { return b.content_id - a.content_id })
-// items = items.map(contentItem => {  return { ...contentItem, user_name: data.User.filter(userItem => userItem.user_id === contentItem.user_id)[0].name}})
+
 export default {
   mounted () {
     const cookie = this.$cookie.get('test')
@@ -38,7 +37,7 @@ export default {
           alert('관리자 정보를 불러올수 없습니다 ')
           console.log(res)
         } else {
-          this.Boardlist = res.data
+          // this.Boardlist = res.data
           this.items = res.data
           console.log(res)
         }

@@ -10,10 +10,6 @@
     <div>
         <textarea class = "nae" for="memo"  v-model="content" ></textarea>
     </div>
-    <div>
-        <label for="usernaem">작성자</label>
-        <input type="text" v-model="id" />
-    </div>
 <button type="button" @click="reset">수정</button>
 <button type="button" @click="back">돌아가기</button>
 </div>

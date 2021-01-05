@@ -38,6 +38,7 @@ export default {
   // const: 한번 선언한 값에 대해서 변경할수 없다.
     const cookie = this.$cookie.get('test')
     let token = cookie
+    console.log(token)
     let config = {
       headers: {
         'Authorization': token
@@ -46,11 +47,9 @@ export default {
     axios.get('http://localhost:9000/headlogincheck', config)
       .then(res => {
         if (res.data.result === 'empty') {
-          alert('쿠키 사라짐')
           console.log('쿠키 없음: ' + this.token)
         } else {
           this.token = res.data.result
-          alert('쿠키 건재함')
           console.log('쿠키 건재함: ' + this.token)
           this.$router.push('/board')
         }
@@ -79,9 +78,9 @@ export default {
             this.token = res.data.result
             console.log('토큰입니다: ' + this.token)
             // this.$cookie.set('accesstoken', res.data.data.token, 1)
-            this.$cookie.set('test', this.token, 100)
-            const cookie = this.$cookie.get('test')
-            alert(cookie)
+            this.$cookie.set('test', this.token, 1)
+            // const cookie = this.$cookie.get('test')
+            // alert(cookie)
             this.$router.push('/board')
           }
         })

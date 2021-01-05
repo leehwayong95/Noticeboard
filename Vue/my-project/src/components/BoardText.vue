@@ -104,6 +104,10 @@ export default {
   display: flex;
   justify-content: space-between;
 }
+/* .content-detail-content-info div{
+}
+.content-detail-content-info > div{
+} */
 
 .content-detail-content-info-left {
   width: 720px;
@@ -136,9 +140,4 @@ export default {
   padding: 2rem;
 }
 
-.content-detail-comment {
-  border: 1px solid black;
-  margin-top: 1rem;
-  padding: 2rem;
-}
 </style>

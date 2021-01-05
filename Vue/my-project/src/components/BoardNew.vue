@@ -10,10 +10,6 @@
     <div>
         <textarea class = "nae"  v-model="content" placeholder="내용입력"></textarea>
     </div>
-    <div>
-        <label for="usernaem">작성자</label>
-        <input type="text" v-model="id" />
-    </div>
 <button type="button" @click="insert">등록</button>
 <button type="button" @click="back">돌아가기</button>
 </div>
@@ -42,19 +38,18 @@ export default {
     const cookie = this.$cookie.get('test')
     axios.post('http://localhost:9000/logincheck', {result: cookie})
       .then(res => {
-        if (res.data.result === 'empty') {
-          alert('로그인 아직안함,혹은 만료')
-          this.$router.push('/login')
+        if (res.data.result === 'admin') {
           console.log(res)
-        } else {
           this.token = res.data.result
-          console.log('아직 그대로임: ' + this.token)
+        } else {
+          alert('관리자가 아닌 접근')
+          this.$router.push('/board')
         }
       })
   },
   methods: {
     insert () {
-      axios.post('http://localhost:9000/insertboardtext', {title: this.title, content: this.content, id: this.id})
+      axios.post('http://localhost:9000/insertboardtext', {title: this.title, content: this.content, id: this.token})
         .then(res => {
           if (res.status === 200) {
             alert('등록 성공?')

@@ -53,12 +53,12 @@ public class Control {
 	    }
 
 	//===================================================================
-	 
+	    //테스트
 	    @RequestMapping("/")
 	    public @ResponseBody String root_test()throws Exception{  
 	        return "Hello World";
 	    }
-	 
+	    //테스트
 	    @RequestMapping("/now")
 	    public @ResponseBody List<UserModel> now()throws Exception{
 	        return service.getDual();
@@ -79,14 +79,13 @@ public class Control {
 	    public Map<String, Object> LoginPage2(@RequestBody UserModel user) throws Exception{//vue 에서 온파일 모델형식으로 받는다) 
 	    	
 	    	
-	    	
 	        String Name= service.testyohan(user.getId(),user.getPW());
 	        Map<String, Object> map = new LinkedHashMap<String, Object>();
 	        if(Name == null) {// 로그인 실패했을 경우 
 	        	map.put("result","empty");
 	        }
 	        else { //토큰 발급 
-	        	String token = securityService.createToken(Name, (2 * 1000 * 60));
+	        	String token = securityService.createToken(Name, (5 * 1000 * 60));
 	        	map.put("result", token);
 	        }
 	        System.out.println(map);
@@ -95,8 +94,6 @@ public class Control {
 	    
 	    
 	    //로그인 유지되는지 확인 
-	    
-	   
 		@PostMapping("/logincheck")
 		public Map<String, Object> logincheck(@RequestBody Map<String, String> token) {
 			try {
@@ -122,7 +119,7 @@ public class Control {
 	    
 		
 		
-		
+		//헤더로 받아보기 
 		// Httpheaders
 		@RequestMapping(value ="/headlogincheck", method = RequestMethod.GET)
 		public Map<String, Object> headlogincheck(@RequestHeader ("Authorization") String token){
@@ -146,16 +143,7 @@ public class Control {
 				return map2;
 			}
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	   
+		   
 	    
 	    /*
 	    @GetMapping("/test")
@@ -168,7 +156,7 @@ public class Control {
 	    
 	    //게시판 리스트 가저요기 
 	    @PostMapping("/getboard")
-	    @ResponseStatus(value = HttpStatus.OK)
+	   // @ResponseStatus(value = HttpStatus.OK)
 	    public List<PostModel> Getboard(@RequestBody PostModel Post) throws Exception{//vue 에서 온파일 모델형식으로 받는다) 
 	    	//RequestBody에서 다양하게 받는 방법을 알고 싶다. ======================================================
 	        return service.getboard(Post.getId());
@@ -177,7 +165,7 @@ public class Control {
 	    
 	    //해당 게시글 가져오기 
 	    @PostMapping("/getboardtext")
-	    @ResponseStatus(value = HttpStatus.OK)
+	    //@ResponseStatus(value = HttpStatus.OK)
 	    public List<PostModel> Getboardtext(@RequestBody PostModel Post) throws Exception{//vue 에서 온파일 모델형식으로 받는다) 
 	    	//RequestBody에서 다양하게 받는 방법을 알고 싶다. ======================================================
 	        return service.getboardtext(Post.getPostindex());
@@ -186,7 +174,7 @@ public class Control {
 	    
 	    // 게시글 보이게 하기
 	    @PostMapping("/testgetboardtext")
-	    @ResponseStatus(value = HttpStatus.OK)
+	    //@ResponseStatus(value = HttpStatus.OK)
 	    public PostModel boardtext(@RequestBody PostModel Post) throws Exception{//vue 에서 온파일 모델형식으로 받는다) 
 	    	//RequestBody에서 다양하게 받는 방법을 알고 싶다. ======================================================
 	        return service.testgetboardtext(Post.getPostindex());
@@ -194,9 +182,10 @@ public class Control {
 	    
 	    // 게시글 삭제
 	    @PostMapping("/deleteboardtext")
-	    @ResponseStatus(value = HttpStatus.OK)
+	    //@ResponseStatus(value = HttpStatus.OK)
 	    public void deleteboardtext(@RequestBody PostModel Post,HttpServletRequest req) throws Exception{//vue 에서 온파일 모델형식으로 받는다) 
-	    	String jwt = req.getHeader("Authorization");
+	    	//String jwt = req.getHeader("Authorization");
+	    	//헤더 가져오기 
 	    	service.deleteboardtext(Post.getPostindex());
 	    	
 	    	
@@ -206,7 +195,7 @@ public class Control {
 	    
 	    //게시글 추가 
 	    @PostMapping("/insertboardtext")
-	    @ResponseStatus(value = HttpStatus.OK)
+	    //@ResponseStatus(value = HttpStatus.OK)
 	    public void insertboardtext(@RequestBody PostModel Post) throws Exception{//vue 에서 온파일 모델형식으로 받는다) 
 	    	service.insertboardtext(Post.getTitle(),Post.getContent(),Post.getId());
 	    	//RequestBody에서 다양하게 받는 방법을 알고 싶다. ======================================================
@@ -214,18 +203,35 @@ public class Control {
 	    
 	    //게시글 업데이트 
 	    @PostMapping("/updateboardtext")
-	    @ResponseStatus(value = HttpStatus.OK)
+	    //@ResponseStatus(value = HttpStatus.OK)
 	    public void updateboardtext(@RequestBody PostModel Post) throws Exception{//vue 에서 온파일 모델형식으로 받는다) 
 	    	service.updateboardtext(Post.getTitle(),Post.getContent(),Post.getId(),Post.getPostindex());
 	    	//RequestBody에서 다양하게 받는 방법을 알고 싶다. ======================================================
 	    }
 	    
-	    
+	    /*
 	    //회원가입 해보기 
-	    @PostMapping("/test")
-	    @ResponseStatus(value = HttpStatus.OK)
+	    @PostMapping("/test") 
+	    //@ResponseStatus(value = HttpStatus.OK)
 	    public void JoinPage(@RequestBody UserModel user) throws Exception{
 	    	service.NewUser(user.getId(),user.getPW(),user.getName());
+	    }
+	    
+	    */
+
+	    //회원가입 해보기 
+	    @PostMapping("/test") 
+	    //@ResponseStatus(value = HttpStatus.OK)
+	    public String JoinPage(@RequestBody UserModel user) throws Exception{
+	    	try {
+	    	service.NewUser(user.getId(),user.getPW(),user.getName());
+	    	String Act = "1";
+	    	return Act;
+	    	}
+	    	catch (Exception e){
+	    		String Act = "0";
+		    	return Act;
+	    	}
 	    }
 	    
 	    
