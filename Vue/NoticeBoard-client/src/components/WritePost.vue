@@ -43,6 +43,14 @@ import '@toast-ui/editor/dist/toastui-editor.css'
 import { Editor } from '@toast-ui/vue-editor'
 
 export default {
+  data () {
+    return {
+      title: '',
+      cont: '',
+      edit: this.$route.query.index != null,
+      postindex: this.$route.query.index
+    }
+  },
   created () {
     this.permission()
     if (this.edit) {
@@ -51,14 +59,6 @@ export default {
   },
   updated () {
     this.$refs.content.invoke('setMarkdown', this.cont)
-  },
-  data () {
-    return {
-      title: '',
-      cont: '',
-      edit: this.$route.query.index != null,
-      postindex: this.$route.query.index
-    }
   },
   components: {
     Editor

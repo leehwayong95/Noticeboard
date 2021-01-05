@@ -51,12 +51,7 @@ export default {
       if (this.id === '' || this.pw === '' || this.name === '') {
         alert('항목을 모두 입력해주세요.')
       } else {
-        let per
-        if (this.permission) {
-          per = 0
-        } else {
-          per = 1
-        }
+        let per = (this.permission) ? 0 : 1
         this.$axios.post('http://3.35.254.128/api/signup', {id: this.id, pw: this.pw, name: this.name, permission: per})
           .then((res) => {
             if (res.data === -1) {

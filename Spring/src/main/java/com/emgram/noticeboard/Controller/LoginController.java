@@ -54,15 +54,13 @@ public class LoginController {
 		}catch (RuntimeException e)
 		{
 			System.out.println("정보 생성 실패");
-			e.printStackTrace();
 			resultMap.put("message", e.getMessage());
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}catch (NoinfoException e)
 		{
 			System.out.println("로그인 정보 조회 불가");
-			e.printStackTrace();
 			resultMap.put("message",e.getMessage());
-			status =HttpStatus.INTERNAL_SERVER_ERROR;
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
 		
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
