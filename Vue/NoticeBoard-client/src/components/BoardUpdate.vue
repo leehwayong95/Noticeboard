@@ -3,14 +3,13 @@
         <b-input v-model="subject" placeholder="제목을 입력해주세요."></b-input>
         <b-input v-model="writers" type="text"></b-input>
         <b-form-textarea
-            v-model="context"
+            v-model="content"
             placeholder="내용을 입력해주세요"
             rows="5"
             max-rows="20"
-            class="textareaclass"
             ></b-form-textarea>
             <br><br>
-            <b-button v-on:click="create">저장</b-button>&nbsp;
+            <b-button v-on:click="update">수정</b-button>&nbsp;
             <b-button v-on:click="cancel">취소</b-button>
     </div>
 </template>
@@ -22,23 +21,24 @@ export default {
     return {
       subject: '',
       writers: '',
-      context: '',
-      authority: ''
+      content: '',
+      index: this.$route.query.index
     }
   },
   methods: {
-    create () {
-      axios.post('http://localhost:8081/boardcreate', {title: this.subject, content: this.context, writer: this.writers})
-        .then(response => {
-          alert('작성 완료')
-          this.$router.push('/boardlist')
-        })
-        .catch((ex) => {
-          alert('작성 실패')
-        })
-    },
     cancel () {
       this.$router.push('/boardlist')
+    },
+    update () {
+      axios.post('http://localhost:8081/boardupdate', {title: this.subject, content: this.content, postindex: this.index})
+        .then(response => {
+          if (response.data === 'SUCCESS') {
+            alert('수정을 완료했습니다.')
+            this.$router.push('boardlist')
+          } else {
+            alert('수정에 실패했습니다.')
+          }
+        })
     }
   },
   created () {
@@ -57,9 +57,12 @@ export default {
           console.warn('ERROR:', ex)
         })
     }
-    axios.post('http://localhost:8081/tokenname')
+    axios.defaults.headers.common['Authorization'] = this.$cookies.get('authority')
+    axios.post('http://localhost:8081/boarddetail', {postindex: this.index})
       .then(response => {
-        this.writers = response.data
+        this.writers = response.data.writer
+        this.subject = response.data.title
+        this.content = response.data.content
       })
       .catch((ex) => {
         console.log(ex)
@@ -79,8 +82,5 @@ export default {
 </script>
 
 <style scoped>
-.b-form.textareaclass{
- height: '400px';
-}
-*{margin:30px;}
+
 </style>

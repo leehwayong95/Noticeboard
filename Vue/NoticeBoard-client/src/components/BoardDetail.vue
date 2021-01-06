@@ -13,9 +13,9 @@
       </div>
       <div class="content-detail-content">{{list.content}}</div>
       <div class="content-detail-button">
-          <b-button> 목록 </b-button>
-          <b-button variant="primary"> 수정 </b-button>&nbsp;
-          <b-button variant="success"> 삭제</b-button>
+          <b-button v-on:click="listback"> 목록 </b-button>
+          <b-button v-if="permission === '0'" variant="primary" v-on:click="update"> 수정 </b-button>&nbsp;
+          <b-button v-if="permission === '0'" v-on:click="boarddelete"> 삭제</b-button>
       </div>
     </b-card>
   </div>
@@ -27,19 +27,62 @@ export default {
   data () {
     return {
       index: '',
-      list: []
+      list: [],
+      permission: '',
+      authority: ''
     }
   },
   mounted () {
+    this.authority = this.$cookies.get('authority')
+    if (this.authority !== null) {
+      axios.defaults.headers.common['Authorization'] = this.authority
+      axios.post('http://localhost:8081/tokencheck')
+        .then(response => {
+          if (response.data === 'FALSE') {
+            alert('로그인이 필요합니다.')
+            this.$router.push('/login')
+          } else {
+          }
+        })
+        .catch((ex) => {
+          console.warn('ERROR:', ex)
+        })
+    }
     this.index = this.$route.params.index
     axios.post('http://localhost:8081/boarddetail', {postindex: this.index})
       .then(response => {
         this.list = response.data
-        const testcookie = this.$cookies.get('test')
-        console.log(testcookie)
       }).catch((ex) => {
         console.warn('ERROR:', ex)
       })
+    axios.post('http://localhost:8081/userpermission')
+      .then(response => {
+        this.permission = response.data[0].permission
+      }).catch((ex) => {
+        console.warn('ERROR:', ex)
+      })
+  },
+  methods: {
+    boarddelete () {
+      axios.post('http://localhost:8081/boarddelete', {postindex: this.index})
+        .then(response => {
+          if (response.data === 'SUCCESS') {
+            alert('삭제 성공했습니다.')
+            this.$router.push('/boardlist')
+          } else {
+            alert('삭제에 실패했습니다.')
+          }
+        })
+        .catch((ex) => {
+          console.warn('ERROR:', ex)
+        })
+    },
+    listback () {
+      this.$router.push('/boardlist')
+    },
+    update () {
+      this.$router.push({path: '/boardupdate', query: {index: this.index}})
+    }
   }
 }
 </script>

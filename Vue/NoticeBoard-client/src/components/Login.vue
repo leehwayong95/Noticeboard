@@ -17,6 +17,7 @@
             class="form-control"
             name="userpassword"
             width:200px
+            v-on:keyup.enter="login"
         />
         <br/><br/>
         <button type="submit" v-on:click="login">로그인</button>
@@ -33,7 +34,7 @@ export default{
     return {
       id: '',
       pw: '',
-      test: ''
+      authority: ''
     }
   },
   methods: {
@@ -45,9 +46,7 @@ export default{
           } else {
             alert('로그인에 성공했습니다.')
             this.$router.push('/boardlist')
-            this.$cookies.set('test', response.data.result)
-            const testcookie = this.$cookies.get('test')
-            console.log(testcookie)
+            this.$cookies.set('authority', response.data.result)
           }
         }).catch((ex) => {
           console.warn('ERROR:', ex)
@@ -58,13 +57,14 @@ export default{
     }
   },
   mounted () {
-    this.test = this.$cookies.get('test')
-    if (this.test !== null) {
-      axios.defaults.headers.common['Authorization'] = this.test
+    this.authority = this.$cookies.get('authority')
+    if (this.authority !== null) {
+      axios.defaults.headers.common['Authorization'] = this.authority
       axios.post('http://localhost:8081/tokencheck')
         .then(response => {
           if (response.data === 'FALSE') {
           } else {
+            alert('로그인이 되어 있습니다.')
             this.$router.push('/boardlist')
           }
         })

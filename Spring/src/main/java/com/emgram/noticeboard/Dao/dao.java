@@ -30,7 +30,9 @@ public interface dao {
     
     public String NameSearch(String id);
     
-    public void BoardDelete(String postidex);
+    public void BoardDelete(int postindex);
+    
+    public void BoardUpdate(String title, String content, int postindex);
 }
 
 

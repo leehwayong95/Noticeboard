@@ -26,7 +26,6 @@ export default {
     signup () {
       axios.post('http://localhost:8081/input', {id: this.id, pw: this.pw, name: this.name, permission: this.permission})
         .then(response => {
-          console.warn(response)
           if (response.data === 'SUCCESS') {
             alert('회원가입에 성공했습니다.')
             this.$router.push('/login')

@@ -6,6 +6,7 @@ import SignUp from '@/components/SignUp'
 import BoardList from '@/components/BoardList'
 import BoardDetail from '@/components/BoardDetail'
 import BoardCreate from '@/components/BoardCreate'
+import BoardUpdate from '@/components/BoardUpdate'
 
 Vue.use(Router)
 
@@ -46,6 +47,11 @@ export default new Router({
       path: '/boarddetail/:index',
       name: 'boarddetail',
       component: BoardDetail
+    },
+    {
+      path: '/boardupdate',
+      name: 'boardupdate',
+      component: BoardUpdate
     }
   ]
 })

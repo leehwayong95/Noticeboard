@@ -35,7 +35,7 @@ public class Control {
 	    @RequestMapping(value = "/input",method= {RequestMethod.POST} )
 	    public String SignUp(@RequestBody UserModel user) throws Exception {
 	    	//만약 id가 존재하면 그 false가 출력되고 id가 없으면 success가 출력된다.
-	    	if(service.UserCheck(user.getId()).equals("")){
+	    	if(service.UserCheck(user.getId()) == null){
 	    		service.input(user.getId(),user.getPW(),user.getName(),user.getPermission());
 	    		return "SUCCESS";
 	    	}
@@ -86,15 +86,14 @@ public class Control {
 	    
 	    @RequestMapping(value="/tokencheck", method= {RequestMethod.POST})
 	    public String TokenCheck(@RequestHeader("Authorization") String token) {
-//	    	try{
-//	    		//토큰을 넣었을 때의 값을 읽어올 것
-//	    		return service.getSubject(token);
-//	    	}
-//	    	catch(Exception e) {
-//	    		//만약에 만료되었을 떄 FALSE 값 반환
-//	    		return "FALSE";
-//	    	}
-	    	return service.getSubject(token);
+	    	try{
+	    		//토큰을 넣었을 때의 값을 읽어올 것
+	    		return service.getSubject(token);
+	    	}
+	    	catch(Exception e) {
+	    		//만약에 만료되었을 떄 FALSE 값 반환
+	    		return "FALSE";
+	    	}
 	    }
 	    
 	    @RequestMapping(value="/tokenname", method= {RequestMethod.POST})
@@ -111,7 +110,28 @@ public class Control {
 	    public List<UserModel> UserPermission(@RequestHeader("Authorization") String token) {
 	    	String id = service.getSubject(token);
 	    	return service.LoginCheck(id);
-	    	
+	    	//try catch로 만료기간 해볼것
+	    }
+	    
+	    @RequestMapping(value="/boarddelete", method= {RequestMethod.POST})
+	    public String BoardDelete(@RequestBody PostModel post) {
+	    	try {
+	    		service.BoardDelete(post.getPostindex());
+	    		return "SUCCESS";
+	    	} catch(Exception e) {
+	    		return "FALSE";
+	    	}
+	    }
+	    
+	    @RequestMapping(value="/boardupdate", method= {RequestMethod.POST})
+	    public String BoardUpdate(@RequestBody PostModel post) {
+	    	try {
+	    	service.BoardUpdate(post.getTitle(),post.getContent(), post.getPostindex());
+	    	return "SUCCESS";
+	    	} 
+	    	catch(Exception e) {
+	    		return "FALSE";
+	    	}
 	    }
 }
 

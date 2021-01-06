@@ -8,6 +8,7 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.emgram.noticeboard.Dao.dao;
@@ -18,6 +19,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
 
 
 @Service
@@ -51,8 +53,11 @@ public class service implements dao{
     	dao.BoardCreate(title, content, writer);
     }
     
-	private static final String SECRET_KEY = "aasjjkjaskjdl1k2naskjkdakj34c8sa";
-	
+    @Value("${secretkey}")
+    private String SECRET_KEY;
+    
+//	private static final String SECRET_KEY = "aasjjkjaskjdl1k2naskjkdakj34c8sa";
+//	// "aasjjkjaskjdl1k2naskjkdakj34c8sa"
     public String createToken(String subject, long ttlMillis) {
         if (ttlMillis <= 0) {
             throw new RuntimeException("Expiry time must be greater than Zero : ["+ttlMillis+"] ");
@@ -85,6 +90,13 @@ public class service implements dao{
     		return dao.NameSearch(id);
     	}
     }
-
+    
+    public void BoardDelete(int postindex) {
+    	dao.BoardDelete(postindex);
+    }
+    
+    public void BoardUpdate(String title, String content, int postindex) {
+    	dao.BoardUpdate(title, content, postindex);
+    }
 }
 

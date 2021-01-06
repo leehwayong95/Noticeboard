@@ -43,7 +43,7 @@
     </delete>
     
     <update id="BoardUpdate" parameterType="com.emgram.noticeboard.Model.PostModel">
-    	UPDATE noticeboard FROM content = '${content}', title = '${title}' WHERE postindex = '${postindex}'
+    	UPDATE noticeboard SET content = '${content}', title = '${title}' WHERE postindex = '${postindex}'
     </update>
 </mapper>
 

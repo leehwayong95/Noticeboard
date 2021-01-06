@@ -26,25 +26,39 @@ export default {
       permission: '',
       currentPage: 1,
       perPage: 9,
+      authority: '',
       fields: [
         {
           key: 'postindex',
-          label: 'No'
+          label: 'No',
+          class: 'noclass',
+          thStyle: {
+            width: '100px'
+          }
         },
         {
           key: 'title',
           label: '제목',
-          tdclass: 'titleclass'
+          class: 'titleclass',
+          thStyle: {
+            width: '700px'
+          }
         },
         {
           key: 'writer',
           label: '작성자',
-          tbclass: 'writerclass'
+          class: 'writerclass',
+          thStyle: {
+            width: '200px'
+          }
         },
         {
           key: 'date',
           label: '날짜',
-          tbclass: 'dateclass'
+          class: 'dateclass',
+          thStyle: {
+            width: '200px'
+          }
         }],
       items: [
       ]
@@ -52,7 +66,7 @@ export default {
   },
   methods: {
     logout () {
-      this.$cookies.remove('test')
+      this.$cookies.remove('authority')
       this.$router.push('/login')
       alert('로그아웃 되었습니다.')
     },
@@ -66,13 +80,28 @@ export default {
     }
   },
   mounted () {
+    this.authority = this.$cookies.get('authority')
+    if (this.authority !== null) {
+      axios.defaults.headers.common['Authorization'] = this.authority
+      axios.post('http://localhost:8081/tokencheck')
+        .then(response => {
+          if (response.data === 'FALSE') {
+            alert('로그인이 필요합니다.')
+            this.$router.push('/login')
+          } else {
+          }
+        })
+        .catch((ex) => {
+          console.warn('ERROR:', ex)
+        })
+    }
     axios.post('http://localhost:8081/boardlist')
       .then(response => {
         this.items = response.data
       }).catch((ex) => {
         console.warn('ERROR:', ex)
       })
-    axios.defaults.headers.common['Authorization'] = this.$cookies.get('test')
+    axios.defaults.headers.common['Authorization'] = this.$cookies.get('authority')
     axios.post('http://localhost:8081/userpermission')
       .then(response => {
         this.permission = response.data[0].permission
@@ -90,13 +119,5 @@ export default {
 </script>
 
 <style scoped>
-.titleclass{
-  max-width: 500px;
-}
-.writerclass{
-  max-width: 200px;
-}
-.dateclass{
-  max-width: 200px;
-}
+
 </style>
