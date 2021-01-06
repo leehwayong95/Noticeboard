@@ -27,7 +27,7 @@ CREATE TABLE `comment` (
 	`postindex` INT NOT NULL,
 	`recomment` INT NULL,
 	`content` LONGTEXT NOT NULL,
-	`date` TIMESTAMP NOT NULL DEFULAT CURRENT_TIMESTAMP(),
+	`date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	`id` VARCHAR(50) NOT NULL,
 	`enable` INT NOT NULL DEFAULT '1',
 	PRIMARY KEY (`comment_index`, `postindex`),
