@@ -33,6 +33,28 @@
       <button type='button' v-if='viewer_id === id' v-on:click="editPost">수정</button>
       <button type='button' v-if='viewer_id === id' v-on:click="deletePost">삭제</button>
     </div>
+    <div>
+      <form>
+        <table class="commentList">
+          <tr>
+            <th>번호</th>
+            <th>댓글</th>
+            <th>작성자</th>
+            <th>작성시간</th>
+          </tr>
+          <tr v-for="(comment, list) in comment_list" :key="list">
+            <td>{{list+1}}</td>
+            <td>{{comment.content}}</td>
+            <td>{{comment.name}}</td>
+            <td>{{comment.date}}</td>
+          </tr>
+        </table>
+      </form>
+      <div class ="input_comment">
+        <input class="comment_inputarea" type="text" placeholder="댓글 입력" v-model="input_comment"/>
+        <button type="button" v-on:click="addComment">댓글달기</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -48,6 +70,7 @@ export default {
         this.viewer_id = res.data.Userid
       })// follow the owner permission for update, delete button hidden
     this.getPost()
+    this.getComment()
   },
 
   data () {
@@ -59,7 +82,9 @@ export default {
       filepath: null,
       id: null,
       viewer_id: null,
-      postindex: this.$route.query.index
+      postindex: this.$route.query.index,
+      comment_list: null,
+      input_comment: null
     }
   },
   components: {
@@ -129,6 +154,32 @@ export default {
     },
     list () {
       this.$router.go(-1)
+    },
+    getComment () {
+      this.$axios.get('http://3.35.254.128/api/loadcomment?index=' + this.postindex)
+        .then((res) => {
+          this.comment_list = res.data
+        })
+    },
+    addComment () {
+      if (this.input_comment == null) {
+        alert('댓글을 입력해주세요')
+      } else {
+        this.$axios.post('http://3.35.254.128/api/addcomment', {content: this.input_comment, postindex: this.postindex})
+          .then((res) => {
+            if (res.data.status) {
+              alert('등록되었습니다.')
+              this.getComment()
+              this.input_comment = null
+            } else {
+              alert('서버오류')
+            }
+          })
+          .catch((err) => {
+            alert('잘못된 접근입니다.')
+            console.log(err)
+          })
+      }
     }
   }
 }
@@ -168,5 +219,15 @@ button:hover {
   color: #000 !important;
   background-color: rgb(74, 167, 221);
   text-shadow: none;
+}
+
+.input_comment {
+  display: flex;
+  margin: 20px;
+  align-content: center;
+}
+
+.comment_inputarea {
+  width: 600px;
 }
 </style>

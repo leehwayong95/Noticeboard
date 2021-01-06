@@ -13,8 +13,10 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 
 import com.emgram.noticeboard.Dao.dao;
+import com.emgram.noticeboard.Model.CommentModel;
 import com.emgram.noticeboard.Model.PostModel;
 
+import CustomException.NoinfoException;
 import CustomException.PostDeleteException;
 import CustomException.PostEditException;
 import CustomException.PostInsertException;
@@ -114,10 +116,26 @@ public class BoardService {
     	PostModel targetPost = dao.getPost(index);
     	String targetPath = targetPost.getFilepath();
     	File target = new File(targetPath);
-    	String mimeType = Files.probeContentType(Paths.get(target.getAbsolutePath()));
-    	if(mimeType == null) {
-    		mimeType = "octet-stream";
-    	}
     	return new UrlResource(target.toURI());
+    }
+    
+    public boolean addComment(CommentModel comment)
+    {
+    	try {
+    		dao.addComment(comment);
+    		return true;
+    	} catch (Exception e)
+    	{
+    		return false;
+    	}
+    }
+    
+    public List<CommentModel> loadComments(int index) throws NoinfoException
+    {
+    	try {
+    		return dao.loadComments(index);
+    	} catch (Exception e) {
+    		throw new NoinfoException("noComments");
+    	}
     }
 }

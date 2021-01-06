@@ -34,5 +34,13 @@
    		SET title = '${title}', content = '${content}', filepath = '${filepath}'
    		WHERE postindex = ${postindex} AND id = '${id}'
    	</insert>
+   	<insert id="addComment" parameterType="com.emgram.noticeboard.Model.CommentModel">
+   		INSERT INTO comment (postindex, content, id)
+   		VALUES (${postindex}, "${content}","${id}")
+   	</insert>
+   	<select id="loadComments" resultType="com.emgram.noticeboard.Model.CommentModel">
+   		SELECT c.*,u.name FROM user u,comment c
+   		WHERE u.id = c.id AND c.postindex = ${postindex} AND enable = 1
+   	</select>
 </mapper>
 

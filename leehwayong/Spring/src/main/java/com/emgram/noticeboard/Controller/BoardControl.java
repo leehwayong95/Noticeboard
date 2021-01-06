@@ -19,15 +19,18 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.emgram.noticeboard.Model.CommentModel;
 import com.emgram.noticeboard.Model.PostModel;
 import com.emgram.noticeboard.Service.BoardService;
 import com.emgram.noticeboard.Service.JwtService;
 
+import CustomException.NoinfoException;
 import CustomException.PostDeleteException;
 import CustomException.PostEditException;
 import CustomException.PostInsertException;
@@ -152,6 +155,44 @@ public class BoardControl {
 				status = HttpStatus.INTERNAL_SERVER_ERROR;
 			}
 	    	return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	    }
+	    
+	    @PostMapping("/addcomment")
+	    public ResponseEntity<Map<String, Object>> addComment(
+	    		@RequestBody CommentModel comment,
+	    		HttpServletRequest req) {
+	    	String userID = jwt.getId(jwt.get(req.getHeader("jwt-auth-token")));
+	    	comment.setId(userID);
+	    	Map<String, Object> resultMap = new HashMap<>();
+	    	HttpStatus status = null;
+	    	if(comment.getPostindex() != null)
+	    	{
+		    	try {
+		    		service.addComment(comment);
+		    		resultMap.put("status",true);
+		    		status = HttpStatus.ACCEPTED;
+		    	} catch (Exception e)
+		    	{
+		    		resultMap.put("status", false);
+		    		resultMap.put("reason", "DBErrorFail");
+		    		status = HttpStatus.INTERNAL_SERVER_ERROR;
+		    	}
+	    	} else {
+	    		resultMap.put("status", false);
+	    		resultMap.put("reason", "NoSetPostindex");
+	    		status = HttpStatus.BAD_REQUEST;
+	    	}
+	    	return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	    }
+	    
+	    @GetMapping("/loadcomment")
+	    public List<CommentModel> loadComments(
+	    		@RequestParam(value = "index") int index) {
+	    	try {
+	    		return service.loadComments(index);
+	    	} catch (NoinfoException e) {
+	    		return null;
+	    	}
 	    }
 	    
 	    @RequestMapping("/")
