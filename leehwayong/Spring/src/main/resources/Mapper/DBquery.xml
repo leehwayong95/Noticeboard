@@ -42,9 +42,10 @@
    		SELECT c.*,u.name FROM user u,comment c
    		WHERE u.id = c.id AND c.postindex = ${postindex} AND enable = 1
    	</select>
-   	<delete id="deleteComment">
-   		DELETE FROM comment
+   	<insert id="deleteComment">
+   		UPDATE comment
+   		SET enable = 0
    		WHERE comment_index = ${index} AND id = '${id}'
-   	</delete>
+   	</insert>
 </mapper>
 

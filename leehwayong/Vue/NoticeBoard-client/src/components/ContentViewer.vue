@@ -42,6 +42,7 @@
             <th>작성자</th>
             <th>작성시간</th>
             <th></th>
+            <th></th>
           </tr>
           <tr v-for="(comment, list) in comment_list" :key="list">
             <td>{{list+1}}</td>
@@ -49,6 +50,7 @@
             <td>{{comment.name}}</td>
             <td>{{comment.date}}</td>
             <td><button type='button' v-if='viewer_id === comment.id' @click="deleteComment(comment)" >삭제</button></td>
+            <td><a>댓글달기</a></td>
           </tr>
         </table>
       </form>
