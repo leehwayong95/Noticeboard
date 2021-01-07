@@ -3,11 +3,15 @@
 
 <mapper namespace="com.emgram.noticeboard.Dao.dao">
     <select id="getPostsList" parameterType="int" resultType="com.emgram.noticeboard.Model.PostModel">
-        SELECT b.*, u.name 
-        FROM noticeboard b, user u
-        WHERE b.id = u.id 
-        ORDER BY b.postindex DESC	
-        LIMIT ${min}, ${postcount}
+        SELECT b.*, u.name ,viewcount.viewcount
+		FROM user u,noticeboard b LEFT OUTER JOIN (	
+			SELECT COUNT(*) AS viewcount, v.postindex
+			FROM view v
+			GROUP BY v.postindex) AS viewcount
+			ON b.postindex = viewcount.postindex
+		WHERE b.id = u.id 
+		ORDER BY b.postindex DESC
+		LIMIT ${min}, ${postcount}
     </select>
     <select id="getPostCount" resultType="int">
     	SELECT COUNT(*) AS count 
@@ -46,6 +50,10 @@
    		UPDATE comment
    		SET enable = 0
    		WHERE comment_index = ${index} AND id = '${id}'
+   	</insert>
+   	<insert id="insertViewcount">
+   		INSERT INTO view (id, postindex)
+   		VALUES ('${id}', ${postindex})
    	</insert>
 </mapper>
 

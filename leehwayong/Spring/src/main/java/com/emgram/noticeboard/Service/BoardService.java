@@ -94,7 +94,6 @@ public class BoardService {
     	return dao.getPost(index);
     }
     
-    
     public boolean deletePost(int index, String id) throws PostDeleteException
     {
     	PostModel targetPost = getPost(index);
@@ -146,5 +145,10 @@ public class BoardService {
     	} catch (Exception e) {
     		throw new NoinfoException("Can't Find Comment");
     	}
+    }
+    
+    public void insertViewcount(String id, String postindex)
+    {
+    	dao.insertViewcount(id, postindex);
     }
 }

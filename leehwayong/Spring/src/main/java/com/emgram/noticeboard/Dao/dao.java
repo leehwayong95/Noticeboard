@@ -17,6 +17,9 @@ public interface dao {
 	public boolean deletePost(int index);
 	public boolean editPost(PostModel target);
 	
+	//viewcount
+	public void insertViewcount(String id, String postindex);
+	
 	//CommentControl
 	public boolean addComment(CommentModel comment);
 	public List<CommentModel> loadComments(int postindex);

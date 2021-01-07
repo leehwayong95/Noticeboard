@@ -8,12 +8,14 @@
             <th scope="cols">제목</th>
             <th scope="cols">작성자</th>
             <th scope="cols">작성 시간</th>
+            <th scope="cols">조회수</th>
           </tr>
           <tr v-for="(row, postindex) in list" :key="postindex" class="board_contents" href="javascript:;" @click="view(row.postindex)">
             <td>{{row.postindex}}</td>
             <td >{{row.title}}</td>
             <td>{{row.name}}</td>
             <td>{{row.date}}</td>
+            <td>{{row.viewcount}}</td>
           </tr>
         </table>
       </div>

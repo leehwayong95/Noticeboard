@@ -60,9 +60,16 @@ public class BoardControl {
 	    
 	    @GetMapping("/board/post")
 	    public @ResponseBody PostModel getPost(
-	    		@RequestParam(value = "index")int index) 
+	    		@RequestParam(value = "index")int index,
+	    		HttpServletRequest req) 
 	    {
-	    	return service.getPost(index);
+	    	//조회수 기록을 위한 id 복호화
+	    	String id = jwt.getId(jwt.get(req.getHeader("jwt-auth-token")));
+	    	PostModel targetPost = service.getPost(index);
+	    	//작성자는 조회수 포함 안하는 조건문
+	    	if(!targetPost.getId().equals(id))
+	    		service.insertViewcount(id, targetPost.getPostindex());
+	    	return targetPost;
 	    }
 	    
 	    @GetMapping("/board/post/delete")

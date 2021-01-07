@@ -15,6 +15,14 @@ public class PostModel {
 	private String id;
 	private String name;
 	private String filepath;
+	private String viewcount;
+	
+	public String getViewcount() {
+		return viewcount;
+	}
+	public void setViewcount(String viewcount) {
+		this.viewcount = viewcount;
+	}
 	private MultipartFile file;
 	
 	public String getFilepath() {
