@@ -195,6 +195,30 @@ public class BoardControl {
 	    	}
 	    }
 	    
+	    @GetMapping("/deletecomment")
+	    public ResponseEntity<Map<String, Object>> deleteComment(
+	    		@RequestParam(value = "index") int index,
+	    		HttpServletRequest req) {
+	    	String userID = jwt.getId(jwt.get(req.getHeader("jwt-auth-token")));
+	    	Map<String, Object> resultMap = new HashMap<>();
+	    	HttpStatus status = null;
+	    	try {
+	    		if (service.deleteComment(index, userID)) {
+		    		resultMap.put("status", true);
+		    		status = HttpStatus.ACCEPTED;
+	    		} else {
+	    			resultMap.put("status", false);
+	    			resultMap.put("reason", "Cant delete Comment");
+	    			status = HttpStatus.BAD_REQUEST;
+	    		}
+	    	} catch (NoinfoException e) {
+	    		resultMap.put("status", false);
+	    		resultMap.put("reason", e.getMessage());
+	    		status = HttpStatus.BAD_REQUEST;
+	    	}
+	    	return new ResponseEntity<Map<String,Object>>(resultMap, status);
+	    }
+	    
 	    @RequestMapping("/")
 	    public String test()
 	    {

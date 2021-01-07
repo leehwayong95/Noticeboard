@@ -138,4 +138,13 @@ public class BoardService {
     		throw new NoinfoException("noComments");
     	}
     }
+    
+    public boolean deleteComment (int index, String id) throws NoinfoException
+    {
+    	try {
+    		return dao.deleteComment (index, id);
+    	} catch (Exception e) {
+    		throw new NoinfoException("Can't Find Comment");
+    	}
+    }
 }

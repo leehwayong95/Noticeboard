@@ -20,6 +20,7 @@ public interface dao {
 	//CommentControl
 	public boolean addComment(CommentModel comment);
 	public List<CommentModel> loadComments(int postindex);
+	public boolean deleteComment(int index, String id);
 	
 	//Login and Signup
 	public List<UserModel> getLogin(String id, String pw);

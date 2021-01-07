@@ -14,11 +14,12 @@ public class CommentModel {
 	private String id;
 	private String name;
 	private String enable;
-	public String getCommnet_index() {
+	
+	public String getComment_index() {
 		return comment_index;
 	}
-	public void setCommnet_index(String commnet_index) {
-		this.comment_index = commnet_index;
+	public void setCommnet_index(String comment_index) {
+		this.comment_index = comment_index;
 	}
 	public String getPostindex() {
 		return postindex;

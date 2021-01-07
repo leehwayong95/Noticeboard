@@ -41,12 +41,14 @@
             <th>댓글</th>
             <th>작성자</th>
             <th>작성시간</th>
+            <th></th>
           </tr>
           <tr v-for="(comment, list) in comment_list" :key="list">
             <td>{{list+1}}</td>
             <td>{{comment.content}}</td>
             <td>{{comment.name}}</td>
             <td>{{comment.date}}</td>
+            <td><button type='button' v-if='viewer_id === comment.id' @click="deleteComment(comment)" >삭제</button></td>
           </tr>
         </table>
       </form>
@@ -177,6 +179,25 @@ export default {
           })
           .catch((err) => {
             alert('잘못된 접근입니다.')
+            console.log(err)
+          })
+      }
+    },
+    deleteComment (comment) {
+      console.log(comment)
+      if (confirm('삭제하시겠습니까?')) {
+        this.$axios.get('http://3.35.254.128/api/deletecomment?index=' + comment.comment_index)
+          .then((res) => {
+            if (res.data.status) {
+              alert('삭제되었습니다.')
+              this.getComment()
+              this.input_comment = null
+            } else {
+              alert('삭제실패하였습니다.')
+            }
+          })
+          .catch((err) => {
+            alert('서버 오류')
             console.log(err)
           })
       }
