@@ -1,0 +1,38 @@
+CREATE TABLE `User` (
+	`id` VARCHAR(20) NOT NULL PRIMARY KEY,
+	`name` VARCHAR(20) NULL,
+	`PW` VARCHAR(20) NULL,
+	`permission` INT NULL
+);
+
+CREATE TABLE `NoticeBoard` (
+	`postindex` INT NOT NULL  AUTO_INCREMENT PRIMARY KEY,
+	`title` VARCHAR(50) NULL,
+	`content` VARCHAR(255) NULL,
+	`date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	`id` VARCHAR(20) NOT NULL,
+	FOREIGN KEY (id) REFERENCES User(id)
+);
+
+CREATE TABLE `view` (
+	`viewindex` INT NOT NULL  AUTO_INCREMENT PRIMARY KEY,
+	`id` VARCHAR(20) NOT NULL,
+	`postindex` INT NOT NULL,
+	FOREIGN KEY(id) REFERENCES User(id),
+	FOREIGN KEY(viewindex) REFERENCES NoticeBoard(postindex)
+);
+
+CREATE TABLE `comment` (
+	`comment_index` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`postindex` INT NOT NULL,
+	`recomment` INT NULL,
+	`content` LONGTEXT NOT NULL,
+	`date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`id` VARCHAR(50) NOT NULL,
+	`enable` INT NOT NULL DEFAULT '1',
+	PRIMARY KEY (`comment_index`, `postindex`),
+	CONSTRAINT `FK__noticeboard` FOREIGN KEY (`postindex`) REFERENCES `noticeboard` (`postindex`) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT `FK__user` FOREIGN KEY (`id`) REFERENCES `user` (`id`)
+)
+COLLATE='utf8_general_ci'
+;
