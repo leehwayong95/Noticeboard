@@ -21,6 +21,14 @@ public interface dao {
 	public void NewUser(String id,String pw,String name) throws Exception;
 	
 	
+	
+	//부트스트랩 없이 리스트 가져오기
+	public List<PostModel> gettestboard(int clickpage) throws Exception;
+	//부트스트랩 없이 리스트 전체 개수 가져오기
+	public int Allpagecount() throws Exception;
+		
+	
+	
 	//게시판 리스트 불러오기 
 	public List<PostModel> getboard(String id) throws Exception;
 	

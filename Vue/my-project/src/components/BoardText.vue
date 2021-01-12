@@ -50,13 +50,14 @@ export default {
     axios.post('http://localhost:9000/testgetboardtext', {postindex: this.$route.query.num})
       .then(res => {
         if (res.data === '') {
-          alert('관리자 정보를 불러올수 없습니다 ')
+          alert('새로운 텍스트 오류 ')
+          console.log(this.num)
           console.log(res)
         } else {
           // this.items = res.data
           this.list = res.data
           console.log(this.list)
-          console.log(this.list.title)
+          console.log(this.$route.query.num)
         }
       })
       .catch(error => {

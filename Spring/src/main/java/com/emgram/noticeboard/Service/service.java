@@ -33,6 +33,15 @@ public class service {
         return dao.getboard(id);
     }
     
+    //부트스트랩 없이 리스트 가져오기
+    public List<PostModel> gettestboard(int clickpage )throws Exception{
+        return dao.gettestboard(clickpage);
+    }
+    //부트스트랩  리스트 전체 개수 가져오기
+    public int Allpagecount()throws Exception{
+        return dao.Allpagecount();
+    }
+    
     public List<PostModel> getboardtext(String id)throws Exception{
         return dao.getboardtext(id);
     }

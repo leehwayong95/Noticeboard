@@ -108,7 +108,7 @@ public class Control {
 					map.put("result", subject);
 				}
 				return map;
-
+			//Map: LinkedHashMap차이점 : 키와 값이 순서가 보장된다 / HashMap에서는 순서가 지켜지지 않는다.
 			} catch (Exception e) {
 				Map<String, Object> map2 = new LinkedHashMap<String, Object>();
 				System.out.println("알수 없는 오류 ");
@@ -143,8 +143,7 @@ public class Control {
 				return map2;
 			}
 		}
-		   
-	    
+		
 	    /*
 	    @GetMapping("/test")
 	    public String Test() throws Exception {
@@ -153,7 +152,43 @@ public class Control {
 	    */
 	    
 	    
+		
+		 // 부트 스태랩 없이 게시판 리스트 가저요기 
+		//1 이들어가면 처음 5개 2를 누르면 그다음 5개 반환
+	    @GetMapping("/gettestboard")
+	    public List<PostModel> GetTestboard(@RequestParam int clickpage) throws Exception{//vue 에서 온파일 모델형식으로 받는다) 
+	    	int PageNum = clickpage;
+	        PageNum = 5*(PageNum-1);
+	    	return service.gettestboard(PageNum);
+	    }
+		
+	    // 부트 스태랩 없이 게시판 리스트 가저요기 최종 몇 페이지 필요한지 반환함 
+	    @GetMapping("/Allpagecount")
+	    public int Allpagecount(@RequestParam(value="pageNo", required=false)int pageNo) throws Exception{
+	    	int count;
+	    	int plus;
+	    	count=service.Allpagecount(); //몫 구하는곳 
+	    	plus=service.Allpagecount(); // 나머지 구하는곳 
+	    	
+	    	count=count/5;
+	    	// 나머지가 1이상이면 페이지 추가
+	    	if(plus%5>0) {
+	    		count=count+1;
+	    	}
+	    	else {
+	    	}
+	    	return count;
+	    }
+		
 	    
+	    
+	    
+	    //===========================================================================
+	    
+		
+		
+		
+		
 	    //게시판 리스트 가저요기 
 	    @PostMapping("/getboard")
 	   // @ResponseStatus(value = HttpStatus.OK)
@@ -162,13 +197,14 @@ public class Control {
 	        return service.getboard(Post.getId());
 	    }
 	    
-	    
+	   
 	    //해당 게시글 가져오기 
 	    @PostMapping("/getboardtext")
 	    //@ResponseStatus(value = HttpStatus.OK)
 	    public List<PostModel> Getboardtext(@RequestBody PostModel Post) throws Exception{//vue 에서 온파일 모델형식으로 받는다) 
 	    	//RequestBody에서 다양하게 받는 방법을 알고 싶다. ======================================================
-	        return service.getboardtext(Post.getPostindex());
+	        System.out.println(Post.getPostindex());
+	    	return service.getboardtext(Post.getPostindex());
 	    }
 	    
 	    
@@ -208,6 +244,7 @@ public class Control {
 	    	service.updateboardtext(Post.getTitle(),Post.getContent(),Post.getId(),Post.getPostindex());
 	    	//RequestBody에서 다양하게 받는 방법을 알고 싶다. ======================================================
 	    }
+	    
 	    
 	    /*
 	    //회원가입 해보기 

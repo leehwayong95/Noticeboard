@@ -2,6 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.emgram.noticeboard.Dao.dao">
+    
+     <select id="gettestboard" parameterType="int" resultType="com.emgram.noticeboard.Model.PostModel">
+         SELECT * FROM noticeboard 
+         ORDER BY noticeboard.postindex DESC 
+         LIMIT ${clickpage},5;
+    </select>
+    
+     <select id="Allpagecount" resultType="int">
+         SELECT COUNT(*) FROM noticeboard;
+    </select>
+
     <select id="getDual" parameterType="String" resultType="com.emgram.noticeboard.Model.UserModel">
         SELECT user.id FROM user
     </select>

@@ -8,6 +8,7 @@ import Board from "@/components/Board.vue"
 import BoardText from "@/components/BoardText"
 import BoardNew from "@/components/BoardNew.vue"
 import Boardupdate from "@/components/Boardupdate.vue"
+import NewBoard from "@/components/NewBoard.vue"
 
 Vue.use(Router)
 
@@ -43,6 +44,11 @@ export default new Router({
       path: "/boardupdate",
       name: "Boardupdate",
       component: Boardupdate
+    },
+    {
+      path: "/boardtest",
+      name: "NewBoard",
+      component: NewBoard
     },
     {
       path: "/boardtext",
