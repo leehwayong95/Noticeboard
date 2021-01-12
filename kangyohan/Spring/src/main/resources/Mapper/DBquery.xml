@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.emgram.noticeboard.Dao.dao">
+    
+     <select id="gettestboard" parameterType="int" resultType="com.emgram.noticeboard.Model.PostModel">
+         SELECT * FROM noticeboard 
+         ORDER BY noticeboard.postindex DESC 
+         LIMIT ${clickpage},5;
+    </select>
+    
+     <select id="Allpagecount" resultType="int">
+         SELECT COUNT(*) FROM noticeboard;
+    </select>
+
+    <select id="getDual" parameterType="String" resultType="com.emgram.noticeboard.Model.UserModel">
+        SELECT user.id FROM user
+    </select>
+    
+     <select id="testdb" parameterType="String" resultType="String">
+         SELECT user.id FROM user WHERE (user.id='${id}' AND user.PW='${pw}')
+    </select>
+    
+     <select id="Gettest" resultType="String">
+         SELECT user.name FROM user 
+    </select>
+    
+    <insert id="NewUser" parameterType="String">
+         INSERT INTO user(user.id,user.PW,user.name) VALUES ('${id}', '${pw}','${name}');
+    </insert>
+    
+    <select id="getboard" parameterType="String" resultType="com.emgram.noticeboard.Model.PostModel">
+         SELECT * FROM noticeboard WHERE noticeboard.id='${id}' ORDER BY noticeboard.postindex DESC;
+    </select>
+    
+    <select id="getboardtext" parameterType="String" resultType="com.emgram.noticeboard.Model.PostModel">
+         SELECT * FROM noticeboard WHERE noticeboard.postindex='${num}'
+    </select>
+    
+     <select id="testgetboardtext" parameterType="String" resultType="com.emgram.noticeboard.Model.PostModel">
+         SELECT * FROM noticeboard WHERE noticeboard.postindex='${num}'
+    </select>
+
+    <delete id="deleteboardtext" parameterType="String">
+    	DELETE FROM noticeboard WHERE noticeboard.postindex='${num}'
+    </delete>
+    
+     <insert id="insertboardtext" parameterType="String">
+         INSERT INTO noticeboard(noticeboard.title,noticeboard.content,noticeboard.id) VALUES ('${title}', '${content}','${id}');
+    </insert>
+    
+    <update id="updateboardtext" parameterType="String">
+    UPDATE noticeboard SET noticeboard.title='${title}',noticeboard.content='${content}',noticeboard.id='${id}' WHERE noticeboard.postindex='${postindex}';
+    </update>
+    
+</mapper>
