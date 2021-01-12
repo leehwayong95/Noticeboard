@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.emgram.noticeboard.Dao.dao">
+    <select id="getDual" resultType="com.emgram.noticeboard.Model.UserModel">
+        SELECT * FROM user
+    </select>
+    
+    <select id="testdb" resultType="String">
+    	SELECT user.id FROM user WHERE id='${id}'
+    </select>
+    
+    <insert id="input" parameterType="com.emgram.noticeboard.Model.UserModel">
+    	INSERT INTO user(id,PW,name,permission) VALUES('${id}','${PW}','${name}','${permission}')
+    </insert>
+    
+    <select id="UserCheck" resultType="String">
+    	SELECT user.id FROM user WHERE id= '${id}'
+    </select>
+    
+    <select id="LoginCheck" resultType="com.emgram.noticeboard.Model.UserModel">
+    	SELECT * FROM user WHERE id= '${id}'
+    </select>
+    
+    <select id="BoardList" resultType="com.emgram.noticeboard.Model.PostModel">
+    	SELECT * FROM noticeboard order by postindex desc
+    </select>
+    
+    <select id="BoardDetail" resultType="com.emgram.noticeboard.Model.PostModel">
+    	SELECT * FROM noticeboard WHERE postindex = ${postindex}
+    </select>
+    
+    <insert id="BoardCreate" parameterType="com.emgram.noticeboard.Model.PostModel">
+    	INSERT INTO noticeboard(title, content, writer) VALUES('${title}', '${content}', '${writer}')
+    </insert>
+    
+    <select id="NameSearch" resultType="String">
+    	SELECT user.name FROM user WHERE id = '${id}'
+    </select>
+    
+    <delete id="BoardDelete" parameterType="com.emgram.noticeboard.Model.PostModel">
+    	DELETE FROM noticeboard WHERE postindex = '${postindex}'
+    </delete>
+    
+    <update id="BoardUpdate" parameterType="com.emgram.noticeboard.Model.PostModel">
+    	UPDATE noticeboard SET content = '${content}', title = '${title}' WHERE postindex = '${postindex}'
+    </update>
+    
+    <select id="PostPage" resultType="com.emgram.noticeboard.Model.PostModel">
+    	SELECT * FROM noticeboard order by postindex desc LIMIT ${startnum},${num} 
+    </select>
+    
+    <select id="PageCount" resultType="String">
+    	select COUNT(*) from noticeboard
+    </select>
+</mapper>
+
