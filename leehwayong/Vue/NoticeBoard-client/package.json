@@ -1,8 +1,8 @@
 {
-  "name": "em-board",
+  "name": "noticeboard-client",
   "version": "1.0.0",
   "description": "A Vue.js project",
-  "author": "",
+  "author": "Emgram",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
@@ -14,7 +14,6 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-<<<<<<< HEAD:leehwayong/Vue/NoticeBoard-client/package.json
     "@toast-ui/vue-editor": "^2.5.1",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
@@ -24,16 +23,6 @@
     "vue": "^2.5.2",
     "vue-cookies": "^1.7.4",
     "vue-router": "^3.0.1",
-=======
-    "axios": "^0.21.0",
-    "bootstrap": "^4.5.3",
-    "bootstrap-vue": "^2.21.0",
-    "vue": "^2.6.12",
-    "vue-cookie": "^1.1.4",
-    "vue-cookies": "^1.7.4",
-    "vue-router": "^3.0.1",
-    "vue-sliding-pagination": "^1.1.2",
->>>>>>> origin/kangyohan:kangyohan/Vue/my-project/package.json
     "vuex": "^3.6.0"
   },
   "devDependencies": {
@@ -86,7 +75,6 @@
     "shelljs": "^0.7.6",
     "uglifyjs-webpack-plugin": "^1.1.1",
     "url-loader": "^0.5.8",
-    "vee-validate": "^3.4.5",
     "vue-jest": "^1.0.2",
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^3.0.1",
