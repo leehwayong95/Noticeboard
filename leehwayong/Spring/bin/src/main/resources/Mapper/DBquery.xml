@@ -1,17 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.emgram.noticeboard.Dao.Dao">
-    <select id="getAll" resultType="com.emgram.noticeboard.Model.PostModel">
-        SELECT * FROM noticeboard
+<mapper namespace="com.emgram.noticeboard.Dao.dao">
+    <select id="getPostsList" parameterType="int" resultType="com.emgram.noticeboard.Model.PostModel">
+        SELECT b.*, u.name ,viewcount.viewcount
+		FROM user u,noticeboard b LEFT OUTER JOIN (	
+			SELECT COUNT(*) AS viewcount, v.postindex
+			FROM view v
+			GROUP BY v.postindex) AS viewcount
+			ON b.postindex = viewcount.postindex
+		WHERE b.id = u.id 
+		ORDER BY b.postindex DESC
+		LIMIT ${min}, ${postcount}
     </select>
-    
-     <select id="getAll2" resultType="com.emgram.noticeboard.Model.Model">
-        SELECT * FROM user
+    <select id="getPostCount" resultType="int">
+    	SELECT COUNT(*) AS count 
+    	FROM noticeboard
     </select>
-    
-     <select id="getAll3" resultType="com.emgram.noticeboard.Model.Model">
-        SELECT * FROM view
-    </select>
+    <select id="getPost" parameterType="String" resultType="com.emgram.noticeboard.Model.PostModel">
+   		SELECT b.*, u.name FROM noticeboard b,user u WHERE b.id = u.id AND postindex=${index}
+   	</select>
+    <select id="getLogin" parameterType = "String" resultType="com.emgram.noticeboard.Model.UserModel">
+    	SELECT * FROM user WHERE id="${id}" AND pw="${pw}"
+   	</select>
+   	<insert id="getSignup" parameterType = "com.emgram.noticeboard.Model.UserModel">
+   		INSERT INTO user VALUES ("${id}","${name}","${pw}",${permission})
+   	</insert>
+   	<insert id="writePost" parameterType = "String">
+   		INSERT INTO noticeboard (title, content, id, filepath) VALUES ("${title}", "${content}", "${id}", "${filepath}")
+   	</insert>
+   	<delete id="deletePost" parameterType ="String">
+   		DELETE FROM noticeboard	
+   		WHERE postindex = ${index}
+   	</delete>
+   	<insert id="editPost" parameterType ="com.emgram.noticeboard.Model.UserModel">
+   		UPDATE noticeboard
+   		SET title = '${title}', content = '${content}', filepath = '${filepath}'
+   		WHERE postindex = ${postindex} AND id = '${id}'
+   	</insert>
+   	<insert id="addComment" parameterType="com.emgram.noticeboard.Model.CommentModel">
+   		INSERT INTO comment (postindex, content, id)
+   		VALUES (${postindex}, "${content}","${id}")
+   	</insert>
+   	<select id="loadComments" resultType="com.emgram.noticeboard.Model.CommentModel">
+   		SELECT c.*,u.name FROM user u,comment c
+   		WHERE u.id = c.id AND c.postindex = ${postindex} AND enable = 1
+   	</select>
+   	<insert id="deleteComment">
+   		UPDATE comment
+   		SET enable = 0
+   		WHERE comment_index = ${index} AND id = '${id}'
+   	</insert>
+   	<insert id="insertViewcount">
+   		INSERT INTO view (id, postindex)
+   		VALUES ('${id}', ${postindex})
+   	</insert>
 </mapper>
 
